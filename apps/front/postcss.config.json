@@ -1,0 +1,17 @@
+{
+    "plugins": [
+        ["postcss-import", { "path": ["./src"] }],
+        "autoprefixer",
+        "postcss-calc",
+        "postcss-color-function",
+        ["postcss-color-mod-function", { "unresolved": "warn" }],
+        "postcss-each",
+        "postcss-for",
+        "postcss-inherit",
+        "postcss-mixins",
+        "postcss-nested",
+        "postcss-omit-import-tilde",
+        "postcss-strip-units",
+        ["postcss-url", { "url": "rebase" }]
+    ]
+}
