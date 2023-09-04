@@ -1,8 +1,14 @@
 'use client';
 
 import { Canvas } from '@react-three/fiber';
-import { Physics, usePlane } from '@react-three/cannon';
+import { Debug, Physics, usePlane } from '@react-three/cannon';
+import { CameraControls, Center, OrthographicCamera } from '@react-three/drei';
 import React from 'react';
+
+import cn from './style.module.css';
+import { WordList } from '@/components/feature/main/menu/WordList';
+
+const distance = 20;
 
 export const Plane = () => {
     const [ref] = usePlane(() => ({ rotation: [-Math.PI / 2, 0, 0] }));
@@ -13,20 +19,26 @@ export const Plane = () => {
         </mesh>
     );
 };
+
+const menu = ['hire me', 'portfolio', 'about', 'who am`i'];
+
 export const Menu = () => {
     return (
-        <Canvas
-            style={{ width: '100%', height: '100%' }}
-            shadows
-            dpr={[1, 2]}
-            gl={{ alpha: false }}
-            camera={{ position: [-1, 5, 5], fov: 45 }}
-        >
-            <color attach='background' args={['lightblue']} />
-            <ambientLight />
-            <Physics>
-                <Plane />
-            </Physics>
-        </Canvas>
+        <div className={cn.wrapper}>
+            <Canvas shadows gl={{ alpha: false }} camera={{ position: [-10, 35, 45], fov: 50 }}>
+                <color attach='background' args={['lightblue']} />
+                {/* Lights */}
+                <ambientLight color={0xcccccc} />
+                <directionalLight args={[0xffffff, 0.5]} position={[5, 5, 20]} isDirectionalLight={true} />
+                <directionalLight args={[0xffffff, 1]} position={[-5, -5, -20]} />
+
+                {/* Camera */}
+                <CameraControls makeDefault />
+
+                <Physics gravity={[0, -20, 0]}>
+                    <WordList items={menu} />
+                </Physics>
+            </Canvas>
+        </div>
     );
 };
