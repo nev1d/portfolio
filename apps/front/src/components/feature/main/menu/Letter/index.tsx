@@ -1,19 +1,36 @@
-import React, { createContext, createRef, PropsWithChildren, useContext, useEffect, useRef, useState } from 'react';
-import { FontData, Text3D } from '@react-three/drei';
-import { Debug, Triplet, useBox, useHingeConstraint } from '@react-three/cannon';
+import React, {
+    createContext,
+    createRef,
+    PropsWithChildren,
+    useContext,
+    useLayoutEffect,
+    useMemo,
+    useRef,
+    useState,
+} from 'react';
+
 import { Color, Mesh, Object3D } from 'three';
+
+import { LetterPlatform } from '@/components/feature/main/menu/Letter/platform';
+import { multipleArray } from '@/utils/math/multiple';
+import { toDecimals } from '@/utils/math/toDecimals';
 import myFont from '@assets/fonts/Roboto_Regular.json';
-import { LetterBox } from '@/components/feature/main/menu/Letter/box';
+import { Triplet, useBox, useHingeConstraint } from '@react-three/cannon';
+import { FontData, Text3D } from '@react-three/drei';
 import { ThreeEvent } from '@react-three/fiber';
 
-const parent = createContext({
+const ParentContext = createContext({
     position: [0, 0, 0] as Triplet,
     ref: createRef<Object3D>(),
+    parentLetterWidth: 0,
 });
 
 const TOTAL_MASS = 1;
 const MARGIN = 6;
-const OFFSET = MARGIN * 1.1;
+const OFFSET = MARGIN * 1.3;
+const IMPULSE_MULTIPLIER = 25;
+const PLATFORM_ACTIVATE_OFFSET = 10;
+const LETTER_SPACING = 1;
 
 type LetterProps = {
     text: string;
@@ -30,23 +47,33 @@ export const Letter: React.FC<PropsWithChildren<LetterProps>> = ({ text, childre
     const {
         position: [x],
         ref: parentRef,
-    } = useContext(parent);
+        parentLetterWidth,
+    } = useContext(ParentContext);
 
-    const [showPlane, setShowPlane] = useState(false);
+    const [showPlatform, setShowPlatform] = useState(false);
+    const [letterWidth, setLetterWidth] = useState(0);
 
-    const initPosition = [x + 1, -wordPos * MARGIN - OFFSET, wordPos / 8];
+    const initPositionOffset = useMemo(() => {
+        const xCoordinate = pos ? letterWidth + x + LETTER_SPACING : x;
 
-    const initPositionOffset: [number, number, number] = [
-        initPosition[0],
-        initPosition[1] + (wordPos + 1) * 30 + 30 + pos * 0.1,
-        initPosition[2],
-    ];
+        const initPosition: Triplet = [xCoordinate, toDecimals(-wordPos * MARGIN - OFFSET), -(wordPos * 2)];
 
-    const planePosition: [number, number, number] = [0, wordPos * MARGIN - OFFSET, 0];
+        const initPositionOffset: Triplet = [
+            initPosition[0],
+            toDecimals(initPosition[1] + (wordPos + 1) * 30 + 30 + pos * 0.1),
+            initPosition[2],
+        ];
 
-    const progress = pos / (length - 1);
+        return initPositionOffset;
+    }, [letterWidth, pos]);
 
-    const currentColor = color.from.clone().lerp(color.to, progress);
+    const planePosition: Triplet = [0, toDecimals(wordPos * MARGIN - OFFSET), 100];
+
+    const currentColor = useMemo(() => {
+        const progress = pos / (length - 1);
+
+        return color.from.clone().lerp(color.to, progress);
+    }, [pos, length, color]);
 
     const [ref, api] = useBox(
         () => ({
@@ -55,43 +82,55 @@ export const Letter: React.FC<PropsWithChildren<LetterProps>> = ({ text, childre
             position: initPositionOffset,
         }),
         useRef<Mesh>(null),
+        [initPositionOffset],
     );
 
     const onClickHandler = (event: ThreeEvent<MouseEvent>) => {
         const { intersections } = event;
 
-        const obj = intersections[0];
-        const worldPoint = event.point.clone();
-        const { object, face } = obj;
+        const { face } = intersections[0];
 
-        console.log(face);
-
-        const impulse = [face?.normal.x, face?.normal.y, face?.normal.z] as [number, number, number];
-        const point = [-worldPoint.x, -worldPoint.y, -worldPoint.z];
+        const point = [face?.normal.x, face?.normal.y, face?.normal.z] as Triplet;
+        const impulse = multipleArray(point, -IMPULSE_MULTIPLIER) as Triplet;
 
         api.applyImpulse(impulse, point);
     };
 
-    useHingeConstraint(parentRef, ref, {
-        pivotA: [3, 0, 0],
-        pivotB: [0, 0, 0],
-        axisB: [0, 1, 0],
-        axisA: [0, 1, 0],
-        collideConnected: true,
-        maxForce: 10,
-    });
+    useHingeConstraint(
+        parentRef,
+        ref,
+        {
+            pivotA: [parentLetterWidth + LETTER_SPACING, 0, 0],
+            pivotB: [0, 0, 0],
+            axisB: [0, 1, 0],
+            axisA: [0, 1, 0],
+            maxForce: 10,
+        },
+        [parentLetterWidth],
+    );
 
-    useEffect(() => {
+    useLayoutEffect(() => {
+        if (ref.current) {
+            ref.current.geometry.computeBoundingBox();
+
+            const value =
+                (ref.current.geometry.boundingBox?.max.x as number) -
+                (ref.current.geometry.boundingBox?.min.x as number);
+
+            setLetterWidth(isFinite(value) ? value : LETTER_SPACING);
+        }
+
         api.position.subscribe((item) => {
-            if (item[1] - 10 <= planePosition[1]) {
-                setShowPlane(true);
+            /* If falling letters close to platform => activate */
+            if (item[1] - PLATFORM_ACTIVATE_OFFSET <= planePosition[1]) {
+                setShowPlatform(true);
             }
         });
-    }, []);
+    }, [ref.current]);
 
     return (
         <>
-            {showPlane && <LetterBox position={planePosition} />}
+            {showPlatform && <LetterPlatform position={planePosition} />}
             <Text3D
                 ref={ref}
                 font={myFont as unknown as FontData}
@@ -101,14 +140,16 @@ export const Letter: React.FC<PropsWithChildren<LetterProps>> = ({ text, childre
                 bevelSize={0.3}
                 bevelOffset={0}
                 bevelSegments={10}
-                size={3}
+                size={5}
                 height={0.2}
                 onClick={onClickHandler}
             >
                 <meshPhongMaterial color={currentColor} />
                 {text}
             </Text3D>
-            <parent.Provider value={{ position: initPositionOffset, ref }}>{children}</parent.Provider>
+            <ParentContext.Provider value={{ position: initPositionOffset, ref, parentLetterWidth: letterWidth }}>
+                {children}
+            </ParentContext.Provider>
         </>
     );
 };

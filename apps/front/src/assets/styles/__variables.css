@@ -1,0 +1,72 @@
+:root {
+    /* Background Colors */
+    --background-color: #000000; /* Darker Black */
+    --background-highlight-color: #0D0D0D; /* Even Darker Gray */
+
+    /* Text Colors */
+    --text-color: #FFFFFF; /* White */
+    --text-highlight-color: #CCCCCC; /* Light Gray */
+
+    /* Accent Colors */
+    --primary-accent-color: #1E1E1E; /* Dark Gray */
+    --secondary-accent-color: #333333; /* Slightly Darker Gray */
+    --link-color: #4285F4; /* Darker Blue */
+    --hover-color: #333333; /* Dark Gray */
+
+    /* Gradients */
+    --deep-blue-gradient: #0099CC; /* Deep Blue */
+    --ocean-blue-gradient: #0066CC; /* Ocean Blue */
+
+    /* Additional Colors */
+    --light-blue: #66CCFF; /* Light Blue */
+    --sky-blue: #ADD8E6; /* Sky Blue */
+}
+/* Generated UI Kit */
+
+/* Links */
+a {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--hover-color);
+}
+
+/* Buttons */
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.primary-button {
+    background-color: var(--primary-accent-color);
+    color: var(--text-color);
+}
+
+.primary-button:hover {
+    background-color: var(--hover-color);
+}
+
+.secondary-button {
+    background-color: var(--secondary-accent-color);
+    color: var(--text-color);
+}
+
+.secondary-button:hover {
+    background-color: var(--hover-color);
+}
+
+/* Cards */
+.card {
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+    background-color: var(--secondary-accent-color);
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    color: var(--text-color);
+}

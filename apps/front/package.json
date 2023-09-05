@@ -23,9 +23,19 @@
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
     "@types/three": "^0.155.1",
+    "@typescript-eslint/eslint-plugin": "^6.6.0",
+    "@typescript-eslint/parser": "^6.6.0",
     "autoprefixer": "^10.4.15",
     "eslint": "8.48.0",
+    "eslint-config-airbnb-typescript": "^17.1.0",
     "eslint-config-next": "13.4.19",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-css-modules": "^2.11.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-unused-imports": "^3.0.0",
     "postcss-calc": "^9.0.1",
     "postcss-color-function": "^4.1.0",
     "postcss-color-mod-function": "^3.0.3",
@@ -42,6 +52,7 @@
     "stylelint": "^15.10.3",
     "stylelint-config-idiomatic-order": "^9.0.0",
     "stylelint-declaration-block-no-ignored-properties": "^2.7.0",
-    "stylelint-order": "^6.0.3"
+    "stylelint-order": "^6.0.3",
+    "zustand": "^4.4.1"
   }
 }
