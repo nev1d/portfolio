@@ -138,10 +138,11 @@ export const Letter: React.FC<PropsWithChildren<LetterProps>> = ({
             setLetterWidth(isFinite(value) ? value : LETTER_SPACING);
         }
 
-        return api.position.subscribe((item) => {
+        const unsubscribe = api.position.subscribe((item) => {
             /* If falling letters close to platform => activate */
             if (item[1] - PLATFORM_ACTIVATE_OFFSET <= planePosition[1]) {
                 toggleCurrentPlatform(true);
+                unsubscribe();
             }
         });
     }, [ref.current]);
