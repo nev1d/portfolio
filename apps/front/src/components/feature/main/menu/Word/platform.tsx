@@ -7,7 +7,7 @@ import { useBox } from '@react-three/cannon';
 type LetterBoxProps = {
     position: [number, number, number];
 };
-export const LetterPlatform: React.FC<LetterBoxProps> = ({ position }) => {
+export const WordPlatform: React.FC<LetterBoxProps> = ({ position }) => {
     const [ref] = useBox(
         () => ({
             args: [6000, 6000, 1],

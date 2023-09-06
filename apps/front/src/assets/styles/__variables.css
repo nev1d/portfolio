@@ -1,11 +1,11 @@
 :root {
     /* Background Colors */
-    --background-color: #000000; /* Darker Black */
+    --background-color: #1d1d20; /* Dark Background */
     --background-highlight-color: #0D0D0D; /* Even Darker Gray */
 
     /* Text Colors */
-    --text-color: #FFFFFF; /* White */
-    --text-highlight-color: #CCCCCC; /* Light Gray */
+    --text-color: #d1d1d1; /* Light Gray Text */
+    --text-highlight-color: #CCCCCC; /* Light Gray Highlight Text */
 
     /* Accent Colors */
     --primary-accent-color: #1E1E1E; /* Dark Gray */
@@ -14,8 +14,8 @@
     --hover-color: #333333; /* Dark Gray */
 
     /* Gradients */
-    --deep-blue-gradient: #0099CC; /* Deep Blue */
-    --ocean-blue-gradient: #0066CC; /* Ocean Blue */
+    --deep-blue-gradient: #0099CC; /* Deep Blue Gradient */
+    --ocean-blue-gradient: #0066CC; /* Ocean Blue Gradient */
 
     /* Additional Colors */
     --light-blue: #66CCFF; /* Light Blue */

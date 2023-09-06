@@ -11,10 +11,19 @@ import React, {
 
 import { Color, Mesh, Object3D } from 'three';
 
-import { LetterPlatform } from '@/components/feature/main/menu/Letter/platform';
+import {
+    IMPULSE_MULTIPLIER,
+    LETTER_CLICK_DELAY,
+    LETTER_SPACING,
+    MARGIN,
+    OFFSET,
+    PLATFORM_ACTIVATE_OFFSET,
+    TOTAL_MASS,
+} from '@/constants/menu';
+import { useMenuStore } from '@/store/menu/menuStore';
 import { multipleArray } from '@/utils/math/multiple';
 import { toDecimals } from '@/utils/math/toDecimals';
-import myFont from '@assets/fonts/Roboto_Regular.json';
+import myFont from '@assets/fonts/Comfortaa_Regular.json';
 import { Triplet, useBox, useHingeConstraint } from '@react-three/cannon';
 import { FontData, Text3D } from '@react-three/drei';
 import { ThreeEvent } from '@react-three/fiber';
@@ -25,13 +34,6 @@ const ParentContext = createContext({
     parentLetterWidth: 0,
 });
 
-const TOTAL_MASS = 1;
-const MARGIN = 6;
-const OFFSET = MARGIN * 1.3;
-const IMPULSE_MULTIPLIER = 25;
-const PLATFORM_ACTIVATE_OFFSET = 10;
-const LETTER_SPACING = 1;
-
 type LetterProps = {
     text: string;
     length: number;
@@ -41,16 +43,28 @@ type LetterProps = {
         from: Color;
         to: Color;
     };
+    toggleCurrentPlatform: (value: boolean) => void;
+    planePosition: Triplet;
 };
 
-export const Letter: React.FC<PropsWithChildren<LetterProps>> = ({ text, children, pos, length, wordPos, color }) => {
+export const Letter: React.FC<PropsWithChildren<LetterProps>> = ({
+    text,
+    children,
+    pos,
+    length,
+    wordPos,
+    color,
+    toggleCurrentPlatform,
+    planePosition,
+}) => {
     const {
         position: [x],
         ref: parentRef,
         parentLetterWidth,
     } = useContext(ParentContext);
 
-    const [showPlatform, setShowPlatform] = useState(false);
+    const togglePlatforms = useMenuStore((state) => state.togglePlatforms);
+
     const [letterWidth, setLetterWidth] = useState(0);
 
     const initPositionOffset = useMemo(() => {
@@ -66,8 +80,6 @@ export const Letter: React.FC<PropsWithChildren<LetterProps>> = ({ text, childre
 
         return initPositionOffset;
     }, [letterWidth, pos]);
-
-    const planePosition: Triplet = [0, toDecimals(wordPos * MARGIN - OFFSET), 100];
 
     const currentColor = useMemo(() => {
         const progress = pos / (length - 1);
@@ -94,6 +106,12 @@ export const Letter: React.FC<PropsWithChildren<LetterProps>> = ({ text, childre
         const impulse = multipleArray(point, -IMPULSE_MULTIPLIER) as Triplet;
 
         api.applyImpulse(impulse, point);
+
+        toggleCurrentPlatform(false);
+
+        setTimeout(() => {
+            togglePlatforms(false);
+        }, LETTER_CLICK_DELAY);
     };
 
     useHingeConstraint(
@@ -120,17 +138,16 @@ export const Letter: React.FC<PropsWithChildren<LetterProps>> = ({ text, childre
             setLetterWidth(isFinite(value) ? value : LETTER_SPACING);
         }
 
-        api.position.subscribe((item) => {
+        return api.position.subscribe((item) => {
             /* If falling letters close to platform => activate */
             if (item[1] - PLATFORM_ACTIVATE_OFFSET <= planePosition[1]) {
-                setShowPlatform(true);
+                toggleCurrentPlatform(true);
             }
         });
     }, [ref.current]);
 
     return (
         <>
-            {showPlatform && <LetterPlatform position={planePosition} />}
             <Text3D
                 ref={ref}
                 font={myFont as unknown as FontData}
