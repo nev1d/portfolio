@@ -153,7 +153,7 @@ export const Logo: React.FC<LogoProps> = ({ animated = true, animationDelay = 0 
                 },
             };
         },
-        [hasBeenAnimatedInitial, animationCycleStatus],
+        [hasBeenAnimatedInitial, animationCycleStatus, animated],
     );
 
     useEffect(() => {

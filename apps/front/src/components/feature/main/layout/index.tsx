@@ -2,37 +2,32 @@
 
 import React, { PropsWithChildren } from 'react';
 
+import clsx from 'clsx';
+
+import { AnimatedText } from '@/components/core/AnimatedText';
 import { Logo } from '@/components/core/Logo';
-import { animated, useSpring } from '@react-spring/web';
+import { MenuStatus, useMenuStore } from '@/store/menu/menuStore';
 
 import cn from './style.module.css';
 
-const ANIMATION_DELAY = 4500;
-const BORDER_DURATION = 400;
-
 export const MainPageLayout: React.FC<PropsWithChildren> = ({ children }) => {
-    const [props] = useSpring(
-        () => ({
-            from: { opacity: 0 },
-            to: { opacity: 1 },
-            delay: ANIMATION_DELAY,
-            config: {
-                duration: BORDER_DURATION,
-            },
-        }),
-        [],
-    );
+    const menuStatus = useMenuStore((store) => store.menuStatus);
+
+    const isPresentationMenuStatus = menuStatus === MenuStatus.PRESENTATION;
 
     return (
         <div className={cn.wrapper}>
-            <animated.div style={props} className={cn.border}>
-                <div className={cn.content}>
-                    <div className={cn.logo}>
-                        <Logo animationDelay={ANIMATION_DELAY + BORDER_DURATION} />
-                    </div>
-                    {children}
+            <div className={cn.content}>
+                <div className={clsx(cn.block, cn.topLeft, cn.logo)}>
+                    <Logo animated={isPresentationMenuStatus} />
                 </div>
-            </animated.div>
+                <div className={clsx(cn.block, cn.bottomLeft)}>
+                    <AnimatedText fontSize={16} animation={{ animated: isPresentationMenuStatus, duration: 1000 }}>
+                        ©/2023 daniil.nikonyuk@gmail.com
+                    </AnimatedText>
+                </div>
+                {children}
+            </div>
         </div>
     );
 };

@@ -20,7 +20,7 @@ import {
     PLATFORM_ACTIVATE_OFFSET,
     TOTAL_MASS,
 } from '@/constants/menu';
-import { useMenuStore } from '@/store/menu/menuStore';
+import { MenuStatus, useMenuStore } from '@/store/menu/menuStore';
 import { multipleArray } from '@/utils/math/multiple';
 import { toDecimals } from '@/utils/math/toDecimals';
 import myFont from '@assets/fonts/Comfortaa_Regular.json';
@@ -57,13 +57,16 @@ export const Letter: React.FC<PropsWithChildren<LetterProps>> = ({
     toggleCurrentPlatform,
     planePosition,
 }) => {
+    const setMenuStatus = useMenuStore((store) => store.setMenuStatus);
+    const menuItems = useMenuStore((store) => store.menuItems);
+
     const {
         position: [x],
         ref: parentRef,
         parentLetterWidth,
     } = useContext(ParentContext);
 
-    const togglePlatforms = useMenuStore((state) => state.togglePlatforms);
+    const togglePlatforms = useMenuStore((store) => store.togglePlatforms);
 
     const [letterWidth, setLetterWidth] = useState(0);
 
@@ -142,6 +145,7 @@ export const Letter: React.FC<PropsWithChildren<LetterProps>> = ({
             /* If falling letters close to platform => activate */
             if (item[1] - PLATFORM_ACTIVATE_OFFSET <= planePosition[1]) {
                 toggleCurrentPlatform(true);
+                if (wordPos === menuItems.length - 1) setMenuStatus(MenuStatus.PRESENTATION);
                 unsubscribe();
             }
         });

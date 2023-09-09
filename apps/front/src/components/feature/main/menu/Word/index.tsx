@@ -22,7 +22,7 @@ const color = {
 };
 
 export const Word: React.FC<WordProps> = ({ text, pos }) => {
-    const isPlatformsVisible = useMenuStore((state) => state.isPlatformsVisible);
+    const isPlatformsVisible = useMenuStore((store) => store.isPlatformsVisible);
 
     const [isPlatformActivated, setIsPlatformActivated] = useState(false);
     const [shouldShowPlatform, setShouldShowPlatform] = useState(false);

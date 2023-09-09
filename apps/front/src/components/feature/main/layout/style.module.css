@@ -4,8 +4,10 @@
     width: 100vw;
     height: 100vh;
     flex: 1 1 auto;
-    pointer-events: none;
     align-items: stretch;
+    pointer-events: none;
+
+    --layout-space: 60px
 }
 
 .border {
@@ -24,10 +26,42 @@
     position: absolute;
     top: 32px;
     left: 32px;
-    width: 36px;
-    height: 40px;
 
     svg {
         color: var(--text-color)
+    }
+}
+
+.block {
+    position: absolute;
+}
+
+.topLeft {
+    top: var(--layout-space);
+    left: var(--layout-space)
+}
+
+.topRight {
+    top: var(--layout-space);
+    left: var(--layout-space)
+
+}
+
+.bottomLeft {
+    bottom: var(--layout-space);
+    left: var(--layout-space)
+
+}
+
+.bottomRight {
+    bottom: var(--layout-space);
+    left: var(--layout-space)
+}
+
+.logo {
+    width: 36px;
+    height: 40px;
+    svg {
+        fill: var(--text-color)
     }
 }

@@ -1,0 +1,4 @@
+.text {
+    fill: var(--text-color);
+    stroke: var(--text-color);
+}
