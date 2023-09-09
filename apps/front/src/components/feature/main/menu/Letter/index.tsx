@@ -159,7 +159,7 @@ export const Letter: React.FC<PropsWithChildren<LetterProps>> = ({
                 bevelOffset={0}
                 bevelSegments={10}
                 size={5}
-                height={0.2}
+                height={0.7}
                 onClick={onClickHandler}
             >
                 <meshPhongMaterial color={currentColor} />

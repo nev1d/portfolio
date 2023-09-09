@@ -17,8 +17,8 @@ type WordProps = {
 };
 
 const color = {
-    from: new Color('#d1d1d1'),
-    to: new Color('#CCCCCC'),
+    from: new Color('#ffffff'),
+    to: new Color('#ffffff'),
 };
 
 export const Word: React.FC<WordProps> = ({ text, pos }) => {

@@ -21,7 +21,7 @@ export const MenuReflector: React.FC = () => {
 
     return (
         <mesh ref={ref}>
-            <planeGeometry args={[100, 100]} />
+            <planeGeometry args={[1000, 1000]} />
             <MeshReflectorMaterial
                 blur={[128, 128]}
                 mixBlur={1}

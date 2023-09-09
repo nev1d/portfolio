@@ -1,0 +1,33 @@
+.wrapper {
+    position: fixed;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    flex: 1 1 auto;
+    pointer-events: none;
+    align-items: stretch;
+}
+
+.border {
+    display: flex;
+    flex: 1 1 auto;
+    border: 2px solid var(--text-color);
+    margin: 24px;
+}
+
+.content {
+    position: relative;
+    flex: 1 1 auto;
+}
+
+.logo {
+    position: absolute;
+    top: 32px;
+    left: 32px;
+    width: 36px;
+    height: 40px;
+
+    svg {
+        color: var(--text-color)
+    }
+}

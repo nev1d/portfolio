@@ -7,7 +7,7 @@ interface MenuStore {
 }
 
 export const useMenuStore = create<MenuStore>((set) => ({
-    menuItems: ['hire me', 'portfolio', 'about', 'who am`i'],
+    menuItems: ['who am i', 'projects', 'contact', 'resume'],
     isPlatformsVisible: true,
     togglePlatforms: (isPlatformsVisible: boolean) => {
         set({ isPlatformsVisible });
