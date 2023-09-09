@@ -43,7 +43,7 @@
 
 .topRight {
     top: var(--layout-space);
-    left: var(--layout-space)
+    right: var(--layout-space)
 
 }
 
@@ -54,8 +54,8 @@
 }
 
 .bottomRight {
-    bottom: var(--layout-space);
-    left: var(--layout-space)
+    right: var(--layout-space);
+    bottom: var(--layout-space)
 }
 
 .logo {

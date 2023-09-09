@@ -2,6 +2,7 @@ import { SetStateAction, useEffect, useState } from 'react';
 
 export const useSpringAnimationCycle = ({ totalAnimatedParts = 0 }: { totalAnimatedParts: number }) => {
     const [animatedPartsCount, setAnimatedPartsCount] = useState(0);
+    const [hasBeenAnimatedInitial, setHasBeenAnimatedInitial] = useState(false);
     const [animationCycleStatus, setAnimationCycleStatus] = useState<'finished' | 'firstHalf' | 'secondHalf'>(
         'finished',
     );
@@ -22,7 +23,13 @@ export const useSpringAnimationCycle = ({ totalAnimatedParts = 0 }: { totalAnima
         setAnimationCycleStatus('secondHalf');
     }, [animatedPartsCount]);
 
+    useEffect(() => {
+        if (!hasBeenAnimatedInitial) setHasBeenAnimatedInitial(true);
+    }, [animatedPartsCount]);
+
     const startAnimationCycle = () => {
+        if (!hasBeenAnimatedInitial) return;
+
         if (animationCycleStatus !== 'finished') return;
 
         setAnimationCycleStatus('firstHalf');
@@ -34,10 +41,16 @@ export const useSpringAnimationCycle = ({ totalAnimatedParts = 0 }: { totalAnima
         setAnimatedPartsCount(callback);
     };
 
+    const onResolve = () => {
+        setAnimationProgress((parts: number) => parts + 1);
+    };
+
     return {
         animatedPartsCount,
         animationCycleStatus,
         startAnimationCycle,
         setAnimationProgress,
+        hasBeenAnimatedInitial,
+        onResolve,
     };
 };

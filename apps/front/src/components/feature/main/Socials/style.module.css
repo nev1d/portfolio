@@ -1,0 +1,8 @@
+.socials {
+    pointer-events: all;
+}
+
+.social {
+    width: 40px;
+    height: 40px;
+}

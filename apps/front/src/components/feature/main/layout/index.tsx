@@ -6,6 +6,7 @@ import clsx from 'clsx';
 
 import { AnimatedText } from '@/components/core/AnimatedText';
 import { Logo } from '@/components/core/Logo';
+import { Socials } from '@/components/feature/main/Socials';
 import { MenuStatus, useMenuStore } from '@/store/menu/menuStore';
 
 import cn from './style.module.css';
@@ -25,6 +26,9 @@ export const MainPageLayout: React.FC<PropsWithChildren> = ({ children }) => {
                     <AnimatedText fontSize={16} animation={{ animated: isPresentationMenuStatus, duration: 1000 }}>
                         ©/2023 daniil.nikonyuk@gmail.com
                     </AnimatedText>
+                </div>
+                <div className={clsx(cn.block, cn.bottomRight)}>
+                    <Socials />
                 </div>
                 {children}
             </div>

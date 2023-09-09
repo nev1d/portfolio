@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 import { useSpringAnimationCycle } from '@/hooks/useSpringAnimationCycle';
 import { animated as animatedComponent, useSprings } from '@react-spring/web';
@@ -122,12 +122,9 @@ const animationOptions = [
 ];
 
 export const Logo: React.FC<LogoProps> = ({ animated = true, animationDelay = 0 }) => {
-    const { setAnimationProgress, animationCycleStatus, startAnimationCycle, animatedPartsCount } =
-        useSpringAnimationCycle({
-            totalAnimatedParts: animationOptions.length,
-        });
-
-    const [hasBeenAnimatedInitial, setHasBeenAnimatedInitial] = useState(false);
+    const { animationCycleStatus, startAnimationCycle, hasBeenAnimatedInitial, onResolve } = useSpringAnimationCycle({
+        totalAnimatedParts: animationOptions.length,
+    });
 
     /* Cycle animation on logo */
     const [springs] = useSprings(
@@ -148,21 +145,13 @@ export const Logo: React.FC<LogoProps> = ({ animated = true, animationDelay = 0 
                 pause: !animated,
                 delay: hasBeenAnimatedInitial ? getDelay() : animationDelay + getDelay(),
                 reset: isFirstHalf,
-                onResolve: () => {
-                    setAnimationProgress((parts: number) => parts + 1);
-                },
+                onResolve,
             };
         },
         [hasBeenAnimatedInitial, animationCycleStatus, animated],
     );
 
-    useEffect(() => {
-        if (!hasBeenAnimatedInitial) setHasBeenAnimatedInitial(true);
-    }, [animatedPartsCount]);
-
     const onHover = () => {
-        if (!hasBeenAnimatedInitial) return;
-
         startAnimationCycle();
     };
 

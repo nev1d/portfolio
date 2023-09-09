@@ -1,0 +1,8 @@
+.telegram {
+    clip-rule: evenodd;
+    fill: var(--text-color);
+    fill-rule: evenodd;
+    stroke: var(--text-color);
+    stroke-linejoin: round;
+    stroke-miterlimit: 1.41421;
+}
