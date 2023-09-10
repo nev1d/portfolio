@@ -22,7 +22,7 @@ export const AnimatedText: React.FC<PropsWithChildren<AnimatedTextProps>> = ({
 
     const {
         springProps: [textStyle],
-    } = useSvgPathAnimation({ animation, strokeLength: 1000 });
+    } = useSvgPathAnimation({ animation, overriddenStrokeLength: 1000 });
 
     const initializeTextCallback = useCallback((instance: SVGTextElement | null) => {
         if (!instance) return;

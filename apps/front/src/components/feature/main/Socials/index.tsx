@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { LinkedinLogo } from '@/components/core/icons/socials/LinkedinLogo';
 import { Telegram } from '@/components/core/icons/socials/TelegramLogo';
 import { MenuStatus, useMenuStore } from '@/store/menu/menuStore';
 
@@ -20,6 +21,9 @@ export const Socials: React.FC = () => {
             </a>
             <a className={cn.social}>
                 <Telegram animation={animation} />
+            </a>
+            <a className={cn.social}>
+                <LinkedinLogo animation={animation} />
             </a>
         </div>
     );

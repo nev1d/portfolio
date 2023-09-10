@@ -1,8 +1,10 @@
 .socials {
+    margin: 0 -4px;
     pointer-events: all;
 }
 
 .social {
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 24px;
+    padding: 0 4px;
 }

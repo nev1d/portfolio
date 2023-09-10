@@ -1,8 +1,10 @@
+import { useCallback, useState } from 'react';
+
 import { useSpringAnimationCycle } from '@/hooks/useSpringAnimationCycle';
 import { easings, useSpring } from '@react-spring/web';
 
 type UseSvgPathAnimationProps = {
-    strokeLength: number;
+    overriddenStrokeLength?: number;
     animation?: {
         delay?: number;
         duration?: number;
@@ -10,27 +12,27 @@ type UseSvgPathAnimationProps = {
     };
 };
 
-export const useSvgPathAnimation = ({ animation = {}, strokeLength }: UseSvgPathAnimationProps) => {
+export const useSvgPathAnimation = ({ animation = {}, overriddenStrokeLength }: UseSvgPathAnimationProps) => {
     const springAnimationCycle = useSpringAnimationCycle({
         totalAnimatedParts: 1,
     });
 
     const { animationCycleStatus, onResolve } = springAnimationCycle;
 
+    const [strokeLength, setStrokeLength] = useState<number>(overriddenStrokeLength || 0);
+
     const springProps = useSpring(() => {
         const isFirstHalf = animationCycleStatus === 'firstHalf';
-
-        const toStrokeLength = strokeLength - 100;
 
         return {
             from: {
                 strokeDasharray: strokeLength,
-                strokeDashoffset: isFirstHalf ? toStrokeLength : strokeLength,
+                strokeDashoffset: isFirstHalf ? 0 : strokeLength,
                 fillOpacity: isFirstHalf ? 1 : 0,
             },
             to: {
                 strokeDasharray: strokeLength,
-                strokeDashoffset: isFirstHalf ? strokeLength : toStrokeLength,
+                strokeDashoffset: isFirstHalf ? strokeLength : 0,
                 fillOpacity: isFirstHalf ? 0 : 1,
             },
             delay: animation.delay || 0,
@@ -44,5 +46,14 @@ export const useSvgPathAnimation = ({ animation = {}, strokeLength }: UseSvgPath
         };
     }, [animation, strokeLength, animationCycleStatus]);
 
-    return { springProps, springAnimationCycle };
+    const ref = useCallback(
+        (instance: SVGPathElement) => {
+            if (instance && !overriddenStrokeLength) {
+                setStrokeLength(instance.getTotalLength());
+            }
+        },
+        [overriddenStrokeLength],
+    );
+
+    return { springProps, springAnimationCycle, ref };
 };
