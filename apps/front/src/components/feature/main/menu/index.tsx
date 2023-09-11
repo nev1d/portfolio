@@ -8,6 +8,7 @@ import { MenuLights } from '@/components/feature/main/menu/Lights';
 import { MenuList } from '@/components/feature/main/menu/MenuList';
 import { MenuReflector } from '@/components/feature/main/menu/Reflector';
 import { Physics } from '@react-three/cannon';
+import { Stars } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 
 import cn from './style.module.css';
@@ -24,6 +25,8 @@ export const Menu = () => {
 
                 {/* Camera */}
                 <MenuCamera />
+
+                <Stars />
 
                 {/* Physic objects */}
                 <Physics gravity={[0, -20, 0]}>

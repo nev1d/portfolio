@@ -1,17 +1,15 @@
 import React, { PropsWithChildren, useCallback, useState } from 'react';
 
-import { useSvgPathAnimation } from '@/hooks/useSvgPathAnimation';
-import { animated } from '@react-spring/web';
+import { motion } from 'framer-motion';
+
+import { useSvgAnimation } from '@/hooks/useSvgAnimation';
+import { DefaultAnimationProps } from '@/typings/animations/svgPathAnimation';
 
 import cn from './style.module.css';
 
 type AnimatedTextProps = {
     fontSize: number;
-    animation?: {
-        delay?: number;
-        duration?: number;
-        animated?: boolean;
-    };
+    animation?: DefaultAnimationProps;
 };
 export const AnimatedText: React.FC<PropsWithChildren<AnimatedTextProps>> = ({
     children,
@@ -20,12 +18,12 @@ export const AnimatedText: React.FC<PropsWithChildren<AnimatedTextProps>> = ({
 }) => {
     const [dimensions, setDimensions] = useState({ height: 0, width: 0 });
 
-    const {
-        springProps: [textStyle],
-    } = useSvgPathAnimation({ animation, overriddenStrokeLength: 1000 });
+    const { pathProps } = useSvgAnimation<SVGTextElement>({ animation, overriddenStrokeLength: 1000 });
 
     const initializeTextCallback = useCallback((instance: SVGTextElement | null) => {
         if (!instance) return;
+
+        pathProps.ref(instance);
 
         const { height, width } = instance.getBBox();
 
@@ -40,16 +38,16 @@ export const AnimatedText: React.FC<PropsWithChildren<AnimatedTextProps>> = ({
             strokeWidth={fontSize / 100}
             className={cn.text}
         >
-            <animated.text
+            <motion.text
                 x='0'
                 y='80%'
                 fontSize={fontSize}
+                {...pathProps}
                 ref={initializeTextCallback}
-                style={textStyle}
                 fontWeight='light'
             >
                 {children}
-            </animated.text>
+            </motion.text>
         </svg>
     );
 };

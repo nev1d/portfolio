@@ -1,18 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 
-import { useSpringAnimationCycle } from '@/hooks/useSpringAnimationCycle';
-import { animated as animatedComponent, useSprings } from '@react-spring/web';
+import { LogoElement, LogoElementProps } from '@/components/core/Logo/element';
 
 import cn from './style.module.css';
 
-export type LogoProps = {
-    animated?: boolean;
-    animationDelay?: number;
-};
-
-const animationOptions = [
+const animationOptions: LogoElementProps[] = [
     {
         tag: 'rect',
         props: {
@@ -23,7 +17,7 @@ const animationOptions = [
             property: 'height',
             value: [0, 445],
             delay: {
-                reverse: 600,
+                reverse: 0.6,
             },
         },
     },
@@ -38,7 +32,7 @@ const animationOptions = [
             property: 'height',
             value: [0, 445],
             delay: {
-                reverse: 600,
+                reverse: 0.6,
             },
         },
     },
@@ -54,7 +48,7 @@ const animationOptions = [
             property: 'height',
             value: [0, 402],
             delay: {
-                reverse: 600,
+                reverse: 0.6,
             },
         },
     },
@@ -71,7 +65,7 @@ const animationOptions = [
             property: 'height',
             value: [0, 177],
             delay: {
-                reverse: 600,
+                reverse: 0.6,
             },
         },
     },
@@ -87,7 +81,7 @@ const animationOptions = [
             property: 'height',
             value: [0, 213],
             delay: {
-                reverse: 600,
+                reverse: 0.6,
             },
         },
     },
@@ -102,7 +96,7 @@ const animationOptions = [
             property: 'height',
             value: [0, 445],
             delay: {
-                reverse: 600,
+                reverse: 0.6,
             },
         },
     },
@@ -115,44 +109,21 @@ const animationOptions = [
             property: 'fillOpacity',
             value: [0, 1],
             delay: {
-                forward: 600,
+                forward: 0.6,
             },
         },
     },
 ];
 
-export const Logo: React.FC<LogoProps> = ({ animated = true, animationDelay = 0 }) => {
-    const { animationCycleStatus, startAnimationCycle, hasBeenAnimatedInitial, onResolve } = useSpringAnimationCycle({
-        totalAnimatedParts: animationOptions.length,
-    });
-
-    /* Cycle animation on logo */
-    const [springs] = useSprings(
-        animationOptions.length,
-        (index) => {
-            const options = animationOptions[index];
-            const [start, finish] = options.animation.value;
-            const isFirstHalf = animationCycleStatus === 'firstHalf';
-            const getDelay = () => {
-                if (isFirstHalf) return options.animation.delay.reverse || 0;
-
-                return options.animation.delay.forward || 0;
-            };
-
-            return {
-                from: { [options.animation.property]: isFirstHalf ? finish : start },
-                to: { [options.animation.property]: isFirstHalf ? start : finish },
-                pause: !animated,
-                delay: hasBeenAnimatedInitial ? getDelay() : animationDelay + getDelay(),
-                reset: isFirstHalf,
-                onResolve,
-            };
-        },
-        [hasBeenAnimatedInitial, animationCycleStatus, animated],
-    );
+export const Logo: React.FC = () => {
+    const [hovered, setHovered] = useState(false);
 
     const onHover = () => {
-        startAnimationCycle();
+        setHovered(true);
+    };
+
+    const onLeave = () => {
+        setHovered(false);
     };
 
     return (
@@ -163,18 +134,11 @@ export const Logo: React.FC<LogoProps> = ({ animated = true, animationDelay = 0 
             fill='none'
             xmlns='http://www.w3.org/2000/svg'
             onMouseEnter={onHover}
+            onMouseLeave={onLeave}
             className={cn.logo}
         >
-            {springs.map((style, index) => {
-                const currentOptions = animationOptions[index];
-
-                const tag = currentOptions.tag;
-
-                if (tag === 'rect') {
-                    return <animatedComponent.rect {...currentOptions.props} fill='white' key={index} style={style} />;
-                }
-
-                return <animatedComponent.path {...currentOptions.props} fill='white' key={index} style={style} />;
+            {animationOptions.map((item, index) => {
+                return <LogoElement {...item} hovered={hovered} key={index} />;
             })}
         </svg>
     );

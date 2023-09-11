@@ -1,13 +1,4 @@
-import React, {
-    createContext,
-    createRef,
-    PropsWithChildren,
-    useContext,
-    useLayoutEffect,
-    useMemo,
-    useRef,
-    useState,
-} from 'react';
+import React, { createContext, createRef, PropsWithChildren, useContext, useMemo, useRef, useState } from 'react';
 
 import { Color, Mesh, Object3D } from 'three';
 
@@ -24,6 +15,7 @@ import { MenuStatus, useMenuStore } from '@/store/menu/menuStore';
 import { multipleArray } from '@/utils/math/multiple';
 import { toDecimals } from '@/utils/math/toDecimals';
 import myFont from '@assets/fonts/Comfortaa_Regular.json';
+import { useIsomorphicLayoutEffect } from '@react-spring/web';
 import { Triplet, useBox, useHingeConstraint } from '@react-three/cannon';
 import { FontData, Text3D } from '@react-three/drei';
 import { ThreeEvent } from '@react-three/fiber';
@@ -130,7 +122,7 @@ export const Letter: React.FC<PropsWithChildren<LetterProps>> = ({
         [parentLetterWidth],
     );
 
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
         if (ref.current) {
             ref.current.geometry.computeBoundingBox();
 

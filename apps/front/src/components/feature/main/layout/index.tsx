@@ -16,16 +16,20 @@ export const MainPageLayout: React.FC<PropsWithChildren> = ({ children }) => {
 
     const isPresentationMenuStatus = menuStatus === MenuStatus.PRESENTATION;
 
+    if (!isPresentationMenuStatus) return;
+
     return (
         <div className={cn.wrapper}>
             <div className={cn.content}>
                 <div className={clsx(cn.block, cn.topLeft, cn.logo)}>
-                    <Logo animated={isPresentationMenuStatus} />
+                    <Logo />
                 </div>
                 <div className={clsx(cn.block, cn.bottomLeft)}>
-                    <AnimatedText fontSize={16} animation={{ animated: isPresentationMenuStatus, duration: 1000 }}>
-                        ©/2023 daniil.nikonyuk@gmail.com
-                    </AnimatedText>
+                    <a href='mailto:'>
+                        <AnimatedText fontSize={16} animation={{ duration: 1 }}>
+                            ©/2023 daniil.nikonyuk@gmail.com
+                        </AnimatedText>
+                    </a>
                 </div>
                 <div className={clsx(cn.block, cn.bottomRight)}>
                     <Socials />
