@@ -1,5 +1,6 @@
 import React, { createContext, createRef, PropsWithChildren, useContext, useMemo, useRef, useState } from 'react';
 
+import { useIsomorphicLayoutEffect } from 'framer-motion';
 import { Color, Mesh, Object3D } from 'three';
 
 import {
@@ -15,7 +16,6 @@ import { MenuStatus, useMenuStore } from '@/store/menu/menuStore';
 import { multipleArray } from '@/utils/math/multiple';
 import { toDecimals } from '@/utils/math/toDecimals';
 import myFont from '@assets/fonts/Comfortaa_Regular.json';
-import { useIsomorphicLayoutEffect } from '@react-spring/web';
 import { Triplet, useBox, useHingeConstraint } from '@react-three/cannon';
 import { FontData, Text3D } from '@react-three/drei';
 import { ThreeEvent } from '@react-three/fiber';
