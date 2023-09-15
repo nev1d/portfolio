@@ -26,7 +26,7 @@ export const AnimatedPageLayout: React.FC = () => {
     }, [pathName]);
 
     return (
-        <>
+        <AnimatePresence>
             {animationOrder.map((currentRoute) => {
                 if (!currentRoute) return;
 
@@ -35,16 +35,14 @@ export const AnimatedPageLayout: React.FC = () => {
                 const Component = PageConfig[currentRoute as PagesEnum];
                 const animation = PageAnimationConfig[currentRoute as PagesEnum];
 
+                if (!visible) return null;
+
                 return (
-                    <AnimatePresence key={currentRoute}>
-                        {visible && (
-                            <motion.div {...animation} className={cn.animation}>
-                                <Component />
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
+                    <motion.div {...animation} key={currentRoute} className={cn.animation}>
+                        <Component />
+                    </motion.div>
                 );
             })}
-        </>
+        </AnimatePresence>
     );
 };

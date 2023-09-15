@@ -7,12 +7,12 @@ import { Telegram } from '@/components/core/icons/socials/TelegramLogo';
 
 import cn from './style.module.css';
 
-const animation = { duration: 0.5 };
+const animation = { duration: 0.6 };
 
 export const Socials: React.FC = () => {
     return (
         <div className={cn.socials}>
-            <Link className={cn.social} href='/test'>
+            <Link className={cn.social} href='/about'>
                 <GithubLogo animation={animation} />
             </Link>
             <Link className={cn.social} href='/test'>

@@ -11,6 +11,8 @@ import { MenuStatus, useMenuStore } from '@/store/menu/menuStore';
 
 import cn from './style.module.css';
 
+const mail = 'daniil.nikonyuk@gmail.com';
+
 export const MainPageLayout: React.FC<PropsWithChildren> = ({ children }) => {
     const menuStatus = useMenuStore((store) => store.menuStatus);
 
@@ -25,9 +27,9 @@ export const MainPageLayout: React.FC<PropsWithChildren> = ({ children }) => {
                     <Logo />
                 </div>
                 <div className={clsx(cn.block, cn.bottomLeft)}>
-                    <a href='mailto:'>
-                        <AnimatedText fontSize={16} animation={{ duration: 1 }}>
-                            ©/2023 daniil.nikonyuk@gmail.com
+                    <a href={`mailto:${mail}`}>
+                        <AnimatedText hover={true} fontSize={16} animation={{ duration: 0.6 }}>
+                            ©/2023 {mail}
                         </AnimatedText>
                     </a>
                 </div>

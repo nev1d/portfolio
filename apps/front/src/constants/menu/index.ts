@@ -6,3 +6,6 @@ export const PLATFORM_ACTIVATE_OFFSET = 15;
 export const LETTER_SPACING = 1;
 export const LETTER_CLICK_DELAY = 300;
 export const PLATFORM_DISABLE_DELAY = 300;
+
+export const MENU_CLICK_DELAY = 1400;
+export const MENU_CLICK_DURATION = 800;
