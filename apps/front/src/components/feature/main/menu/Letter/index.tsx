@@ -5,7 +5,6 @@ import { Color, Mesh, Object3D } from 'three';
 
 import {
     IMPULSE_MULTIPLIER,
-    LETTER_CLICK_DELAY,
     LETTER_SPACING,
     MARGIN,
     OFFSET,
@@ -51,14 +50,14 @@ export const Letter: React.FC<PropsWithChildren<LetterProps>> = ({
 }) => {
     const setMenuStatus = useMenuStore((store) => store.setMenuStatus);
     const menuItems = useMenuStore((store) => store.menuItems);
+    const setHasBeenInitialized = useMenuStore((store) => store.setHasBeenInitialized);
+    const hasBeenInitialized = useMenuStore((store) => store.hasBeenInitialized);
 
     const {
         position: [x],
         ref: parentRef,
         parentLetterWidth,
     } = useContext(ParentContext);
-
-    const togglePlatforms = useMenuStore((store) => store.togglePlatforms);
 
     const [letterWidth, setLetterWidth] = useState(0);
 
@@ -69,7 +68,9 @@ export const Letter: React.FC<PropsWithChildren<LetterProps>> = ({
 
         const initPositionOffset: Triplet = [
             initPosition[0],
-            toDecimals(initPosition[1] + (wordPos + 1) * 30 + 30 + pos * 0.1),
+            hasBeenInitialized
+                ? planePosition[1] + 4
+                : toDecimals(initPosition[1] + (wordPos + 1) * 30 + 30 + pos * 0.1),
             initPosition[2],
         ];
 
@@ -101,12 +102,6 @@ export const Letter: React.FC<PropsWithChildren<LetterProps>> = ({
         const impulse = multipleArray(point, -IMPULSE_MULTIPLIER) as Triplet;
 
         api.applyImpulse(impulse, point);
-
-        toggleCurrentPlatform(false);
-
-        setTimeout(() => {
-            togglePlatforms(false);
-        }, LETTER_CLICK_DELAY);
     };
 
     useHingeConstraint(
@@ -137,7 +132,10 @@ export const Letter: React.FC<PropsWithChildren<LetterProps>> = ({
             /* If falling letters close to platform => activate */
             if (item[1] - PLATFORM_ACTIVATE_OFFSET <= planePosition[1]) {
                 toggleCurrentPlatform(true);
-                if (wordPos === menuItems.length - 1) setMenuStatus(MenuStatus.PRESENTATION);
+                if (wordPos === menuItems.length - 1) {
+                    setMenuStatus(MenuStatus.PRESENTATION);
+                    setHasBeenInitialized();
+                }
                 unsubscribe();
             }
         });

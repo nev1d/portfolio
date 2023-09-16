@@ -6,7 +6,7 @@ import { Color } from 'three';
 
 import { Letter } from '@/components/feature/main/menu/Letter';
 import { WordPlatform } from '@/components/feature/main/menu/MenuItem/platform';
-import { MARGIN, OFFSET, PLATFORM_DISABLE_DELAY } from '@/constants/menu';
+import { MARGIN, OFFSET } from '@/constants/menu';
 import { PagesEnum } from '@/constants/pages';
 import { useForceUpdate } from '@/hooks/useForceUpdate';
 import { useThreeHoverPointer } from '@/hooks/useThreeHoverPointer';
@@ -25,26 +25,15 @@ const color = {
 };
 
 export const MenuItem: React.FC<MenuItemProps> = ({ label, route, pos }) => {
-    const isPlatformsVisible = useMenuStore((store) => store.isPlatformsVisible);
+    const hasBeenInitialized = useMenuStore((store) => store.hasBeenInitialized);
     const chooseMenuItem = useMenuStore((store) => store.chooseMenuItem);
 
     const router = useRouter();
     const pathName = usePathname() as PagesEnum;
 
     const [isPlatformActivated, setIsPlatformActivated] = useState(false);
-    const [shouldShowPlatform, setShouldShowPlatform] = useState(false);
 
     const pointerProps = useThreeHoverPointer();
-
-    useEffect(() => {
-        setTimeout(() => {
-            setShouldShowPlatform(isPlatformActivated && isPlatformsVisible);
-        }, PLATFORM_DISABLE_DELAY * pos);
-    }, [isPlatformsVisible]);
-
-    useEffect(() => {
-        setShouldShowPlatform(isPlatformActivated && isPlatformsVisible);
-    }, [isPlatformActivated]);
 
     /* Updating center after positioning change in Letter component's */
     const [cacheKey, forceUpdate] = useForceUpdate();
@@ -55,6 +44,10 @@ export const MenuItem: React.FC<MenuItemProps> = ({ label, route, pos }) => {
         }
     }, [pathName]);
     /* */
+
+    useEffect(() => {
+        if (hasBeenInitialized) setIsPlatformActivated(true);
+    }, [pathName]);
 
     const onItemClick = () => {
         chooseMenuItem(() => {
@@ -86,7 +79,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ label, route, pos }) => {
                     },
                     <></>,
                 )}
-                {shouldShowPlatform && <WordPlatform position={planePosition} />}
+                {isPlatformActivated && <WordPlatform position={planePosition} />}
             </motion.group>
         </Center>
     );

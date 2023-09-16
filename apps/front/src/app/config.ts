@@ -10,7 +10,11 @@ export const PageConfig: Record<PagesEnum, () => React.JSX.Element> = {
 };
 
 export const PageAnimationConfig: Record<PagesEnum, Record<'initial' | 'animate' | 'exit', Record<string, unknown>>> = {
-    [PagesEnum.MAIN]: { initial: { opacity: 0 }, animate: { opacity: 1 }, exit: { opacity: 0.5 } },
+    [PagesEnum.MAIN]: {
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        exit: { opacity: 0 },
+    },
     [PagesEnum.ABOUT]: {
         initial: { x: '100%' },
         animate: { x: '0%' },

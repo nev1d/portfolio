@@ -6,6 +6,7 @@ export const useThreeHoverPointer = () => {
     useEffect(() => {
         document.body.style.cursor = hovered ? 'pointer' : 'auto';
     }, [hovered]);
+
     const onPointerOver = () => {
         setHovered(true);
     };
