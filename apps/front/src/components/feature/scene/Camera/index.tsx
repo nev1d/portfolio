@@ -10,6 +10,7 @@ import {
     PagesCameraPositionValues,
 } from '@/constants/pages/camera';
 import { useCurrentPathname } from '@/hooks/useCurrentPathname';
+import { useMenuStore } from '@/store/menu/menuStore';
 import { toSeconds } from '@/utils/math/toSeconds';
 import { useFrame } from '@react-three/fiber';
 
@@ -40,14 +41,21 @@ const getCurrentPageValues = (page: PagesEnum): RequiredDeep<PagesCameraPosition
 };
 
 export const Camera: React.FC = () => {
+    const setCurrentTransitionItem = useMenuStore((store) => store.setCurrentTransitionItem);
+    const currentTransitionItem = useMenuStore((store) => store.currentTransitionItem);
+
     const pathname = useCurrentPathname();
 
     const currentPageConfig = useMemo(() => {
-        return getCurrentPageValues(pathname);
-    }, [pathname]);
+        return getCurrentPageValues(currentTransitionItem);
+    }, [currentTransitionItem]);
 
     const cameraZ = useMotionValue(currentPageConfig.coords.z);
     const cameraLookAtY = useMotionValue(currentPageConfig.lookAt.y);
+
+    useEffect(() => {
+        setCurrentTransitionItem(pathname);
+    }, [pathname]);
 
     useEffect(() => {
         animate(cameraZ, currentPageConfig.coords.z, {
@@ -59,7 +67,7 @@ export const Camera: React.FC = () => {
             duration: currentPageConfig.duration,
             delay: currentPageConfig.delay,
         });
-    }, [pathname]);
+    }, [currentTransitionItem]);
 
     useFrame((state) => {
         state.camera.position.z = cameraZ.get();

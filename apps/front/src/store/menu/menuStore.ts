@@ -19,8 +19,10 @@ type MenuStore = {
     menuItems: MenuStoreItem[];
     menuStatus: MenuStatus;
     hasBeenInitialized: boolean;
+    currentTransitionItem: PagesEnum;
 
     /* Actions */
+    setCurrentTransitionItem: (route: PagesEnum) => void;
     setMenuStatus: (menuStatus: MenuStatus) => void;
     chooseMenuItem: (route: PagesEnum, callback: () => void) => void;
     setHasBeenInitialized: () => void;
@@ -32,6 +34,7 @@ export const useMenuStore = create<MenuStore>((set) => ({
         { label: 'who am i2', route: PagesEnum.ABOUT },
         { label: 'who am i3', route: PagesEnum.ABOUT },
     ],
+    currentTransitionItem: PagesEnum.MAIN,
     menuStatus: MenuStatus.INITIAL,
     hasBeenInitialized: false,
 
@@ -44,9 +47,17 @@ export const useMenuStore = create<MenuStore>((set) => ({
 
         const { duration = toSeconds(DefaultCameraTransitionDuration), delay = 0 } = Object(PagesCameraPosition[route]);
 
-        setTimeout(() => {
-            callback();
-        }, duration + delay);
+        set({ currentTransitionItem: route });
+
+        setTimeout(
+            () => {
+                callback();
+            },
+            (duration + delay) * 1000,
+        );
+    },
+    setCurrentTransitionItem: (route: PagesEnum) => {
+        set({ currentTransitionItem: route });
     },
     setHasBeenInitialized: () => {
         set({ hasBeenInitialized: true });

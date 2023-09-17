@@ -35,6 +35,11 @@ export const useSvgAnimation = <T = SVGPathElement>({
         duration: animation.duration || 0.4,
     };
 
+    const animationExitProps = {
+        delay: 0,
+        duration: 0.4,
+    };
+
     const { scope, runCycle } = useRunCycleAnimation({
         to: animationSteps.to,
         from: animationSteps.from,
@@ -61,6 +66,7 @@ export const useSvgAnimation = <T = SVGPathElement>({
             ref,
             initial: animationSteps.from,
             animate: animationSteps.to,
+            exit: { ...animationSteps.from, transition: animationExitProps },
             transition: animationProps,
         };
     }, [ref]);

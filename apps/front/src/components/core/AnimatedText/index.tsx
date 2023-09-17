@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import { motion } from 'framer-motion';
-
-import { useSvgAnimation } from '@/hooks/useSvgAnimation';
+import { AnimatedTextLine } from '@/components/core/AnimatedText/line';
 import { useWindowSize } from '@/hooks/useWindowSize';
 import { DefaultAnimationProps } from '@/typings/animations/svgPathAnimation';
 
@@ -10,6 +8,7 @@ import cn from './style.module.css';
 
 type AnimatedTextProps = {
     fontSize: number;
+    fontWeight?: string | number;
     animation?: DefaultAnimationProps;
     hover?: boolean;
     text?: string;
@@ -26,6 +25,7 @@ const getLineXPos = (align: AnimatedTextProps['align'], width: number, parentWid
 
 export const AnimatedText: React.FC<AnimatedTextProps> = ({
     fontSize,
+    fontWeight = 'light',
     animation = {},
     hover,
     text = '',
@@ -33,9 +33,9 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({
     align = 'start',
 }) => {
     const ref = useRef<SVGSVGElement>(null);
+    const [isHovered, setIsHovered] = useState(false);
     const [dimensions, setDimensions] = useState({ height: 0, width: 0 });
     const [lines, setLines] = useState<{ text: string; xPosition: number }[]>([]);
-    const { pathProps, runCycle } = useSvgAnimation<SVGTextElement>({ animation, overriddenStrokeLength: 1000 });
     const [width] = useWindowSize();
 
     const measureTextWidth = (text: string, element: HTMLElement): number => {
@@ -64,7 +64,10 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({
         const words = text.split(' ');
 
         const lines: { text: string; xPosition: number }[] = [];
-        let currentLine = { text: words[0], xPosition: 0 };
+        let currentLine = {
+            text: words[0],
+            xPosition: measureTextWidth(words[0], ref.current?.parentElement as HTMLElement),
+        };
 
         for (let i = 1; i < words.length; i++) {
             const testLine = `${currentLine.text} ${words[i]}`;
@@ -85,6 +88,8 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({
             }
         }
 
+        lines.push(currentLine);
+
         return { lines, maxWidth: parentWidth };
     }, [text, ref, fontSize]);
 
@@ -98,7 +103,12 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({
 
     const onHover = () => {
         if (!hover) return;
-        runCycle();
+        setIsHovered(true);
+    };
+
+    const onMouseLeave = () => {
+        if (!hover) return;
+        setIsHovered(false);
     };
 
     return (
@@ -109,20 +119,21 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({
             strokeWidth={fontSize / 100}
             className={cn.text}
             onMouseEnter={onHover}
+            onMouseLeave={onMouseLeave}
             ref={ref}
         >
             {lines.map((line, index) => (
-                <motion.text
+                <AnimatedTextLine
                     key={index}
                     x={line.xPosition}
                     y={`${index * fontSize * 1.2 + fontSize}px`}
                     fontSize={fontSize}
-                    {...pathProps}
-                    ref={index === 0 ? (instance) => instance && pathProps.ref(instance) : undefined}
-                    fontWeight='light'
+                    fontWeight={fontWeight}
+                    animation={animation}
+                    hovered={isHovered}
                 >
                     {line.text}
-                </motion.text>
+                </AnimatedTextLine>
             ))}
         </svg>
     );

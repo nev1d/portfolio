@@ -1,5 +1,4 @@
 import { PagesEnum } from '@/constants/pages/index';
-import { toSeconds } from '@/utils/math/toSeconds';
 
 export type PagesCameraPositionValues = Partial<{
     coords: Partial<Record<'y' | 'x' | 'z', number>>;
@@ -25,6 +24,6 @@ export const PagesCameraPosition: Record<PagesEnum, PagesCameraPositionValues> =
         lookAt: {
             y: 120,
         },
-        duration: toSeconds(1000),
+        delay: 0.5,
     },
 };

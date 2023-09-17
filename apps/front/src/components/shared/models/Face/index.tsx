@@ -4,6 +4,7 @@ import * as THREE from 'three';
 import { GLTF } from 'three-stdlib';
 
 import { useObjectRotation } from '@/hooks/useObjectRotation';
+import { useWindowSize } from '@/hooks/useWindowSize';
 import { useGLTF } from '@react-three/drei';
 
 type GLTFResult = GLTF & {
@@ -36,7 +37,11 @@ type GLTFResult = GLTF & {
         Glasses: THREE.Mesh;
     };
 };
+
+const xPositionCoef = -76.8;
 const Face = (props: JSX.IntrinsicElements['group']) => {
+    const [width] = useWindowSize();
+
     const { nodes } = useGLTF('/models/face.glb') as GLTFResult;
 
     const { ref: rotationRef } = useObjectRotation({
@@ -49,8 +54,8 @@ const Face = (props: JSX.IntrinsicElements['group']) => {
             {...props}
             ref={rotationRef}
             dispose={null}
-            scale={8}
-            position={[-20, 50, 100]}
+            scale={10}
+            position={[width / xPositionCoef, 50, 100]}
             rotation={[0.6107259643892086, 0, 0]}
         >
             <group rotation={[Math.PI / 2, 0, 0]}>
