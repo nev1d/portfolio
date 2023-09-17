@@ -3,8 +3,9 @@
 import { Comfortaa } from 'next/font/google';
 import React from 'react';
 
-import { Menu } from '@/components/feature/main/menu';
+import { Scene } from '@/components/feature/scene';
 import { AnimatedPageLayout } from '@/components/shared/layouts/AnimatedPageLayout';
+import { MainLayout } from '@/components/shared/layouts/MainLayout';
 
 import '@assets/styles/__global.css';
 import '@assets/styles/__reset.css';
@@ -16,8 +17,10 @@ const RootLayout = () => {
     return (
         <html lang='en'>
             <body className={comfortaa.className}>
-                <Menu />
-                <AnimatedPageLayout />
+                <Scene />
+                <MainLayout>
+                    <AnimatedPageLayout />
+                </MainLayout>
             </body>
         </html>
     );

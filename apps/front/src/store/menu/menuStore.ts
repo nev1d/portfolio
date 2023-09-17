@@ -1,7 +1,8 @@
 import { create } from 'zustand';
 
-import { MENU_CLICK_DURATION } from '@/constants/menu';
 import { PagesEnum } from '@/constants/pages';
+import { DefaultCameraTransitionDuration, PagesCameraPosition } from '@/constants/pages/camera';
+import { toSeconds } from '@/utils/math/toSeconds';
 
 export enum MenuStatus {
     INITIAL = 'initial',
@@ -21,7 +22,7 @@ type MenuStore = {
 
     /* Actions */
     setMenuStatus: (menuStatus: MenuStatus) => void;
-    chooseMenuItem: (callback: () => void) => void;
+    chooseMenuItem: (route: PagesEnum, callback: () => void) => void;
     setHasBeenInitialized: () => void;
 };
 
@@ -38,12 +39,14 @@ export const useMenuStore = create<MenuStore>((set) => ({
     setMenuStatus: (menuStatus: MenuStatus) => {
         set({ menuStatus });
     },
-    chooseMenuItem: (callback: () => void) => {
+    chooseMenuItem: (route: PagesEnum, callback: () => void) => {
         set({ menuStatus: MenuStatus.OPEN });
+
+        const { duration = toSeconds(DefaultCameraTransitionDuration), delay = 0 } = Object(PagesCameraPosition[route]);
 
         setTimeout(() => {
             callback();
-        }, MENU_CLICK_DURATION + MENU_CLICK_DURATION);
+        }, duration + delay);
     },
     setHasBeenInitialized: () => {
         set({ hasBeenInitialized: true });

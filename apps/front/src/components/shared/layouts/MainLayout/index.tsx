@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 
 import { AnimatedText } from '@/components/core/AnimatedText';
 import { Logo } from '@/components/core/Logo';
-import { Socials } from '@/components/feature/main/Socials';
+import { Socials } from '@/components/shared/Socials';
 import { PagesEnum } from '@/constants/pages';
 import { MenuStatus, useMenuStore } from '@/store/menu/menuStore';
 
@@ -34,15 +34,20 @@ export const MainLayout: React.FC<PropsWithChildren> = ({ children }) => {
                 </div>
                 <div className={clsx(cn.block, cn.bottomLeft)}>
                     <a href={`mailto:${mail}`}>
-                        <AnimatedText hover={true} fontSize={16} animation={{ duration: 0.6 }}>
-                            ©/2023 {mail}
-                        </AnimatedText>
+                        <AnimatedText
+                            text={`©/2023 ${mail}`}
+                            hover={true}
+                            fontSize={16}
+                            animation={{ duration: 0.6 }}
+                        />
                     </a>
                 </div>
                 <div className={clsx(cn.block, cn.bottomRight)}>
                     <Socials />
                 </div>
-                {children}
+                <div className={cn.pageContainer}>
+                    <div className={cn.page}>{children}</div>
+                </div>
             </div>
         </motion.div>
     );

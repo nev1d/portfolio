@@ -1,12 +1,25 @@
-.pageContainer {
+.wrapper {
     display: flex;
     width: 100%;
     height: 100%;
-    padding: 120px var(--layout-space);
+    justify-content: flex-end;
+}
+
+.content {
+    position: relative;
+    display: flex;
+    flex: 0 0 50%;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
     pointer-events: all;
 }
 
-.page {
-    position: relative;
-    flex: 1 1 auto;
+.text {
+    width: 100%;
+    margin-bottom: 24px;
+
+    &:nth-last-child(1) {
+        margin-bottom: 0;
+    }
 }
