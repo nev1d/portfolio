@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { motion } from 'framer-motion';
 
@@ -15,9 +15,18 @@ export type LogoElementProps = {
             reverse: number;
         }>;
     };
+    cycle: boolean;
 };
 
-export const LogoElement: React.FC<LogoElementProps & { hovered: boolean }> = ({ tag, props, animation, hovered }) => {
+export const LogoElement: React.FC<LogoElementProps & { hovered: boolean }> = ({
+    tag,
+    props,
+    animation,
+    hovered,
+    cycle,
+}) => {
+    const timeout = useRef<ReturnType<typeof setTimeout>>(null);
+
     const animationSteps = {
         from: {
             [animation.property]: animation.value[0],
@@ -42,8 +51,28 @@ export const LogoElement: React.FC<LogoElementProps & { hovered: boolean }> = ({
     };
 
     useEffect(() => {
-        if (hovered) runCycle();
+        if (hovered && !cycle) runCycle();
     }, [hovered]);
+
+    useEffect(() => {
+        if (!cycle) {
+            clearTimeout(timeout.current);
+
+            return;
+        }
+
+        const infiniteCycle = () => {
+            runCycle();
+
+            timeout.current = setTimeout(() => {
+                infiniteCycle();
+            }, 2000);
+        };
+
+        infiniteCycle();
+
+        return () => clearTimeout(timeout.current);
+    }, [cycle]);
 
     if (tag === 'rect') {
         return <motion.rect {...props} ref={ref} fill='white' {...additionalProps} />;

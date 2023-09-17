@@ -1,11 +1,12 @@
 'use client';
 
-import React from 'react';
+import React, { Suspense } from 'react';
 
-import { useIsomorphicLayoutEffect } from 'framer-motion';
+import { AnimatePresence, useIsomorphicLayoutEffect } from 'framer-motion';
 
 import { Background } from '@/components/feature/scene/Backround';
 import { Camera } from '@/components/feature/scene/Camera';
+import { CanvasLoader } from '@/components/feature/scene/CanvasLoader';
 import { Lights } from '@/components/feature/scene/Lights';
 import Face from '@/components/shared/models/Face';
 import { MenuList } from '@/components/shared/models/menu/MenuList';
@@ -36,22 +37,26 @@ export const Scene = () => {
     return (
         <div className={cn.wrapper}>
             <Canvas shadows gl={{ alpha: false }} camera={{ position: [0, 15, 55], fov: 50 }}>
-                {/* Background and Fog */}
-                <Background backgroundColor='#1d1d20' />
+                <AnimatePresence>
+                    <Suspense fallback={<CanvasLoader />}>
+                        {/* Background and Fog */}
+                        <Background backgroundColor='#1d1d20' />
 
-                {/* Lights */}
-                <Lights />
+                        {/* Lights */}
+                        <Lights />
 
-                {/* Camera */}
-                <Camera />
+                        {/* Camera */}
+                        <Camera />
 
-                <Stars />
+                        <Stars />
 
-                {/* Physic objects */}
-                <Physics gravity={[0, -20, 0]}>
-                    <MenuList />
-                    <Face />
-                </Physics>
+                        {/* Physic objects */}
+                        <Physics gravity={[0, -20, 0]}>
+                            <MenuList />
+                            <Face />
+                        </Physics>
+                    </Suspense>
+                </AnimatePresence>
             </Canvas>
         </div>
     );

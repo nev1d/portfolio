@@ -38,9 +38,11 @@ type GLTFResult = GLTF & {
     };
 };
 
-const xPositionCoef = -76.8;
+const coefficient = 120;
+const maxScale = 12;
+
 const Face = (props: JSX.IntrinsicElements['group']) => {
-    const [width] = useWindowSize();
+    const [width, height] = useWindowSize();
 
     const { nodes } = useGLTF('/models/face.glb') as GLTFResult;
 
@@ -49,13 +51,18 @@ const Face = (props: JSX.IntrinsicElements['group']) => {
         autoRotation: true,
     });
 
+    const scale = height / coefficient;
+    const correctScale = scale > maxScale ? maxScale : scale;
+    const topEqPart = width * -coefficient;
+    const bottomEqPart = (height * correctScale) / 0.9;
+
     return (
         <group
             {...props}
             ref={rotationRef}
             dispose={null}
-            scale={10}
-            position={[width / xPositionCoef, 50, 100]}
+            scale={correctScale}
+            position={[topEqPart / bottomEqPart, 50, 100]}
             rotation={[0.6107259643892086, 0, 0]}
         >
             <group rotation={[Math.PI / 2, 0, 0]}>

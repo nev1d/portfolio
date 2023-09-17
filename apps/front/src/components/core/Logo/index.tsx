@@ -6,7 +6,7 @@ import { LogoElement, LogoElementProps } from '@/components/core/Logo/element';
 
 import cn from './style.module.css';
 
-const animationOptions: LogoElementProps[] = [
+const animationOptions: Omit<LogoElementProps, 'cycle'>[] = [
     {
         tag: 'rect',
         props: {
@@ -115,7 +115,11 @@ const animationOptions: LogoElementProps[] = [
     },
 ];
 
-export const Logo: React.FC = () => {
+type LogoProps = {
+    cycle?: boolean;
+};
+
+export const Logo: React.FC<LogoProps> = ({ cycle = false }) => {
     const [hovered, setHovered] = useState(false);
 
     const onHover = () => {
@@ -138,7 +142,7 @@ export const Logo: React.FC = () => {
             className={cn.logo}
         >
             {animationOptions.map((item, index) => {
-                return <LogoElement {...item} hovered={hovered} key={index} />;
+                return <LogoElement {...item} cycle={cycle} hovered={hovered} key={index} />;
             })}
         </svg>
     );

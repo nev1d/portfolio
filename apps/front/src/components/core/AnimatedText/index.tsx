@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { AnimatedTextLine } from '@/components/core/AnimatedText/line';
@@ -66,7 +68,7 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({
         const lines: { text: string; xPosition: number }[] = [];
         let currentLine = {
             text: words[0],
-            xPosition: measureTextWidth(words[0], ref.current?.parentElement as HTMLElement),
+            xPosition: 0,
         };
 
         for (let i = 1; i < words.length; i++) {

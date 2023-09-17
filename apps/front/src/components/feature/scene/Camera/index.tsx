@@ -10,7 +10,8 @@ import {
     PagesCameraPositionValues,
 } from '@/constants/pages/camera';
 import { useCurrentPathname } from '@/hooks/useCurrentPathname';
-import { useMenuStore } from '@/store/menu/menuStore';
+import { useHasBeenMounted } from '@/hooks/useHasBeenMounted';
+import { useAppStore } from '@/store/app';
 import { toSeconds } from '@/utils/math/toSeconds';
 import { useFrame } from '@react-three/fiber';
 
@@ -41,12 +42,16 @@ const getCurrentPageValues = (page: PagesEnum): RequiredDeep<PagesCameraPosition
 };
 
 export const Camera: React.FC = () => {
-    const setCurrentTransitionItem = useMenuStore((store) => store.setCurrentTransitionItem);
-    const currentTransitionItem = useMenuStore((store) => store.currentTransitionItem);
+    const setCurrentTransitionItem = useAppStore((store) => store.setCurrentTransitionItem);
+    const currentTransitionItem = useAppStore((store) => store.currentTransitionItem);
 
     const pathname = useCurrentPathname();
 
+    const hasBeenMounted = useHasBeenMounted();
+
     const currentPageConfig = useMemo(() => {
+        if (!hasBeenMounted) return getCurrentPageValues(pathname);
+
         return getCurrentPageValues(currentTransitionItem);
     }, [currentTransitionItem]);
 

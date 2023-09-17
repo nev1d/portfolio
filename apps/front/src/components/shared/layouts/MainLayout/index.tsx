@@ -35,7 +35,7 @@ export const MainLayout: React.FC<PropsWithChildren> = ({ children }) => {
                 <div className={clsx(cn.block, cn.bottomLeft)}>
                     <a href={`mailto:${mail}`}>
                         <AnimatedText
-                            text={`©/2023 ${mail}`}
+                            text={`©/${new Date().getFullYear()} ${mail}`}
                             hover={true}
                             fontSize={16}
                             animation={{ duration: 0.6 }}
