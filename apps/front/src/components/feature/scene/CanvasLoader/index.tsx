@@ -10,4 +10,6 @@ export const CanvasLoader = () => {
             setAppLoaded();
         };
     }, []);
+
+    return null;
 };

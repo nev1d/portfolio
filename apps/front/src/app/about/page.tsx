@@ -24,9 +24,7 @@ const AboutPage = () => {
                 <div className={cn.text}>
                     <AnimatedText
                         align='end'
-                        text='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                        laboris'
+                        text='Started working very early and has already managed to work on major financial and entertainment projects for 4 years. I was a team lead on some of them with a team of 4 to 10 frontend developers. I like complex tasks that require a non-standard approach.'
                         fontSize={36}
                         animation={{ duration: 1.5, delay: 0.3 }}
                     />

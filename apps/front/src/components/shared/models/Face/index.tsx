@@ -109,6 +109,6 @@ const Face = (props: JSX.IntrinsicElements['group']) => {
     );
 };
 
-useGLTF.preload('/face.glb');
+useGLTF.preload('/models/face.glb');
 
 export default Face;

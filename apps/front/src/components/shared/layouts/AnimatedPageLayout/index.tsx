@@ -5,8 +5,8 @@ import React, { useEffect, useState } from 'react';
 
 import { AnimatePresence, motion } from 'framer-motion';
 
-import { PageAnimationConfig, PageConfig } from '@/app/config';
 import { PagesEnum } from '@/constants/pages';
+import { PageAnimationConfig, PageConfig } from '@/constants/pages/animation';
 import { useHasBeenMounted } from '@/hooks/useHasBeenMounted';
 
 import cn from './style.module.css';
