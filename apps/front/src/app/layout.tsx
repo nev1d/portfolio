@@ -11,6 +11,7 @@ import { MainLayout } from '@/components/shared/layouts/MainLayout';
 import { PageLoader } from '@/components/shared/PageLoader';
 import { PageMetadata } from '@/constants/pages/metadata';
 import { useCurrentPathname } from '@/hooks/useCurrentPathname';
+import { usePageUtils } from '@/hooks/usePageUtils';
 import { useAppStore } from '@/store/app';
 
 import '@assets/styles/__global.css';
@@ -22,6 +23,8 @@ const comfortaa = Comfortaa({ subsets: ['latin', 'cyrillic'], weight: ['300', '4
 const RootLayout = () => {
     const loaded = useAppStore((store) => store.loaded);
     const pathname = useCurrentPathname();
+
+    usePageUtils();
 
     const title = `Daniil Nikoniuk - ${PageMetadata[pathname].title}`;
 

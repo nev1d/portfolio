@@ -12,6 +12,7 @@ export const PagesCameraPosition: Record<PagesEnum, PagesCameraPositionValues> =
     [PagesEnum.MAIN]: {
         coords: {
             z: 55,
+            y: 15,
         },
         lookAt: {
             y: 0,
@@ -20,9 +21,20 @@ export const PagesCameraPosition: Record<PagesEnum, PagesCameraPositionValues> =
     [PagesEnum.ABOUT]: {
         coords: {
             z: 150,
+            y: 15,
         },
         lookAt: {
             y: 120,
+        },
+        delay: 0.5,
+    },
+    [PagesEnum.SKILLS]: {
+        coords: {
+            x: 150,
+        },
+        lookAt: {
+            y: -65,
+            x: -30,
         },
         delay: 0.5,
     },

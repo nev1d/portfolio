@@ -39,7 +39,7 @@ type GLTFResult = GLTF & {
 };
 
 const coefficient = 120;
-const maxScale = 12;
+const maxScale = 11;
 
 const Face = (props: JSX.IntrinsicElements['group']) => {
     const [width, height] = useWindowSize();

@@ -12,6 +12,7 @@ import Face from '@/components/shared/models/Face';
 import { MenuList } from '@/components/shared/models/menu/MenuList';
 import { PagesEnum } from '@/constants/pages';
 import { useCurrentPathname } from '@/hooks/useCurrentPathname';
+import { useAppStore } from '@/store/app';
 import { MenuStatus, useMenuStore } from '@/store/menu/menuStore';
 import { Physics } from '@react-three/cannon';
 import { Stars } from '@react-three/drei';
@@ -22,6 +23,7 @@ import cn from './style.module.css';
 export const Scene = () => {
     const setMenuStatus = useMenuStore((store) => store.setMenuStatus);
     const setHasBeenInitialized = useMenuStore((store) => store.setHasBeenInitialized);
+    const setAppLoaded = useAppStore((store) => store.setAppLoaded);
 
     const pathName = useCurrentPathname();
 
@@ -31,6 +33,7 @@ export const Scene = () => {
         } else {
             setMenuStatus(MenuStatus.OPEN);
             setHasBeenInitialized();
+            setAppLoaded();
         }
     }, [pathName]);
 

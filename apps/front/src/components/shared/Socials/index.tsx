@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import React from 'react';
 
 import { GithubLogo } from '@/components/core/icons/socials/GithubLogo';
@@ -12,15 +11,15 @@ const animation = { duration: 0.6 };
 export const Socials: React.FC = () => {
     return (
         <div className={cn.socials}>
-            <Link className={cn.social} href='/about'>
+            <a className={cn.social} target='_blank' href='https://github.com/nev1d'>
                 <GithubLogo animation={animation} />
-            </Link>
-            <Link className={cn.social} href='/test'>
+            </a>
+            <a className={cn.social} target='_blank' href='https://t.me/nev1d'>
                 <Telegram animation={animation} />
-            </Link>
-            <Link className={cn.social} href='/test'>
+            </a>
+            <a className={cn.social} target='_blank' href='https://www.linkedin.com/in/nev1d/'>
                 <LinkedinLogo animation={animation} />
-            </Link>
+            </a>
         </div>
     );
 };

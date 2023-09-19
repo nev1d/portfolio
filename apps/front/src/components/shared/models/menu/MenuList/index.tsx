@@ -1,14 +1,14 @@
-import { usePathname } from 'next/navigation';
 import React from 'react';
 
 import { PagesEnum } from '@/constants/pages';
+import { useCurrentPathname } from '@/hooks/useCurrentPathname';
 import { useMenuStore } from '@/store/menu/menuStore';
 
 import { MenuItem } from '../MenuItem';
 
 export const MenuList: React.FC = () => {
     const menuItems = useMenuStore((store) => store.menuItems);
-    const pathName = usePathname() as PagesEnum;
+    const pathName = useCurrentPathname();
 
     if (pathName !== PagesEnum.MAIN) return null;
 

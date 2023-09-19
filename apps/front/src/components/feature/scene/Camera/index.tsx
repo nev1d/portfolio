@@ -56,7 +56,11 @@ export const Camera: React.FC = () => {
     }, [currentTransitionItem]);
 
     const cameraZ = useMotionValue(currentPageConfig.coords.z);
+    const cameraY = useMotionValue(currentPageConfig.coords.y);
+    const cameraX = useMotionValue(currentPageConfig.coords.x);
     const cameraLookAtY = useMotionValue(currentPageConfig.lookAt.y);
+    const cameraLookAtX = useMotionValue(currentPageConfig.lookAt.x);
+    const cameraLookAtZ = useMotionValue(currentPageConfig.lookAt.z);
 
     useEffect(() => {
         setCurrentTransitionItem(pathname);
@@ -68,7 +72,27 @@ export const Camera: React.FC = () => {
             delay: currentPageConfig.delay,
         });
 
+        animate(cameraY, currentPageConfig.coords.y, {
+            duration: currentPageConfig.duration,
+            delay: currentPageConfig.delay,
+        });
+
+        animate(cameraX, currentPageConfig.coords.x, {
+            duration: currentPageConfig.duration,
+            delay: currentPageConfig.delay,
+        });
+
         animate(cameraLookAtY, currentPageConfig.lookAt.y, {
+            duration: currentPageConfig.duration,
+            delay: currentPageConfig.delay,
+        });
+
+        animate(cameraLookAtX, currentPageConfig.lookAt.x, {
+            duration: currentPageConfig.duration,
+            delay: currentPageConfig.delay,
+        });
+
+        animate(cameraLookAtZ, currentPageConfig.lookAt.z, {
             duration: currentPageConfig.duration,
             delay: currentPageConfig.delay,
         });
@@ -76,7 +100,9 @@ export const Camera: React.FC = () => {
 
     useFrame((state) => {
         state.camera.position.z = cameraZ.get();
-        state.camera.lookAt(0, cameraLookAtY.get(), 0);
+        state.camera.position.y = cameraY.get();
+        state.camera.position.x = cameraX.get();
+        state.camera.lookAt(cameraLookAtX.get(), cameraLookAtY.get(), cameraLookAtZ.get());
     });
 
     return null;

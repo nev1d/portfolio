@@ -1,4 +1,4 @@
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
 import { motion } from 'framer-motion-3d';
@@ -8,6 +8,7 @@ import { Letter } from '@/components/shared/models/menu/Letter';
 import { WordPlatform } from '@/components/shared/models/menu/MenuItem/platform';
 import { MARGIN, OFFSET } from '@/constants/menu';
 import { PagesEnum } from '@/constants/pages';
+import { useCurrentPathname } from '@/hooks/useCurrentPathname';
 import { useForceUpdate } from '@/hooks/useForceUpdate';
 import { useThreeHoverPointer } from '@/hooks/useThreeHoverPointer';
 import { MenuStoreItem, useMenuStore } from '@/store/menu/menuStore';
@@ -29,7 +30,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ label, route, pos }) => {
     const chooseMenuItem = useMenuStore((store) => store.chooseMenuItem);
 
     const router = useRouter();
-    const pathName = usePathname() as PagesEnum;
+    const pathName = useCurrentPathname();
 
     const [isPlatformActivated, setIsPlatformActivated] = useState(false);
 

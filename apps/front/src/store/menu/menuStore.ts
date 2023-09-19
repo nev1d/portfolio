@@ -30,8 +30,7 @@ type MenuStore = {
 export const useMenuStore = create<MenuStore>((set) => ({
     menuItems: [
         { label: 'who am i', route: PagesEnum.ABOUT },
-        { label: 'who am i2', route: PagesEnum.ABOUT },
-        { label: 'who am i3', route: PagesEnum.ABOUT },
+        { label: 'skills', route: PagesEnum.SKILLS },
     ],
     menuStatus: MenuStatus.INITIAL,
     hasBeenInitialized: false,

@@ -7,4 +7,7 @@ export const PageMetadata: Record<PagesEnum, { title: string }> = {
     [PagesEnum.MAIN]: {
         title: 'Home',
     },
+    [PagesEnum.SKILLS]: {
+        title: 'Skills',
+    },
 };
