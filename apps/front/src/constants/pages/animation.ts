@@ -2,7 +2,7 @@ import React from 'react';
 
 import AboutPage from '@/app/about/page';
 import MainPage from '@/app/page';
-import SkillsPage from '@/app/page';
+import SkillsPage from '@/app/skills/page';
 import { PagesEnum } from '@/constants/pages';
 
 export const PageConfig: Record<PagesEnum, () => React.JSX.Element> = {

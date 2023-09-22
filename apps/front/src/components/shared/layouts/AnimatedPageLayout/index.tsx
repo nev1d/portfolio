@@ -33,6 +33,7 @@ export const AnimatedPageLayout: React.FC = () => {
                 const visible = currentRoute == pathName;
 
                 const Component = PageConfig[currentRoute as PagesEnum];
+
                 const animation = PageAnimationConfig[currentRoute as PagesEnum];
 
                 if (!visible) return null;
