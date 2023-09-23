@@ -4,8 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion-3d';
 import { Color } from 'three';
 
-import { Letter } from '@/components/shared/models/menu/Letter';
-import { WordPlatform } from '@/components/shared/models/menu/MenuItem/platform';
+import { Letter } from '@/components/feature/scene/models/menu/Letter';
+import { WordPlatform } from '@/components/feature/scene/models/menu/MenuItem/platform';
 import { MARGIN, OFFSET } from '@/constants/menu';
 import { PagesEnum } from '@/constants/pages';
 import { useCurrentPathname } from '@/hooks/useCurrentPathname';

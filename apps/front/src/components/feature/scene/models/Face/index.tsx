@@ -41,7 +41,7 @@ type GLTFResult = GLTF & {
 const coefficient = 120;
 const maxScale = 11;
 
-const Face = (props: JSX.IntrinsicElements['group']) => {
+export const Face = (props: JSX.IntrinsicElements['group']) => {
     const [width, height] = useWindowSize();
 
     const { nodes } = useGLTF('/models/face.glb') as GLTFResult;
@@ -110,5 +110,3 @@ const Face = (props: JSX.IntrinsicElements['group']) => {
 };
 
 useGLTF.preload('/models/face.glb');
-
-export default Face;

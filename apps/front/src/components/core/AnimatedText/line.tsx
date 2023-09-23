@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { useSvgAnimation } from '@/hooks/useSvgAnimation';
 import { DefaultAnimationProps } from '@/typings/animations/svgPathAnimation';
 
-type AnimatedTextLine = {
+type AnimatedTextLineProps = {
     x: number;
     y: number | string;
     fontSize: number;
@@ -14,7 +14,7 @@ type AnimatedTextLine = {
     hovered?: boolean;
     text?: string;
 };
-export const AnimatedTextLine: React.FC<PropsWithChildren<AnimatedTextLine>> = ({
+export const AnimatedTextLine: React.FC<PropsWithChildren<AnimatedTextLineProps>> = ({
     children,
     animation,
     fontSize,

@@ -30,7 +30,7 @@ export const useObjectRotation = <T extends Group>({
     const previousMousePosition = useRef({ x: 0, y: 0 });
     const rotationVelocity = useRef({ x: 0, y: 0 });
 
-    const { camera } = useThree(); // Get the camera from useThree
+    const { camera } = useThree();
 
     useFrame(() => {
         const object = objectRef.current;
@@ -81,8 +81,7 @@ export const useObjectRotation = <T extends Group>({
                 const intersects: Intersection[] = raycaster.intersectObject(object, true);
 
                 if (intersects.length > 0) {
-                    console.log('Clicked on object. Toggling isDragging.');
-                    isDragging.current = true; // Toggle dragging on click
+                    isDragging.current = true;
                 }
             }
         };

@@ -15,7 +15,7 @@ type GLTFResult = GLTF & {
     };
 };
 
-export const ReactModel: React.FC<JSX.IntrinsicElements['group']> = (props) => {
+export const ReactLogo: React.FC<JSX.IntrinsicElements['group']> = (props) => {
     const { ref: rotationRef } = useObjectRotation({
         rotationSide: 'y',
         autoRotation: true,
@@ -30,10 +30,12 @@ export const ReactModel: React.FC<JSX.IntrinsicElements['group']> = (props) => {
                     geometry={nodes['React-Logo_Material002_0'].geometry}
                     rotation={[Math.PI / 1.2, 0, -Math.PI / 2]}
                     scale={[1, 1, 1]}
-                />
+                >
+                    <meshPhongMaterial color='#d1d1d1' />
+                </mesh>
             </group>
         </group>
     );
 };
 
-useGLTF.preload('/react.gltf');
+useGLTF.preload('/models/react.gltf');
