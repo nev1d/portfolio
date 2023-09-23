@@ -10,6 +10,7 @@ import { CanvasLoader } from '@/components/feature/scene/CanvasLoader';
 import { Lights } from '@/components/feature/scene/Lights';
 import Face from '@/components/shared/models/Face';
 import { MenuList } from '@/components/shared/models/menu/MenuList';
+import { ReactModel } from '@/components/shared/models/ReactLogo';
 import { PagesEnum } from '@/constants/pages';
 import { useCurrentPathname } from '@/hooks/useCurrentPathname';
 import { useAppStore } from '@/store/app';
@@ -56,7 +57,12 @@ export const Scene = () => {
                         {/* Physic objects */}
                         <Physics gravity={[0, -20, 0]}>
                             <MenuList />
+
+                            {/* About Models */}
                             <Face />
+
+                            {/* Skills Models */}
+                            <ReactModel />
                         </Physics>
                     </Suspense>
                 </AnimatePresence>

@@ -33,8 +33,7 @@ export const PagesCameraPosition: Record<PagesEnum, PagesCameraPositionValues> =
             x: 150,
         },
         lookAt: {
-            y: -65,
-            x: -30,
+            y: -120,
         },
         delay: 0.5,
     },

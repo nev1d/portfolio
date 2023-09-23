@@ -10,4 +10,9 @@
 .scroll {
     display: flex;
     align-items: center;
+
+
+    svg {
+        width: 70px;
+    }
 }

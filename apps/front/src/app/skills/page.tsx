@@ -9,6 +9,7 @@ import cn from './style.module.css';
 const SkillsPage = () => {
     return (
         <div className={cn.wrapper}>
+            <div>Content</div>
             <div className={cn.scroll}>
                 <ScrollIcon />
             </div>
