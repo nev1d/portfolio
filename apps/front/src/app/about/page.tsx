@@ -11,13 +11,13 @@ const AboutPage = () => {
         <div className={cn.wrapper}>
             <div className={cn.content}>
                 <div className={cn.text}>
-                    <AnimatedText align='end' text='Hi there, I’m Daniil' fontSize={32} animation={{ duration: 1.5 }} />
+                    <AnimatedText align='end' text='Hi there, I’m Daniil' fontSize={24} animation={{ duration: 1.5 }} />
                 </div>
                 <div className={cn.text}>
                     <AnimatedText
                         align='end'
                         text='21 y.o. Frontend Developer based in Belgrad, Serbia'
-                        fontSize={48}
+                        fontSize={36}
                         animation={{ duration: 1.5, delay: 0.2 }}
                     />
                 </div>
@@ -25,7 +25,7 @@ const AboutPage = () => {
                     <AnimatedText
                         align='end'
                         text='Started working very early and has already managed to work on major financial and entertainment projects for 4 years. I was a team lead on some of them with a team of 4 to 10 frontend developers. I like complex tasks that require a non-standard approach.'
-                        fontSize={36}
+                        fontSize={30}
                         animation={{ duration: 1.5, delay: 0.3 }}
                     />
                 </div>

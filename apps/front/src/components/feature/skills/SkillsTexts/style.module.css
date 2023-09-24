@@ -1,0 +1,55 @@
+.wrapper {
+    position: relative;
+    display: flex;
+    width: 100%;
+    flex: 1 1 auto;
+    align-items: flex-end
+}
+
+.content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+}
+
+.texts {
+    display: flex;
+    flex: 0 0 48%;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.title {
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.description {
+    width: 100%;
+    margin-bottom: 12px;
+}
+
+.start {
+    justify-content: start;
+}
+
+.end {
+    justify-content: flex-end;
+}
+
+.tags {
+    display: flex;
+    width: 100%;
+
+    &Start {
+        justify-content: start;
+    }
+
+    &End {
+        justify-content: flex-end;
+    }
+}

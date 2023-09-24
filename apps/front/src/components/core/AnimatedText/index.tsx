@@ -8,7 +8,7 @@ import { DefaultAnimationProps } from '@/typings/animations/svgPathAnimation';
 
 import cn from './style.module.css';
 
-type AnimatedTextProps = {
+export type AnimatedTextProps = {
     fontSize: number;
     fontWeight?: string | number;
     animation?: DefaultAnimationProps;
@@ -16,8 +16,25 @@ type AnimatedTextProps = {
     text?: string;
     fitToText?: boolean;
     align?: 'start' | 'middle' | 'end';
+    noWrap?: boolean;
 };
+const measureTextWidth = (text: string, element: HTMLElement, fontSize: number): number => {
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
 
+    if (context) {
+        const computedStyle = window.getComputedStyle(element);
+        const font = computedStyle.font;
+
+        context.font = `${fontSize}px ${font.split(' ').slice(1).join(' ')}`;
+
+        const metrics = context.measureText(text);
+
+        return metrics.width;
+    }
+
+    return 0;
+};
 const getLineXPos = (align: AnimatedTextProps['align'], width: number, parentWidth: number) => {
     if (align === 'end') return parentWidth - width;
     if (align === 'middle') return (parentWidth - width) / 2;
@@ -31,75 +48,94 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({
     animation = {},
     hover,
     text = '',
-    fitToText = true,
+    fitToText = false,
     align = 'start',
+    noWrap = false,
 }) => {
     const ref = useRef<SVGSVGElement>(null);
+
     const [isHovered, setIsHovered] = useState(false);
     const [dimensions, setDimensions] = useState({ height: 0, width: 0 });
     const [lines, setLines] = useState<{ text: string; xPosition: number }[]>([]);
+
     const [width] = useWindowSize();
-
-    const measureTextWidth = (text: string, element: HTMLElement): number => {
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-
-        if (context) {
-            const computedStyle = window.getComputedStyle(element);
-            const font = computedStyle.font;
-
-            context.font = `${fontSize}px ${font.split(' ').slice(1).join(' ')}`;
-
-            const metrics = context.measureText(text);
-
-            return metrics.width;
-        }
-
-        return 0;
-    };
 
     const calculateTextInfo = useCallback(() => {
         if (!ref.current) return { lines: [], maxWidth: 0 };
 
-        const parentWidth = ref.current?.parentElement?.clientWidth || 0;
+        const currentParent = ref.current?.parentElement as HTMLElement;
+
+        const parentWidth = currentParent?.clientWidth || 0;
+
+        const lines: { text: string; xPosition: number; width: number }[] = [];
 
         const words = text.split(' ');
 
-        const lines: { text: string; xPosition: number }[] = [];
         let currentLine = {
             text: words[0],
             xPosition: 0,
+            width: measureTextWidth(words[0], currentParent, fontSize),
         };
 
+        const getMaxWidth = () => {
+            if (fitToText) {
+                if (lines.length > 1) return parentWidth;
+
+                return currentLine.width;
+            }
+
+            return parentWidth;
+        };
+
+        if (noWrap) {
+            const width = measureTextWidth(text, currentParent, fontSize);
+
+            currentLine = {
+                text,
+                xPosition: getLineXPos(align, width, parentWidth),
+                width,
+            };
+
+            lines.push(currentLine);
+
+            return { lines, maxWidth: getMaxWidth() };
+        }
+
+        /* Using for cycle for better performance */
         for (let i = 1; i < words.length; i++) {
             const testLine = `${currentLine.text} ${words[i]}`;
-            const testWidth = measureTextWidth(testLine, ref.current?.parentElement as HTMLElement);
+            const testWidth = measureTextWidth(testLine, currentParent, fontSize);
 
             if (testWidth <= parentWidth) {
-                currentLine = { text: testLine, xPosition: getLineXPos(align, testWidth, parentWidth) };
-            } else {
-                lines.push(currentLine);
                 currentLine = {
-                    text: words[i],
-                    xPosition: getLineXPos(
-                        align,
-                        measureTextWidth(words[i], ref.current?.parentElement as HTMLElement),
-                        parentWidth,
-                    ),
+                    text: testLine,
+                    xPosition: getLineXPos(align, testWidth, parentWidth),
+                    width: testWidth,
                 };
+
+                continue;
             }
+
+            lines.push(currentLine);
+
+            const width = measureTextWidth(words[i], currentParent, fontSize);
+
+            currentLine = {
+                text: words[i],
+                xPosition: getLineXPos(align, width, parentWidth),
+                width,
+            };
         }
 
         lines.push(currentLine);
 
-        return { lines, maxWidth: parentWidth };
+        return { lines, maxWidth: getMaxWidth() };
     }, [text, ref, fontSize]);
 
     useEffect(() => {
         const { lines, maxWidth } = calculateTextInfo();
-        const svgWidth = fitToText ? maxWidth : dimensions.width;
 
-        setDimensions({ height: lines.length * fontSize * 1.2, width: svgWidth });
+        setDimensions({ height: lines.length * fontSize * 1.2, width: maxWidth });
         setLines(lines);
     }, [fitToText, fontSize, width, ref]);
 
@@ -116,7 +152,7 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({
     return (
         <svg
             height={dimensions.height}
-            width='100%'
+            width={fitToText ? dimensions.width || '100%' : '100%'}
             xmlns='http://www.w3.org/2000/svg'
             strokeWidth={fontSize / 100}
             className={cn.text}

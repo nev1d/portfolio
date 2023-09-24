@@ -1,0 +1,11 @@
+.list {
+    margin: 0 -8px -8px;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.tag {
+    padding: 0 8px;
+    margin-bottom: 8px;
+}

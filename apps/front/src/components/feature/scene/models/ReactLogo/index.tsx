@@ -38,4 +38,4 @@ export const ReactLogo: React.FC<JSX.IntrinsicElements['group']> = (props) => {
     );
 };
 
-useGLTF.preload('/models/react.gltf');
+useGLTF.preload('/models/react.glb');

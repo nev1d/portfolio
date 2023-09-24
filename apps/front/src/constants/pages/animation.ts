@@ -20,11 +20,11 @@ export const PageAnimationConfig: Record<PagesEnum, Record<'initial' | 'animate'
     [PagesEnum.ABOUT]: {
         initial: { x: '100%' },
         animate: { x: '0%' },
-        exit: { scale: 1 },
+        exit: { x: '100%' },
     },
     [PagesEnum.SKILLS]: {
-        initial: { x: '100%' },
-        animate: { x: '0%' },
-        exit: { scale: 1 },
+        initial: { y: '100%' },
+        animate: { y: '0%' },
+        exit: { y: '100%' },
     },
 };

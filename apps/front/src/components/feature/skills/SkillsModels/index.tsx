@@ -61,6 +61,13 @@ export const SkillsModels = () => {
         if (pathname === PagesEnum.SKILLS) state.camera.position.x = cameraX.get();
     });
 
+    useEffect(() => {
+        if (pathname !== PagesEnum.SKILLS) {
+            setCurrentCameraPosition(SKILLS_CAMERA_LIMITS[0]);
+            cameraX.set(SKILLS_CAMERA_LIMITS[0]);
+        }
+    }, [pathname]);
+
     return (
         <>
             <ReactLogo />
