@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 
 import { animate, useMotionValue } from 'framer-motion';
 
+import { NodeJSLogo } from '@/components/feature/scene/models/NodeJSLogo';
 import { ReactLogo } from '@/components/feature/scene/models/ReactLogo';
 import { VueLogo } from '@/components/feature/scene/models/VueLogo';
 import { PagesEnum } from '@/constants/pages';
@@ -72,6 +73,7 @@ export const SkillsModels = () => {
         <>
             <ReactLogo />
             <VueLogo />
+            <NodeJSLogo />
         </>
     );
 };
