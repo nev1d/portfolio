@@ -63,7 +63,6 @@ export const SkillsModels = () => {
 
     return (
         <>
-            <fog />
             <ReactLogo />
             <VueLogo />
         </>
