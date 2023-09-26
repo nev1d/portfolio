@@ -35,16 +35,24 @@ const skillsTexts: SkillsTextsItem[] = [
     },
     {
         align: 'end',
-        title: 'Backend Ecosystem',
+        title: 'FrontOps',
         position: [120, 100],
+        description:
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+        tags: ['ViteJS', 'Webpack', 'Rollup', 'Esbuild', 'Eslint', 'Git Hooks', 'Stylelint', 'Sonar'],
+    },
+    {
+        align: 'start',
+        title: 'Backend',
+        position: [100, 80],
         description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
         tags: ['NestJS', 'Prisma', 'Typeorm', 'Mongoose', 'MongoDB', 'PostgreSQL', 'Redis'],
     },
     {
-        align: 'start',
-        title: 'Devops Ecosystem',
-        position: [100, 80],
+        align: 'end',
+        title: 'DevOps',
+        position: [80, 60],
         description:
             'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
         tags: ['Docker', 'Docker Compose', 'GitLab CI', 'Jenkins', 'Marathon', 'Mesos', 'Github Actions', 'k8s'],

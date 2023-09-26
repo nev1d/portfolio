@@ -24,7 +24,7 @@ export const NodeJSLogo = (props: JSX.IntrinsicElements['group']) => {
     const { nodes, materials } = useGLTF('/models/nodejs.glb') as GLTFResult;
 
     return (
-        <group {...props} dispose={null} rotation={[0, 1.5707963267948966, 0]} position={[100, -8, 6]}>
+        <group {...props} dispose={null} rotation={[0, 1.5707963267948966, 0]} position={[80, -8, -6]}>
             <group ref={rotationRef}>
                 <group position={[0, -0.001, -0.084]} rotation={[Math.PI / 2, 0, 0]} scale={0.5}>
                     <mesh

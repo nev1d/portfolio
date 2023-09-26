@@ -71,10 +71,12 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({
 
         const words = text.split(' ');
 
+        const startWidth = measureTextWidth(words[0], currentParent, fontSize);
+
         let currentLine = {
             text: words[0],
-            xPosition: 0,
-            width: measureTextWidth(words[0], currentParent, fontSize),
+            xPosition: getLineXPos(align, startWidth, parentWidth),
+            width: startWidth,
         };
 
         const getMaxWidth = () => {

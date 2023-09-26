@@ -47,9 +47,17 @@
 
     &Start {
         justify-content: start;
+
+        > div {
+            justify-content: start;
+        }
     }
 
     &End {
         justify-content: flex-end;
+
+        > div {
+            justify-content: flex-end;
+        }
     }
 }
