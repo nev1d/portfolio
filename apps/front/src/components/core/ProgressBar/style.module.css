@@ -1,0 +1,15 @@
+.progressBar {
+    overflow: hidden;
+    width: 100%;
+    height: 14px;
+    border-radius: 10px;
+    background: var(--background-highlight-color)
+}
+
+.progressBarInner {
+    width: 100%;
+    height: 100%;
+    background: var(--text-highlight-color);
+}
+
+

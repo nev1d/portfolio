@@ -28,6 +28,11 @@
     margin-bottom: 8px;
 }
 
+.progress {
+    width: 100%;
+    margin-bottom: 12px;
+}
+
 .description {
     width: 100%;
     margin-bottom: 12px;
