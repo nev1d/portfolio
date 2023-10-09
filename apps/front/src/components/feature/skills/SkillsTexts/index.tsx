@@ -1,7 +1,7 @@
 import clsx from 'clsx';
-import { AnimatePresence, motion } from 'framer-motion';
 
 import { AnimatedText } from '@/components/core/AnimatedText';
+import { AnimatedElement } from '@/components/core/animation/AnimatedElement';
 import { TagList } from '@/components/core/tags/TagList';
 import { useSkillsStore } from '@/store/skills';
 import { capitalizeFirstLetter } from '@/utils/typography/capitalizeFirstLetter';
@@ -83,43 +83,41 @@ export const SkillsTexts = () => {
 
     return (
         <div className={cn.wrapper}>
-            <AnimatePresence>
-                {skillsTexts.map((item) => {
-                    const isVisible = isCurrentItemVisible(item);
+            {skillsTexts.map((item) => {
+                const isVisible = isCurrentItemVisible(item);
 
-                    if (!isVisible) return;
-
-                    return (
-                        <motion.div
-                            className={clsx(cn.content, cn[item.align])}
-                            {...animationParams[item.align]}
-                            key={item.title}
-                        >
-                            <div className={cn.texts}>
-                                <div className={cn.title}>
-                                    <AnimatedText
-                                        fontSize={26}
-                                        text={item.title}
-                                        align={item.align}
-                                        animation={{ delay: 0.3, duration: 1.3 }}
-                                    />
+                return (
+                    <AnimatedElement visible={isVisible} animation={animationParams[item.align]} key={item.title}>
+                        {(ref) => {
+                            return (
+                                <div className={clsx(cn.content, cn[item.align])} ref={ref}>
+                                    <div className={cn.texts}>
+                                        <div className={cn.title}>
+                                            <AnimatedText
+                                                fontSize={26}
+                                                text={item.title}
+                                                align={item.align}
+                                                animation={{ delay: 0.3, duration: 1.3 }}
+                                            />
+                                        </div>
+                                        <div className={cn.description}>
+                                            <AnimatedText
+                                                fontSize={22}
+                                                text={item.description}
+                                                align={item.align}
+                                                animation={{ delay: 0.3, duration: 1.3 }}
+                                            />
+                                        </div>
+                                        <div className={clsx(cn.tags, cn[`tags${capitalizeFirstLetter(item.align)}`])}>
+                                            <TagList tags={item.tags.map((text) => ({ text }))} />
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className={cn.description}>
-                                    <AnimatedText
-                                        fontSize={22}
-                                        text={item.description}
-                                        align={item.align}
-                                        animation={{ delay: 0.3, duration: 1.3 }}
-                                    />
-                                </div>
-                                <div className={clsx(cn.tags, cn[`tags${capitalizeFirstLetter(item.align)}`])}>
-                                    <TagList tags={item.tags.map((text) => ({ text }))} />
-                                </div>
-                            </div>
-                        </motion.div>
-                    );
-                })}
-            </AnimatePresence>
+                            );
+                        }}
+                    </AnimatedElement>
+                );
+            })}
         </div>
     );
 };

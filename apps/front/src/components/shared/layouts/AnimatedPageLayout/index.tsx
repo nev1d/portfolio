@@ -2,8 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 
-import { AnimatePresence, motion } from 'framer-motion';
-
+import { AnimatedElement } from '@/components/core/animation/AnimatedElement';
 import { PagesEnum } from '@/constants/pages';
 import { PageAnimationConfig, PageConfig } from '@/constants/pages/animation';
 import { useCurrentPathname } from '@/hooks/useCurrentPathname';
@@ -25,25 +24,25 @@ export const AnimatedPageLayout: React.FC = () => {
         });
     }, [pathName]);
 
-    return (
-        <AnimatePresence>
-            {animationOrder.map((currentRoute) => {
-                if (!currentRoute) return;
+    return animationOrder.map((currentRoute) => {
+        if (!currentRoute) return;
 
-                const visible = currentRoute == pathName;
+        const visible = currentRoute == pathName;
 
-                const Component = PageConfig[currentRoute as PagesEnum];
+        const Component = PageConfig[currentRoute as PagesEnum];
 
-                const animation = PageAnimationConfig[currentRoute as PagesEnum];
+        const animation = PageAnimationConfig[currentRoute as PagesEnum];
 
-                if (!visible) return null;
-
-                return (
-                    <motion.div {...animation} key={currentRoute} className={cn.animation}>
-                        <Component />
-                    </motion.div>
-                );
-            })}
-        </AnimatePresence>
-    );
+        return (
+            <AnimatedElement visible={visible} animation={animation} key={currentRoute}>
+                {(ref) => {
+                    return (
+                        <div ref={ref} className={cn.animation}>
+                            <Component />
+                        </div>
+                    );
+                }}
+            </AnimatedElement>
+        );
+    });
 };

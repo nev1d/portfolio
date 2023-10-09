@@ -3805,10 +3805,10 @@ three-stdlib@^2.23.9:
     potpack "^1.0.1"
     zstddec "^0.0.2"
 
-three-stdlib@^2.26.4:
-  version "2.26.4"
-  resolved "https://registry.yarnpkg.com/three-stdlib/-/three-stdlib-2.26.4.tgz#1862172a80f6c90674b5eb111349ef611ea7e1d5"
-  integrity sha512-YJC6cZ6D1yNlNWC4przqk20EuhBoBavzGBm7Ijikh9bHZr2yFreTN9xdUZbBZ/RLskRMQrvJmz/TuYPBMAaDaQ==
+three-stdlib@^2.26.8:
+  version "2.26.8"
+  resolved "https://registry.yarnpkg.com/three-stdlib/-/three-stdlib-2.26.8.tgz#d0a3dcf6fd0529cf2bbda07cba7531f1f12ef5da"
+  integrity sha512-KcGnIe60APle51lzHJdRPuN2O0HvawBKq3Fd9KNk/ImISxVlI7m+LBYoFN5rki9RV2vi5wDDvrMUgVCR/jhVxw==
   dependencies:
     "@types/draco3d" "^1.4.0"
     "@types/offscreencanvas" "^2019.6.4"
@@ -3817,7 +3817,6 @@ three-stdlib@^2.26.4:
     fflate "^0.6.9"
     ktx-parse "^0.4.5"
     mmd-parser "^1.0.4"
-    opentype.js "^1.3.3"
     potpack "^1.0.1"
     zstddec "^0.0.2"
 
