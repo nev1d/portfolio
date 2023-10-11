@@ -69,8 +69,6 @@ module.exports = {
                     ],
                     // Packages. `next` and `react` related packages come first.
                     ['^next', '^react', '^redux'],
-                    // Other packages
-                    ['^@alfalab', '^\\w'],
                     // Root path for project
                     ['^@', '^#'],
                     // Parent imports. Put `..` last.
