@@ -1,14 +1,16 @@
 import React from 'react';
 
-import { motion } from 'framer-motion';
+import { AnimatedText } from '@/components/core/AnimatedText';
 
 import cn from './style.module.css';
+
+import { motion } from 'framer-motion';
 
 type ProgressBarProps = {
     progress: number;
 };
 
-const progressBarAnimatio = {
+const progressBarAnimationParams = {
     initial: {
         opacity: 0,
     },
@@ -20,8 +22,10 @@ const progressBarAnimatio = {
     },
 };
 
+const grades = ['Junior', 'Middle', 'Senior', 'Senior+'];
+
 export const ProgressBar: React.FC<ProgressBarProps> = ({ progress }) => {
-    const animationProps = {
+    const animationParams = {
         initial: {
             x: '-100%',
         },
@@ -34,8 +38,22 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({ progress }) => {
     };
 
     return (
-        <motion.div className={cn.progressBar} {...progressBarAnimatio}>
-            <motion.div className={cn.progressBarInner} {...animationProps} />
-        </motion.div>
+        <div className={cn.wrapper}>
+            <motion.div className={cn.progressBar} {...progressBarAnimationParams}>
+                <motion.div className={cn.progressBarInner} {...animationParams} />
+            </motion.div>
+            <div className={cn.grades}>
+                {grades.map((grade, index) => (
+                    <div key={grade} className={cn.grade}>
+                        <AnimatedText
+                            text={grade}
+                            fontSize={16}
+                            fitToText={true}
+                            animation={{ delay: index * 0.3, duration: 1 }}
+                        />
+                    </div>
+                ))}
+            </div>
+        </div>
     );
 };

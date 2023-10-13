@@ -1,5 +1,3 @@
-import clsx from 'clsx';
-
 import { AnimatedText } from '@/components/core/AnimatedText';
 import { AnimatedElement } from '@/components/core/animation/AnimatedElement';
 import { ProgressBar } from '@/components/core/ProgressBar';
@@ -8,6 +6,8 @@ import { useSkillsStore } from '@/store/skills';
 import { capitalizeFirstLetter } from '@/utils/typography/capitalizeFirstLetter';
 
 import cn from './style.module.css';
+
+import clsx from 'clsx';
 
 type SkillsTextsItem = {
     align: 'start' | 'end';
@@ -33,7 +33,7 @@ const skillsTexts: SkillsTextsItem[] = [
         title: 'Vue Ecosystem',
         position: [140, 120],
         description:
-            'Vue is also a think, that i like. Having not gotten along in the first days, I am happy to write projects on Vue today. I caught the transition from Vue 2 to Vue 3 and took part in rewriting it on one large project. In addition to that i have big experience with Nuxt 2 and 3 versions. I built multiple pet-projects by myself and participated in large projects as i mentioned before',
+            'Vue is also a thing, that i like. Having not gotten along in the first days, I am happy to write projects on Vue today. I caught the transition from Vue 2 to Vue 3 and took part in rewriting it on one large project. In addition to that i have big experience with Nuxt 2 and 3 versions. I built multiple pet-projects by myself and participated in large projects as i mentioned before',
         tags: ['Typescript', 'Vue 2', 'Vue 3', 'Vuex', 'Pinia', 'NuxtJS', 'Vue Query'],
         progress: 90,
     },
@@ -107,6 +107,9 @@ export const SkillsTexts = () => {
                                                 animation={{ delay: 0.3, duration: 1.3 }}
                                             />
                                         </div>
+                                        <div className={clsx(cn.tags, cn[`tags${capitalizeFirstLetter(item.align)}`])}>
+                                            <TagList tags={item.tags.map((text) => ({ text }))} />
+                                        </div>
                                         <div className={cn.description}>
                                             <AnimatedText
                                                 fontSize={22}
@@ -117,9 +120,6 @@ export const SkillsTexts = () => {
                                         </div>
                                         <div className={cn.progress}>
                                             <ProgressBar progress={item.progress} />
-                                        </div>
-                                        <div className={clsx(cn.tags, cn[`tags${capitalizeFirstLetter(item.align)}`])}>
-                                            <TagList tags={item.tags.map((text) => ({ text }))} />
                                         </div>
                                     </div>
                                 </div>

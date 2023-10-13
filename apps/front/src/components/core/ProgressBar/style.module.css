@@ -1,15 +1,39 @@
+.wrapper {
+    position: relative;
+}
+
 .progressBar {
+    position: relative;
     overflow: hidden;
     width: 100%;
     height: 14px;
     border-radius: 10px;
-    background: var(--background-highlight-color)
+    background: var(--background-highlight-color);
+    margin-bottom: 4px;
 }
 
 .progressBarInner {
     width: 100%;
     height: 100%;
-    background: var(--text-highlight-color);
+    background: linear-gradient(to left, var(--background-highlight-color) 0%, var(--text-highlight-color) 50%);
 }
 
+.grades {
+    display: flex;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: space-between;
+}
 
+.grade {
+    display: flex;
+    align-items: center;
+
+    &:nth-last-child(1) {
+        align-items: flex-end;
+    }
+
+    &:nth-child(1) {
+        align-items: flex-start;
+    }
+}
