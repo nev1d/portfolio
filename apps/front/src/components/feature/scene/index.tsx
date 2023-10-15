@@ -2,8 +2,7 @@
 
 import React, { Suspense } from 'react';
 
-import { AnimatePresence, useIsomorphicLayoutEffect } from 'framer-motion';
-
+import { PortfolioModels } from '@/components/feature/portfolio/PortfolioModels';
 import { Background } from '@/components/feature/scene/Backround';
 import { Camera } from '@/components/feature/scene/Camera';
 import { CanvasLoader } from '@/components/feature/scene/CanvasLoader';
@@ -20,6 +19,8 @@ import { Stars } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 
 import cn from './style.module.css';
+
+import { AnimatePresence, useIsomorphicLayoutEffect } from 'framer-motion';
 
 export const Scene = () => {
     const setMenuStatus = useMenuStore((store) => store.setMenuStatus);
@@ -63,6 +64,9 @@ export const Scene = () => {
 
                             {/* Skills Models */}
                             <SkillsModels />
+
+                            {/* Portfolio Models */}
+                            <PortfolioModels />
                         </Physics>
                     </Suspense>
                 </AnimatePresence>

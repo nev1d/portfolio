@@ -1,13 +1,13 @@
 import { create } from 'zustand';
 
-type AppStore = {
+type SkillsStore = {
     currentCameraPosition: number;
 
     /* Actions */
     setCurrentCameraPosition: (position: number) => void;
 };
 
-export const useSkillsStore = create<AppStore>((set) => ({
+export const useSkillsStore = create<SkillsStore>((set) => ({
     currentCameraPosition: 150,
 
     /* Actions */

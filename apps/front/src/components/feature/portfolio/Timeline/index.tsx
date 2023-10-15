@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import { TimelineItem, TimelineItemProps } from '@/components/feature/portfolio/TimelineItem';
 import { useCustomSlider } from '@/hooks/useCustomSlider';
+import { usePortfolioStore } from '@/store/portfolio';
 
 import cn from './style.module.css';
 
@@ -11,65 +12,101 @@ const timelineItems: TimelineItemProps[] = [
             from: '10.10.2019',
             to: '10.09.2020',
         },
-        company: 'Test',
-        position: 'Junior Front-End Developer',
+        company: 'Freelance',
+        position: 'Junior Frontend Developer',
         cards: [
             {
-                title: 'Test',
+                title: 'Experience',
                 description:
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation',
+                    'Tried myself in the development of browser extensions - successfully. Made a lot of different kinds of projects from small to large. Engaged in the development of projects for myself and to order. Mainly dealt with the frontend part, but also helped with setting up servers and deployment to the best of my knowledge at that time.',
             },
             {
-                title: 'Test',
+                title: 'Studying',
                 description:
-                    'Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation',
+                    'I was finishing school and looking for a full-time job. I decided not to get a higher education, but to completely engage in self-study, which I still don’t regret.',
             },
         ],
     },
     {
         date: {
-            from: '10.10.2019',
-            to: '10.09.2020',
+            from: '06.14.2020',
+            to: '10.15.2021',
         },
-        company: 'Test',
+        company: 'Webpractik',
         position: 'Junior Front-End Developer',
         cards: [
             {
-                title: 'Test',
+                title: 'Dive in',
                 description:
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation',
-            },
-            {
-                title: 'Test',
-                description:
-                    'Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation',
+                    'The first true full-time position. Engaged in support and development of various kinds of projects. Basically, I had to solve trivial tasks, but in a very large number, which helped to find my weak points and fix them. Thanks to the work of 10-12 hours a day, I managed to grow quickly and learn a lot at that moment.',
             },
         ],
     },
     {
         date: {
-            from: '10.10.2019',
-            to: '10.09.2020',
+            from: '10.15.2021',
+            to: '04.21.2022',
         },
-        company: 'Test',
-        position: 'Junior Front-End Developer',
+        company: 'Webpractik',
+        position: 'Middle Front-End Developer',
         cards: [
             {
-                title: 'Test',
+                title: 'Team Leading',
                 description:
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation',
+                    'Engaged in the development of only large projects. Was one of the main developers in the company, thanks to which managed to break into the teamlead in the development of one of the biggest local banks website. We successfully close the project in an incredibly tight timeframe, thanks to which I remain in the teamlead role in this company and continue to close various kinds of projects as well.',
             },
             {
-                title: 'Test',
+                title: 'Mentoring',
                 description:
-                    'Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation',
+                    'In addition to my main job, I’m starting to help newly arrived colleagues dive into the frontend. I am involved in compiling and checking homework assignments, as well as conducting assessments.',
+            },
+        ],
+    },
+    {
+        date: {
+            from: '10.15.2021',
+            to: '04.21.2022',
+        },
+        company: 'Alfa-Bank',
+        position: 'Senior Front-End Developer',
+        cards: [
+            {
+                title: 'Team Leading',
+                description:
+                    "Lead developer of one of the company's flagship product. Involved in both maintaining the old project and writing its complete new version, where I tried myself as a project architect. Also was a teamlead in a team of several developers.",
+            },
+            {
+                title: 'Meetups',
+                description:
+                    "In addition, also involved in training new developers and checking their test tasks. I also participated and still continue to organize local meetups, where we gather 200 people at the sites. Also i don't forget about recording video courses for the peoples and help them take a dive into frontend.",
             },
         ],
     },
 ];
 
 export const Timeline: React.FC = () => {
-    const { slider } = useCustomSlider();
+    const setCameraLimits = usePortfolioStore((store) => store.setCameraLimits);
+    const setCurrentCameraPosition = usePortfolioStore((store) => store.setCurrentCameraPosition);
+    const cameraLimits = usePortfolioStore((store) => store.cameraLimits);
+
+    const scrollCallback = useCallback(
+        (scrollLeft: number) => {
+            const position = scrollLeft / 100;
+
+            setCurrentCameraPosition(position);
+        },
+        [cameraLimits],
+    );
+
+    const { slider } = useCustomSlider<HTMLDivElement>({ callback: scrollCallback });
+
+    useEffect(() => {
+        if (slider.current) {
+            const scrollOffset = (slider.current.scrollWidth - slider.current.offsetWidth) / 100;
+
+            setCameraLimits([cameraLimits[0], cameraLimits[0] + scrollOffset]);
+        }
+    }, [slider.current]);
 
     return (
         <div className={cn.timeline} ref={slider}>
@@ -77,9 +114,9 @@ export const Timeline: React.FC = () => {
                 <div className={cn.inner}>
                     <div className={cn.line} />
                     <div className={cn.content}>
-                        {timelineItems.map((item) => {
+                        {timelineItems.map((item, index) => {
                             return (
-                                <div className={cn.item} key={item.company + item.position}>
+                                <div className={cn.item} key={item.company + item.position + index}>
                                     <TimelineItem {...item} />
                                 </div>
                             );

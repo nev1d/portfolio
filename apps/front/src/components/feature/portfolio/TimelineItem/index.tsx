@@ -19,9 +19,9 @@ export const TimelineItem: React.FC<TimelineItemProps> = ({ date, cards, company
     return (
         <div className={cn.item}>
             <div className={cn.cards}>
-                {cards.map((card) => {
+                {cards.map((card, index) => {
                     return (
-                        <div className={cn.card} key={card.title}>
+                        <div className={cn.card} key={card.title + index}>
                             <TimelineItemCard {...card} />
                         </div>
                     );
