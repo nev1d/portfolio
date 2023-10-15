@@ -103,7 +103,7 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({
             return { lines, maxWidth: getMaxWidth() };
         }
 
-        /* Using for cycle for better performance */
+        /* Using 'for' cycle for better performance */
         for (let i = 1; i < words.length; i++) {
             const testLine = `${currentLine.text} ${words[i]}`;
             const testWidth = measureTextWidth(testLine, currentParent, fontSize);

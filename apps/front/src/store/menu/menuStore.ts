@@ -1,9 +1,9 @@
-import { create } from 'zustand';
-
 import { PagesEnum } from '@/constants/pages';
 import { DefaultCameraTransitionDuration, PagesCameraPosition } from '@/constants/pages/camera';
 import { useAppStore } from '@/store/app';
 import { toSeconds } from '@/utils/math/toSeconds';
+
+import { create } from 'zustand';
 
 export enum MenuStatus {
     INITIAL = 'initial',
@@ -30,7 +30,9 @@ type MenuStore = {
 export const useMenuStore = create<MenuStore>((set) => ({
     menuItems: [
         { label: 'who am i', route: PagesEnum.ABOUT },
+        { label: 'portfolio', route: PagesEnum.PORTFOLIO },
         { label: 'skills', route: PagesEnum.SKILLS },
+        { label: 'contact', route: PagesEnum.CONTACT },
     ],
     menuStatus: MenuStatus.INITIAL,
     hasBeenInitialized: false,

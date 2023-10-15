@@ -1,0 +1,11 @@
+.card {
+    width: 400px;
+    padding: 12px;
+    border: 1px solid var(--text-color);
+    border-radius: 8px;
+    background: var(--secondary-accent-color)
+}
+
+.title {
+    margin-bottom: 8px;
+}

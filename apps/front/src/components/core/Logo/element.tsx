@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 
-import { motion } from 'framer-motion';
-
 import { useRunCycleAnimation } from '@/hooks/useRunCycleAnimation';
+
+import { motion } from 'framer-motion';
 
 export type LogoElementProps = {
     tag: string;
@@ -25,7 +25,7 @@ export const LogoElement: React.FC<LogoElementProps & { hovered: boolean }> = ({
     hovered,
     cycle,
 }) => {
-    const timeout = useRef<ReturnType<typeof setTimeout>>(null);
+    const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const animationSteps = {
         from: {
@@ -71,7 +71,7 @@ export const LogoElement: React.FC<LogoElementProps & { hovered: boolean }> = ({
 
         infiniteCycle();
 
-        return () => clearTimeout(timeout.current);
+        return () => clearTimeout(timeout.current as ReturnType<typeof setInterval>);
     }, [cycle]);
 
     if (tag === 'rect') {

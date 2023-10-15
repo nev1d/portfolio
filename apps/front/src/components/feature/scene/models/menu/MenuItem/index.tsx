@@ -1,9 +1,6 @@
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
-import { motion } from 'framer-motion-3d';
-import { Color } from 'three';
-
 import { Letter } from '@/components/feature/scene/models/menu/Letter';
 import { WordPlatform } from '@/components/feature/scene/models/menu/MenuItem/platform';
 import { MARGIN, OFFSET } from '@/constants/menu';
@@ -15,6 +12,9 @@ import { MenuStoreItem, useMenuStore } from '@/store/menu/menuStore';
 import { toDecimals } from '@/utils/math/toDecimals';
 import { Triplet } from '@react-three/cannon';
 import { Center } from '@react-three/drei';
+
+import { motion } from 'framer-motion-3d';
+import { Color } from 'three';
 
 type MenuItemProps = {
     pos: number;
@@ -53,6 +53,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ label, route, pos }) => {
     const onItemClick = () => {
         chooseMenuItem(route, () => {
             router.push(route);
+            pointerProps.onPointerOut();
         });
     };
 

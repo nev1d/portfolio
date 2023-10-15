@@ -17,6 +17,7 @@ export const PagesCameraPosition: Record<PagesEnum, PagesCameraPositionValues> =
         lookAt: {
             y: 0,
         },
+        delay: 0.2,
     },
     [PagesEnum.ABOUT]: {
         coords: {
@@ -36,5 +37,15 @@ export const PagesCameraPosition: Record<PagesEnum, PagesCameraPositionValues> =
             y: -120,
         },
         delay: 0.5,
+    },
+    [PagesEnum.PORTFOLIO]: {
+        coords: {
+            z: -40,
+            y: 15,
+        },
+        lookAt: {
+            z: -120,
+        },
+        delay: 1,
     },
 };

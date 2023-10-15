@@ -10,4 +10,7 @@ export const PageMetadata: Record<PagesEnum, { title: string }> = {
     [PagesEnum.SKILLS]: {
         title: 'Skills',
     },
+    [PagesEnum.PORTFOLIO]: {
+        title: 'Portfolio',
+    },
 };

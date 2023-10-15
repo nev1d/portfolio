@@ -1,0 +1,16 @@
+.marker {
+    display: flex;
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--text-color);
+}
+
+.markerInner {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--secondary-accent-color);
+}

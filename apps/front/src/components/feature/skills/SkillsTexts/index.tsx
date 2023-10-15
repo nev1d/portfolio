@@ -62,7 +62,7 @@ const skillsTexts: SkillsTextsItem[] = [
         description:
             'DevOps is also a part that i like. I have a big experience with building a high-load applications using k8s/Marathon especially for frontend services. It is not a hard part to make application work in Docker container or deploying thru the GitLab CI or Github Actions. I have room to grow and don’t forget about this important part.',
         tags: ['Docker', 'Docker Compose', 'GitLab CI', 'Jenkins', 'Marathon', 'Mesos', 'Github Actions', 'k8s'],
-        progress: 50,
+        progress: 35,
     },
 ];
 

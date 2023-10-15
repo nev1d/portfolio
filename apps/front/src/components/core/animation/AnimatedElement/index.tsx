@@ -1,9 +1,10 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 
+import { useInterval, UseIntervalProps } from '@/hooks/useInterval';
+import { nextTick } from '@/utils/react/nextTick';
+
 import { AnimationScope, useAnimate } from 'framer-motion';
 import { UnknownRecord } from 'type-fest';
-
-import { nextTick } from '@/utils/react/nextTick';
 
 type AnimatedElementProps = {
     visible: boolean;
@@ -11,14 +12,17 @@ type AnimatedElementProps = {
     children: (scope: AnimationScope) => ReactNode;
 };
 
-/* AnimatePresence from framer-motion has a bug that did not unmount a component if you change animation to fast.
+/* AnimatePresence from framer-motion has a bug that did not unmount a component if you change animation too fast.
  * So this is workaround for cases when you will change animation manually back and forward */
 export const AnimatedElement: React.FC<AnimatedElementProps> = ({ visible, animation, children }) => {
     const [innerVisible, setInnerVisible] = useState(true);
 
     const [scope, animate] = useAnimate();
-    const [isAnimationUnfinished, setIsAnimationUnfinished] = useState(false);
+    const [waitingForRef, setWaitingForRef] = useState(false);
+    const [animationProgressStatus, setAnimationProgressStatus] = useState<'init' | 'started' | 'finished'>('init');
+
     const runAnimation = async (visible: boolean) => {
+        setAnimationProgressStatus('started');
         const animationType = visible ? 'in' : 'out';
 
         const config = {
@@ -27,23 +31,48 @@ export const AnimatedElement: React.FC<AnimatedElementProps> = ({ visible, anima
         };
 
         if (!scope.current) {
-            setIsAnimationUnfinished(true);
+            setWaitingForRef(true);
 
             return;
         }
 
         await animate(scope.current, config[animationType]);
         setInnerVisible(visible);
+        setAnimationProgressStatus('finished');
+        setWaitingForRef(false);
     };
+
+    /* Clear animation in desync cases with interval check */
+    const intervalCallback: UseIntervalProps['callback'] = async () => {
+        if (animationProgressStatus === 'finished') {
+            if (visible !== innerVisible) {
+                await runAnimation(visible);
+            }
+            setAnimationProgressStatus('init');
+        }
+    };
+
+    const { startInterval, pauseInterval } = useInterval({ callback: intervalCallback, intervalTime: 200 });
+
+    useEffect(() => {
+        if (animationProgressStatus === 'init') {
+            pauseInterval();
+        }
+    }, [animationProgressStatus]);
+
+    /* */
 
     useEffect(() => {
         if (visible) setInnerVisible(true);
-        nextTick(() => runAnimation(visible));
+        nextTick(async () => {
+            await runAnimation(visible);
+            startInterval();
+        });
     }, [visible]);
 
     useEffect(() => {
-        runAnimation(visible);
-    }, [isAnimationUnfinished]);
+        if (waitingForRef) runAnimation(visible);
+    }, [scope.current]);
 
     if (!innerVisible) return null;
 
