@@ -10,16 +10,12 @@ const useSliderEvents = (
         const domNode = slider.current;
 
         for (const [event, handler] of Object.entries(eventHandlers)) {
-            if (domNode) {
-                domNode.addEventListener(event, handler as EventListener, { passive: true });
-            }
+            domNode?.addEventListener(event, handler as EventListener, { passive: true });
         }
 
         return () => {
             for (const [event, handler] of Object.entries(eventHandlers)) {
-                if (domNode) {
-                    domNode.removeEventListener(event, handler as EventListener);
-                }
+                domNode?.removeEventListener(event, handler as EventListener);
             }
         };
     }, [eventHandlers]);
@@ -31,7 +27,7 @@ const applyInertia = (delta: number, callback: (delta: number) => void) => {
     const inertiaFrame = () => {
         if (Math.abs(delta) > 1) {
             callback(delta);
-            delta *= 0.9;
+            delta *= 0.6;
             requestAnimationFrame(inertiaFrame);
         }
     };

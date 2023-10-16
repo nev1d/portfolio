@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 
 import { TimelineItem, TimelineItemProps } from '@/components/feature/portfolio/TimelineItem';
 import { useCustomSlider } from '@/hooks/useCustomSlider';
@@ -64,8 +64,8 @@ const timelineItems: TimelineItemProps[] = [
     },
     {
         date: {
-            from: '10.15.2021',
-            to: '04.21.2022',
+            from: '10.15.2022',
+            to: '03.24.2023',
         },
         company: 'Alfa-Bank',
         position: 'Senior Front-End Developer',
@@ -89,9 +89,15 @@ export const Timeline: React.FC = () => {
     const setCurrentCameraPosition = usePortfolioStore((store) => store.setCurrentCameraPosition);
     const cameraLimits = usePortfolioStore((store) => store.cameraLimits);
 
+    const scrollPosition = useRef(0);
+
     const scrollCallback = useCallback(
         (scrollLeft: number) => {
             const position = scrollLeft / 100;
+
+            if (scrollPosition.current === position) return;
+
+            scrollPosition.current = position;
 
             setCurrentCameraPosition(position);
         },

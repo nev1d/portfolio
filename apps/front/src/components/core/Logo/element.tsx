@@ -25,7 +25,7 @@ export const LogoElement: React.FC<LogoElementProps & { hovered: boolean }> = ({
     hovered,
     cycle,
 }) => {
-    const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const timeout = useRef<ReturnType<typeof setTimeout> | undefined>();
 
     const animationSteps = {
         from: {

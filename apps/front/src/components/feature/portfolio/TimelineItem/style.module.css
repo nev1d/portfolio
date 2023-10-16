@@ -12,11 +12,11 @@
     align-items: flex-end;
     justify-content: flex-start;
     padding-bottom: 90px;
-    margin: 0 -32px;
+    margin: 0 var(--timeline-items-gap-neg);
 }
 
 .card {
-    padding: 0 32px;
+    padding: 0 var(--timeline-items-gap);
 }
 
 .marker {

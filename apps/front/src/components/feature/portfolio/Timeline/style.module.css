@@ -15,6 +15,10 @@
         display: none
     }
 
+    --timeline-items-gap: 32px;
+    --timeline-items-gap-neg: -32px;
+    --timeline-offset: 200px;
+    --timeline-offset-neg: -200px
 }
 
 .wrapper {
@@ -64,17 +68,17 @@
 
 .content {
     display: flex;
-    width: calc(100% + 50vw + 200px);
+    width: calc(100% + 50vw + var(--timeline-offset) - var(--timeline-items-gap));
     height: 100%;
     align-items: flex-start;
-    margin: 0 -200px;
+    margin: 0 var(--timeline-offset-neg);
 }
 
 .item {
     height: 100%;
-    padding: 0 200px;
+    padding: 0 var(--timeline-offset);
     &:nth-child(1) {
-        margin-left: -200px;
+        margin-left: var(--timeline-offset-neg);
     }
 }
 
