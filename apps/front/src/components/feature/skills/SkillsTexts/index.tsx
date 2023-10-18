@@ -2,6 +2,7 @@ import { AnimatedText } from '@/components/core/AnimatedText';
 import { AnimatedElement } from '@/components/core/animation/AnimatedElement';
 import { ProgressBar } from '@/components/core/ProgressBar';
 import { TagList } from '@/components/core/tags/TagList';
+import { FontSize } from '@/constants/fonts';
 import { useSkillsStore } from '@/store/skills';
 import { capitalizeFirstLetter } from '@/utils/typography/capitalizeFirstLetter';
 
@@ -101,7 +102,7 @@ export const SkillsTexts = () => {
                                     <div className={cn.texts}>
                                         <div className={cn.title}>
                                             <AnimatedText
-                                                fontSize={26}
+                                                fontSize={FontSize.MEDIUM}
                                                 text={item.title}
                                                 align={item.align}
                                                 animation={{ delay: 0.3, duration: 1.3 }}
@@ -112,7 +113,7 @@ export const SkillsTexts = () => {
                                         </div>
                                         <div className={cn.description}>
                                             <AnimatedText
-                                                fontSize={22}
+                                                fontSize={FontSize.SMALL}
                                                 text={item.description}
                                                 align={item.align}
                                                 animation={{ delay: 0.3, duration: 1.3 }}

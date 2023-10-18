@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { AnimatedText } from '@/components/core/AnimatedText';
+import { FontSize } from '@/constants/fonts';
 
 import cn from './style.module.css';
 
@@ -47,7 +48,7 @@ export const ProgressBar: React.FC<ProgressBarProps> = ({ progress }) => {
                     <div key={grade} className={cn.grade}>
                         <AnimatedText
                             text={grade}
-                            fontSize={16}
+                            fontSize={FontSize.SMALL}
                             fitToText={true}
                             animation={{ delay: index * 0.3, duration: 1 }}
                         />

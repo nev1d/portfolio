@@ -1,6 +1,7 @@
 .wrapper {
     position: fixed;
     width: 100vw;
+    min-width: var(--current-low-media);
     height: 100vh;
 }
 

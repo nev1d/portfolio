@@ -1,11 +1,12 @@
 import React from 'react';
 
-import * as THREE from 'three';
-import { GLTF } from 'three-stdlib';
-
 import { useObjectRotation } from '@/hooks/useObjectRotation';
 import { useWindowSize } from '@/hooks/useWindowSize';
+import { clamp } from '@/utils/math/clamp';
 import { useGLTF } from '@react-three/drei';
+
+import * as THREE from 'three';
+import { GLTF } from 'three-stdlib';
 
 type GLTFResult = GLTF & {
     nodes: {
@@ -44,6 +45,7 @@ type GLTFResult = GLTF & {
 
 const coefficient = 120;
 const maxScale = 11;
+const minScale = 8;
 
 export const Face = (props: JSX.IntrinsicElements['group']) => {
     const [width, height] = useWindowSize();
@@ -56,7 +58,7 @@ export const Face = (props: JSX.IntrinsicElements['group']) => {
     });
 
     const scale = height / coefficient;
-    const correctScale = scale > maxScale ? maxScale : scale;
+    const correctScale = clamp(scale, maxScale, minScale);
     const topEqPart = width * -coefficient;
     const bottomEqPart = (height * correctScale) / 0.9;
 

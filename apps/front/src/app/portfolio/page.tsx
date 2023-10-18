@@ -3,10 +3,10 @@
 import React from 'react';
 
 import { ScrollIcon } from '@/components/core/icons/ScrollIcon';
-import { Timeline } from '@/components/feature/portfolio/Timeline';
+import { Timeline } from '@/components/feature/portfolio/timeline/Timeline';
 import { usePortfolioStore } from '@/store/portfolio';
 
-import cn from '@/app/skills/style.module.css';
+import cn from './style.module.css';
 
 const PortfolioPage = () => {
     const currentCameraPosition = usePortfolioStore((store) => store.currentCameraPosition);

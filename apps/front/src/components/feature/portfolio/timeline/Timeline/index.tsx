@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 
-import { TimelineItem, TimelineItemProps } from '@/components/feature/portfolio/TimelineItem';
+import { TimelineItem, TimelineItemProps } from '@/components/feature/portfolio/timeline/TimelineItem';
 import { useCustomSlider } from '@/hooks/useCustomSlider';
 import { usePortfolioStore } from '@/store/portfolio';
 

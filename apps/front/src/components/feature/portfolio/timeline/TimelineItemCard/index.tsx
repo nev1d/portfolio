@@ -1,10 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { AnimatedText } from '@/components/core/AnimatedText';
+import { useTimelineAnimation } from '@/components/feature/portfolio/timeline/hooks/useTimelineAnimation';
+import { FontSize } from '@/constants/fonts';
 
 import cn from './style.module.css';
 
-import { motion, useAnimate, useInView } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 export type TimelineItemCardProps = {
     title: string;
@@ -23,22 +25,15 @@ const animations = {
 };
 
 export const TimelineItemCard: React.FC<TimelineItemCardProps> = ({ title, description }) => {
-    const [ref, animate] = useAnimate();
-    const inView = useInView(ref, { margin: '0px -400px 0px 0px', once: true });
-
-    useEffect(() => {
-        if (inView) {
-            animate(ref.current, animations.animate);
-        }
-    }, [inView]);
+    const { ref } = useTimelineAnimation(animations);
 
     return (
         <motion.div className={cn.card} ref={ref} initial={animations.initial}>
             <div className={cn.title}>
-                <AnimatedText text={title} fontSize={24} />
+                <AnimatedText text={title} fontSize={FontSize.LARGE} />
             </div>
             <div className={cn.description}>
-                <AnimatedText text={description} fontSize={16} />
+                <AnimatedText text={description} fontSize={FontSize.SMALL} />
             </div>
         </motion.div>
     );

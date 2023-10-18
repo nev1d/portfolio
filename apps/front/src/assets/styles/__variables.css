@@ -20,6 +20,11 @@
     /* Additional Colors */
     --light-blue: #66CCFF; /* Light Blue */
     --sky-blue: #ADD8E6; /* Sky Blue */
+
+
+    /* Other */
+
+    --current-low-media: 1200px
 }
 /* Generated UI Kit */
 

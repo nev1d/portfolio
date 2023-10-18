@@ -1,0 +1,27 @@
+.info {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    white-space: nowrap;
+
+    svg {
+        overflow: visible;
+    }
+}
+
+.infoDate {
+    margin-bottom: 12px;
+}
+
+.infoPosition {
+    margin-bottom: 4px;
+}
+
+.infoCompany {
+    /* noop */
+}
