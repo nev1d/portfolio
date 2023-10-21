@@ -1,5 +1,5 @@
 .card {
-    width: calc(var(--timeline-offset) * 2);
+    width: var(--timeline-item-width);
     padding: 16px;
     border: 1px solid var(--text-color);
     border-radius: 8px;

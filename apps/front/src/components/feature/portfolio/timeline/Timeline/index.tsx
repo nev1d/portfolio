@@ -82,6 +82,21 @@ const timelineItems: TimelineItemProps[] = [
             },
         ],
     },
+    {
+        date: {
+            from: '03.24.2023',
+            to: Number.POSITIVE_INFINITY,
+        },
+        company: 'NDA',
+        position: 'Senior Front-End Developer',
+        cards: [
+            {
+                title: 'Core Team',
+                description:
+                    'Member of the core Frontend team. Improving a technical side of high-load product. Fixing and refactoring existing codebase. Participating in choice of architectural solutions of existing product.',
+            },
+        ],
+    },
 ];
 
 export const Timeline: React.FC = () => {

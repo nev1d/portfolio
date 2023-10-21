@@ -27,7 +27,7 @@ const applyInertia = (delta: number, callback: (delta: number) => void) => {
     const inertiaFrame = () => {
         if (Math.abs(delta) > 1) {
             callback(delta);
-            delta *= 0.6;
+            delta *= 0.4;
             requestAnimationFrame(inertiaFrame);
         }
     };
@@ -76,7 +76,10 @@ export const useCustomSlider = <Ref extends HTMLElement>({ callback }: UseCustom
     };
 
     const onWheel = (e: WheelEvent) => {
-        inertiaDelta.current = e.deltaY;
+        const isHorizontalScroll = Math.abs(e.deltaX) > Math.abs(e.deltaY);
+
+        inertiaDelta.current = isHorizontalScroll ? e.deltaX : e.deltaY;
+
         applyInertia(inertiaDelta.current, (delta: number) => {
             if (slider.current) {
                 slider.current.scrollLeft += delta * 0.1;

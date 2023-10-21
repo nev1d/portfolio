@@ -1,4 +1,6 @@
 .scroll {
+    width: 50px;
+
     path {
         fill: var(--text-color)
     }

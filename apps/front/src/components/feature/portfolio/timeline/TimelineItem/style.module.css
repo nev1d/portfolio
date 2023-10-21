@@ -21,7 +21,7 @@
 
 .marker {
     position: sticky;
-    left: 50vw;
+    left: calc(50vw - var(--timeline-marker-width)/2);
     display: flex;
     flex: 0 0 5%;
     align-items: center;

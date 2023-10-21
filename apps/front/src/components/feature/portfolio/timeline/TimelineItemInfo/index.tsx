@@ -19,7 +19,12 @@ const animations = {
 };
 
 export const TimelineItemInfo: React.FC<Omit<TimelineItemProps, 'cards'>> = ({ date, company, position }) => {
-    const dateInterval = `${new Date(date.from).getFullYear()} - ${new Date(date.to).getFullYear()}`;
+    const dateInterval = (() => {
+        if (typeof date.to === 'string')
+            return `${new Date(date.from).getFullYear()} - ${new Date(date.to).getFullYear()}`;
+
+        return `${new Date(date.from).getFullYear()} - Present`;
+    })();
 
     const { ref } = useTimelineAnimation(animations);
 

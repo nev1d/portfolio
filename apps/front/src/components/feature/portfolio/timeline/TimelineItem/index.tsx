@@ -7,7 +7,7 @@ import { TimelineItemMarker } from '@/components/feature/portfolio/timeline/Time
 import cn from './style.module.css';
 
 export type TimelineItemProps = {
-    date: Record<'from' | 'to', string>;
+    date: Record<'from' | 'to', string | number>;
     company: string;
     position: string;
     cards: TimelineItemCardProps[];
