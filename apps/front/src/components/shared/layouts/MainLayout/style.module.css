@@ -34,7 +34,7 @@
     position: relative;
     flex: 1 1 auto;
     border: 1px solid var(--text-color);
-    animation: movingGradient 5s linear infinite;
+    animation: movingGradient 10s linear infinite;
     border-image: linear-gradient(var(--text-color), var(--secondary-accent-color));
 }
 
