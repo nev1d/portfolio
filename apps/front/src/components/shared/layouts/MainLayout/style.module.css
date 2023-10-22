@@ -12,16 +12,30 @@
     --layout-space: 60px
 }
 
-.border {
-    display: flex;
-    flex: 1 1 auto;
-    border: 2px solid var(--text-color);
-    margin: 24px;
+
+@keyframes movingGradient {
+    0% {
+        border-image-slice: 1;
+        border-image-source: linear-gradient(90deg, var(--text-color), var(--secondary-accent-color));
+
+    }
+    50% {
+        border-image-slice: 1;
+        border-image-source: linear-gradient(90deg,var(--secondary-accent-color), var(--text-color));
+
+    }
+    100% {
+        border-image-slice: 1;
+        border-image-source: linear-gradient(90deg, var(--text-color), var(--secondary-accent-color));
+    }
 }
 
 .content {
     position: relative;
     flex: 1 1 auto;
+    border: 1px solid var(--text-color);
+    animation: movingGradient 5s linear infinite;
+    border-image: linear-gradient(var(--text-color), var(--secondary-accent-color));
 }
 
 

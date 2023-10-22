@@ -32,7 +32,6 @@ export const useMenuStore = create<MenuStore>((set) => ({
         { label: 'who am i', route: PagesEnum.ABOUT },
         { label: 'portfolio', route: PagesEnum.PORTFOLIO },
         { label: 'skills', route: PagesEnum.SKILLS },
-        { label: 'contact', route: PagesEnum.CONTACT },
     ],
     menuStatus: MenuStatus.INITIAL,
     hasBeenInitialized: false,
