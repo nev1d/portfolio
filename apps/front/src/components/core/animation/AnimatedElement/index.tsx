@@ -36,7 +36,7 @@ export const AnimatedElement: React.FC<AnimatedElementProps> = ({ visible, anima
             return;
         }
 
-        await animate(scope.current, config[animationType]);
+        await animate(scope.current, config[animationType], { ease: 'easeInOut' });
         setInnerVisible(visible);
         setAnimationProgressStatus('finished');
         setWaitingForRef(false);

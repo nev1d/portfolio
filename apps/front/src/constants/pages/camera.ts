@@ -7,7 +7,7 @@ export type PagesCameraPositionValues = Partial<{
     duration: number;
 }>;
 
-export const DefaultCameraTransitionDuration = 400;
+export const DefaultCameraTransitionDuration = 800;
 export const PagesCameraPosition: Record<PagesEnum, PagesCameraPositionValues> = {
     [PagesEnum.MAIN]: {
         coords: {

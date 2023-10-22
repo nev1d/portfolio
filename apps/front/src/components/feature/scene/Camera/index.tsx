@@ -1,8 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
 
-import { animate, useMotionValue } from 'framer-motion';
-import { RequiredDeep } from 'type-fest';
-
 import { PagesEnum } from '@/constants/pages';
 import {
     DefaultCameraTransitionDuration,
@@ -14,6 +11,9 @@ import { useHasBeenMounted } from '@/hooks/useHasBeenMounted';
 import { useAppStore } from '@/store/app';
 import { toSeconds } from '@/utils/math/toSeconds';
 import { useFrame } from '@react-three/fiber';
+
+import { animate, MotionValue, useMotionValue } from 'framer-motion';
+import { RequiredDeep } from 'type-fest';
 
 const getCurrentPageValues = (page: PagesEnum): RequiredDeep<PagesCameraPositionValues> => {
     const defaultValues: RequiredDeep<PagesCameraPositionValues> = {
@@ -41,6 +41,23 @@ const getCurrentPageValues = (page: PagesEnum): RequiredDeep<PagesCameraPosition
     };
 };
 
+const useAnimateCamera = (
+    {
+        property,
+        target,
+        config,
+    }: { property: MotionValue<number>; target: number; config: RequiredDeep<PagesCameraPositionValues> },
+    deps: React.DependencyList,
+) => {
+    useEffect(() => {
+        animate(property, target, {
+            duration: config.duration,
+            delay: config.delay,
+            ease: 'easeInOut',
+        });
+    }, deps);
+};
+
 export const Camera: React.FC = () => {
     const setCurrentTransitionItem = useAppStore((store) => store.setCurrentTransitionItem);
     const currentTransitionItem = useAppStore((store) => store.currentTransitionItem);
@@ -66,37 +83,25 @@ export const Camera: React.FC = () => {
         setCurrentTransitionItem(pathname);
     }, [pathname]);
 
-    useEffect(() => {
-        animate(cameraZ, currentPageConfig.coords.z, {
-            duration: currentPageConfig.duration,
-            delay: currentPageConfig.delay,
-        });
+    useAnimateCamera({ property: cameraZ, target: currentPageConfig.coords.z, config: currentPageConfig }, [
+        currentTransitionItem,
+    ]);
+    useAnimateCamera({ property: cameraY, target: currentPageConfig.coords.y, config: currentPageConfig }, [
+        currentTransitionItem,
+    ]);
+    useAnimateCamera({ property: cameraX, target: currentPageConfig.coords.x, config: currentPageConfig }, [
+        currentTransitionItem,
+    ]);
 
-        animate(cameraY, currentPageConfig.coords.y, {
-            duration: currentPageConfig.duration,
-            delay: currentPageConfig.delay,
-        });
-
-        animate(cameraX, currentPageConfig.coords.x, {
-            duration: currentPageConfig.duration,
-            delay: currentPageConfig.delay,
-        });
-
-        animate(cameraLookAtY, currentPageConfig.lookAt.y, {
-            duration: currentPageConfig.duration,
-            delay: currentPageConfig.delay,
-        });
-
-        animate(cameraLookAtX, currentPageConfig.lookAt.x, {
-            duration: currentPageConfig.duration,
-            delay: currentPageConfig.delay,
-        });
-
-        animate(cameraLookAtZ, currentPageConfig.lookAt.z, {
-            duration: currentPageConfig.duration,
-            delay: currentPageConfig.delay,
-        });
-    }, [currentTransitionItem]);
+    useAnimateCamera({ property: cameraLookAtY, target: currentPageConfig.lookAt.y, config: currentPageConfig }, [
+        currentTransitionItem,
+    ]);
+    useAnimateCamera({ property: cameraLookAtX, target: currentPageConfig.lookAt.x, config: currentPageConfig }, [
+        currentTransitionItem,
+    ]);
+    useAnimateCamera({ property: cameraLookAtZ, target: currentPageConfig.lookAt.z, config: currentPageConfig }, [
+        currentTransitionItem,
+    ]);
 
     useFrame((state) => {
         state.camera.position.z = cameraZ.get();

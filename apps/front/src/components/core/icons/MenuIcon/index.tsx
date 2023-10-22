@@ -11,6 +11,9 @@ const animations = {
     animate: {
         opacity: 1,
     },
+    exit: {
+        opacity: 0,
+    },
 };
 
 export const MenuIcon: React.FC = () => {

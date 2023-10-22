@@ -2,12 +2,12 @@
 
 import React, { Suspense } from 'react';
 
+import { AboutModels } from '@/components/feature/about/AboutModels';
 import { PortfolioModels } from '@/components/feature/portfolio/PortfolioModels';
 import { Background } from '@/components/feature/scene/Backround';
 import { Camera } from '@/components/feature/scene/Camera';
 import { CanvasLoader } from '@/components/feature/scene/CanvasLoader';
 import { Lights } from '@/components/feature/scene/Lights';
-import { Face } from '@/components/feature/scene/models/Face';
 import { MenuList } from '@/components/feature/scene/models/menu/MenuList';
 import { SkillsModels } from '@/components/feature/skills/SkillsModels';
 import { PagesEnum } from '@/constants/pages';
@@ -60,7 +60,7 @@ export const Scene = () => {
                             <MenuList />
 
                             {/* About Models */}
-                            <Face />
+                            <AboutModels />
 
                             {/* Skills Models */}
                             <SkillsModels />

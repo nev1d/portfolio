@@ -6,13 +6,3 @@
     align-items: center;
     justify-content: flex-end;
 }
-
-.scroll {
-    display: flex;
-    align-items: center;
-
-
-    svg {
-        width: 70px;
-    }
-}

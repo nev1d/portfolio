@@ -2,8 +2,7 @@
 
 import React, { useEffect } from 'react';
 
-import { animate, useMotionValue } from 'framer-motion';
-
+import { MovingLight } from '@/components/feature/scene/Lights/MovingLight';
 import { DevOpsLogo } from '@/components/feature/scene/models/DevOpsLogo';
 import { FrontOpsLogo } from '@/components/feature/scene/models/FrontOpsLogo';
 import { NodeJSLogo } from '@/components/feature/scene/models/NodeJSLogo';
@@ -15,6 +14,8 @@ import { useCurrentPathname } from '@/hooks/useCurrentPathname';
 import { useSkillsStore } from '@/store/skills';
 import { useFrame } from '@react-three/fiber';
 
+import { animate, useMotionValue } from 'framer-motion';
+
 export const SkillsModels = () => {
     const setCurrentCameraPosition = useSkillsStore((store) => store.setCurrentCameraPosition);
     const currentCameraPosition = useSkillsStore((store) => store.currentCameraPosition);
@@ -23,6 +24,8 @@ export const SkillsModels = () => {
 
     const pathname = useCurrentPathname();
 
+    const isSkillsPage = pathname === PagesEnum.SKILLS;
+
     useEffect(() => {
         animate(cameraX, currentCameraPosition, {
             duration: 0.5,
@@ -30,7 +33,7 @@ export const SkillsModels = () => {
     }, [currentCameraPosition]);
 
     useEffect(() => {
-        if (pathname !== PagesEnum.SKILLS) return;
+        if (!isSkillsPage) return;
         const scrollListener = (event: WheelEvent) => {
             const scroll = event.deltaY / 10;
 
@@ -61,11 +64,11 @@ export const SkillsModels = () => {
     }, [currentCameraPosition, pathname]);
 
     useFrame((state) => {
-        if (pathname === PagesEnum.SKILLS) state.camera.position.x = cameraX.get();
+        if (isSkillsPage) state.camera.position.x = cameraX.get();
     });
 
     useEffect(() => {
-        if (pathname !== PagesEnum.SKILLS) {
+        if (!isSkillsPage) {
             setCurrentCameraPosition(SKILLS_CAMERA_LIMITS[0]);
             cameraX.set(SKILLS_CAMERA_LIMITS[0]);
         }
@@ -73,6 +76,7 @@ export const SkillsModels = () => {
 
     return (
         <>
+            {isSkillsPage && <MovingLight position={[cameraX.get(), 100, 0]} />}
             <ReactLogo />
             <VueLogo />
             <FrontOpsLogo />
