@@ -88,6 +88,12 @@ export const useCustomSlider = <Ref extends HTMLElement>({ callback }: UseCustom
         });
     };
 
+    const manualScroll = (scrollLeft: number) => {
+        if (slider.current) {
+            slider.current.scrollLeft = scrollLeft;
+        }
+    };
+
     useSliderEvents(slider, {
         mousedown: onMouseDown,
         mouseup: onMouseUp,
@@ -95,5 +101,5 @@ export const useCustomSlider = <Ref extends HTMLElement>({ callback }: UseCustom
         wheel: onWheel,
     });
 
-    return { slider };
+    return { slider, manualScroll };
 };

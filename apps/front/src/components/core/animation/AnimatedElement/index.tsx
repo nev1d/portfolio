@@ -11,11 +11,17 @@ type AnimatedElementProps = {
     visible: boolean;
     animation: UnknownRecord;
     children: (scope: AnimationScope) => ReactNode;
+    enablePrerenderIgnore?: boolean;
 };
 
 /* AnimatePresence from framer-motion has a bug that did not unmount a component if you change animation too fast.
  * So this is workaround for cases when you will change animation manually back and forward */
-export const AnimatedElement: React.FC<AnimatedElementProps> = ({ visible, animation, children }) => {
+export const AnimatedElement: React.FC<AnimatedElementProps> = ({
+    visible,
+    animation,
+    children,
+    enablePrerenderIgnore,
+}) => {
     const [innerVisible, setInnerVisible] = useState(true);
 
     const [scope, animate] = useAnimate();
@@ -39,7 +45,7 @@ export const AnimatedElement: React.FC<AnimatedElementProps> = ({ visible, anima
             return;
         }
 
-        const shouldRunAnimation = !(!hasBeenMounted && animationType === 'out');
+        const shouldRunAnimation = !(!hasBeenMounted && animationType === 'out' && enablePrerenderIgnore);
 
         if (shouldRunAnimation) await animate(scope.current, config[animationType], { ease: 'easeInOut' });
         setInnerVisible(visible);

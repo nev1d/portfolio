@@ -95,7 +95,12 @@ export const SkillsTexts = () => {
                 const isVisible = isCurrentItemVisible(item);
 
                 return (
-                    <AnimatedElement visible={isVisible} animation={animationParams[item.align]} key={item.title}>
+                    <AnimatedElement
+                        visible={isVisible}
+                        animation={animationParams[item.align]}
+                        key={item.title}
+                        enablePrerenderIgnore={true}
+                    >
                         {(ref) => {
                             return (
                                 <div className={clsx(cn.content, cn[item.align])} ref={ref}>

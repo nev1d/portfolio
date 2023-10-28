@@ -123,10 +123,11 @@ export const Timeline: React.FC = () => {
     const setCurrentCameraPosition = usePortfolioStore((store) => store.setCurrentCameraPosition);
     const cameraLimits = usePortfolioStore((store) => store.cameraLimits);
 
+    const cameraPositionsConfig = useCameraPositionStore((store) => store.cameraPositionsConfig);
     const setCameraPositionsConfig = useCameraPositionStore((store) => store.setCameraPositionsConfig);
     const setCameraPositionsConfigLookAt = useCameraPositionStore((store) => store.setCameraPositionsConfigLookAt);
 
-    const scrollPosition = useRef(0);
+    const scrollPosition = useRef(cameraPositionsConfig[PagesEnum.PORTFOLIO].coords?.x || 0);
 
     const scrollCallback = useCallback(
         (scrollLeft: number) => {
@@ -146,7 +147,11 @@ export const Timeline: React.FC = () => {
         [cameraLimits],
     );
 
-    const { slider } = useCustomSlider<HTMLDivElement>({ callback: scrollCallback });
+    const { slider, manualScroll } = useCustomSlider<HTMLDivElement>({ callback: scrollCallback });
+
+    useEffect(() => {
+        manualScroll(scrollPosition.current * 100);
+    }, []);
 
     useEffect(() => {
         if (slider.current) {
