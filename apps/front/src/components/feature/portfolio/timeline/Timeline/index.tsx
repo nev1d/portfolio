@@ -1,10 +1,14 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 
 import { TimelineItem, TimelineItemProps } from '@/components/feature/portfolio/timeline/TimelineItem';
+import { PagesEnum } from '@/constants/pages';
 import { useCustomSlider } from '@/hooks/useCustomSlider';
+import { useCameraPositionStore } from '@/store/camera';
 import { usePortfolioStore } from '@/store/portfolio';
 
 import cn from './style.module.css';
+
+import { motion } from 'framer-motion';
 
 const timelineItems: TimelineItemProps[] = [
     {
@@ -38,7 +42,7 @@ const timelineItems: TimelineItemProps[] = [
             {
                 title: 'Dive in',
                 description:
-                    'The first true full-time position. Engaged in support and development of various kinds of projects. Basically, I had to solve trivial tasks, but in a very large number, which helped to find my weak points and fix them. Thanks to the work of 10-12 hours a day, I managed to grow quickly and learn a lot at that moment.',
+                    'The first full-time position. Engaged in support and development of various kinds of projects. Basically, I had to solve trivial tasks, but in a very large number, which helped to find my weak points and fix them. Thanks to the work of 10-12 hours a day, I managed to grow quickly and learn a lot at that moment.',
             },
         ],
     },
@@ -99,10 +103,28 @@ const timelineItems: TimelineItemProps[] = [
     },
 ];
 
+const lineAnimation = {
+    initial: {
+        opacity: 0,
+        x: 300,
+    },
+    animate: {
+        opacity: 1,
+        x: 0,
+    },
+    exit: {
+        opacity: 0,
+        x: 300,
+    },
+};
+
 export const Timeline: React.FC = () => {
     const setCameraLimits = usePortfolioStore((store) => store.setCameraLimits);
     const setCurrentCameraPosition = usePortfolioStore((store) => store.setCurrentCameraPosition);
     const cameraLimits = usePortfolioStore((store) => store.cameraLimits);
+
+    const setCameraPositionsConfig = useCameraPositionStore((store) => store.setCameraPositionsConfig);
+    const setCameraPositionsConfigLookAt = useCameraPositionStore((store) => store.setCameraPositionsConfigLookAt);
 
     const scrollPosition = useRef(0);
 
@@ -115,6 +137,11 @@ export const Timeline: React.FC = () => {
             scrollPosition.current = position;
 
             setCurrentCameraPosition(position);
+
+            setCameraPositionsConfig(PagesEnum.PORTFOLIO, { x: position });
+            setCameraPositionsConfigLookAt(PagesEnum.PORTFOLIO, {
+                x: position,
+            });
         },
         [cameraLimits],
     );
@@ -133,7 +160,7 @@ export const Timeline: React.FC = () => {
         <div className={cn.timeline} ref={slider}>
             <div className={cn.wrapper}>
                 <div className={cn.inner}>
-                    <div className={cn.line} />
+                    <motion.div className={cn.line} {...lineAnimation} />
                     <div className={cn.content}>
                         {timelineItems.map((item, index) => {
                             return (

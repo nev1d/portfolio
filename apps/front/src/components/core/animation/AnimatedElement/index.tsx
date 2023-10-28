@@ -1,5 +1,6 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 
+import { useHasBeenMounted } from '@/hooks/useHasBeenMounted';
 import { useInterval, UseIntervalProps } from '@/hooks/useInterval';
 import { nextTick } from '@/utils/react/nextTick';
 
@@ -21,6 +22,8 @@ export const AnimatedElement: React.FC<AnimatedElementProps> = ({ visible, anima
     const [waitingForRef, setWaitingForRef] = useState(false);
     const [animationProgressStatus, setAnimationProgressStatus] = useState<'init' | 'started' | 'finished'>('init');
 
+    const hasBeenMounted = useHasBeenMounted();
+
     const runAnimation = async (visible: boolean) => {
         setAnimationProgressStatus('started');
         const animationType = visible ? 'in' : 'out';
@@ -36,7 +39,9 @@ export const AnimatedElement: React.FC<AnimatedElementProps> = ({ visible, anima
             return;
         }
 
-        await animate(scope.current, config[animationType], { ease: 'easeInOut' });
+        const shouldRunAnimation = !(!hasBeenMounted && animationType === 'out');
+
+        if (shouldRunAnimation) await animate(scope.current, config[animationType], { ease: 'easeInOut' });
         setInnerVisible(visible);
         setAnimationProgressStatus('finished');
         setWaitingForRef(false);

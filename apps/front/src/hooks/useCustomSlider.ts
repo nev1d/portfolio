@@ -27,7 +27,7 @@ const applyInertia = (delta: number, callback: (delta: number) => void) => {
     const inertiaFrame = () => {
         if (Math.abs(delta) > 1) {
             callback(delta);
-            delta *= 0.4;
+            delta *= 0.6;
             requestAnimationFrame(inertiaFrame);
         }
     };

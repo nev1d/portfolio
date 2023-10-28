@@ -1,6 +1,6 @@
-import { create } from 'zustand';
-
 import { PagesEnum } from '@/constants/pages';
+
+import { create } from 'zustand';
 
 type AppStore = {
     currentTransitionItem: PagesEnum;

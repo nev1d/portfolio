@@ -9,18 +9,22 @@ import { NodeJSLogo } from '@/components/feature/scene/models/NodeJSLogo';
 import { ReactLogo } from '@/components/feature/scene/models/ReactLogo';
 import { VueLogo } from '@/components/feature/scene/models/VueLogo';
 import { PagesEnum } from '@/constants/pages';
+import { PagesCameraPosition } from '@/constants/pages/camera';
 import { SKILLS_CAMERA_LIMITS } from '@/constants/skills';
 import { useCurrentPathname } from '@/hooks/useCurrentPathname';
+import { useCameraPositionStore } from '@/store/camera';
 import { useSkillsStore } from '@/store/skills';
-import { useFrame } from '@react-three/fiber';
+import { clamp } from '@/utils/math/clamp';
 
 import { animate, useMotionValue } from 'framer-motion';
 
 export const SkillsModels = () => {
     const setCurrentCameraPosition = useSkillsStore((store) => store.setCurrentCameraPosition);
     const currentCameraPosition = useSkillsStore((store) => store.currentCameraPosition);
+    const setCameraPositionsConfig = useCameraPositionStore((store) => store.setCameraPositionsConfig);
+    const setCameraPositionsConfigLookAt = useCameraPositionStore((store) => store.setCameraPositionsConfigLookAt);
 
-    const cameraX = useMotionValue(SKILLS_CAMERA_LIMITS[0]);
+    const cameraX = useMotionValue(currentCameraPosition);
 
     const pathname = useCurrentPathname();
 
@@ -29,6 +33,12 @@ export const SkillsModels = () => {
     useEffect(() => {
         animate(cameraX, currentCameraPosition, {
             duration: 0.5,
+            onUpdate: (x) => {
+                setCameraPositionsConfig(PagesEnum.SKILLS, { x });
+                setCameraPositionsConfigLookAt(PagesEnum.SKILLS, {
+                    x: x - Number(PagesCameraPosition[PagesEnum.SKILLS].coords?.x),
+                });
+            },
         });
     }, [currentCameraPosition]);
 
@@ -41,19 +51,7 @@ export const SkillsModels = () => {
 
             const [MIN, MAX] = SKILLS_CAMERA_LIMITS;
 
-            if (currentScroll >= MIN) {
-                setCurrentCameraPosition(MIN);
-
-                return;
-            }
-
-            if (currentScroll <= MAX) {
-                setCurrentCameraPosition(MAX);
-
-                return;
-            }
-
-            setCurrentCameraPosition(currentScroll);
+            setCurrentCameraPosition(clamp(currentScroll, MAX, MIN));
         };
 
         window.addEventListener('wheel', scrollListener);
@@ -62,17 +60,6 @@ export const SkillsModels = () => {
             window.removeEventListener('wheel', scrollListener);
         };
     }, [currentCameraPosition, pathname]);
-
-    useFrame((state) => {
-        if (isSkillsPage) state.camera.position.x = cameraX.get();
-    });
-
-    useEffect(() => {
-        if (!isSkillsPage) {
-            setCurrentCameraPosition(SKILLS_CAMERA_LIMITS[0]);
-            cameraX.set(SKILLS_CAMERA_LIMITS[0]);
-        }
-    }, [pathname]);
 
     return (
         <>

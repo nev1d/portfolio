@@ -60,6 +60,16 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({
 
     const [width] = useWindowSize();
 
+    const onHover = () => {
+        if (!hover) return;
+        setIsHovered(true);
+    };
+
+    const onMouseLeave = () => {
+        if (!hover) return;
+        setIsHovered(false);
+    };
+
     const calculateTextInfo = useCallback(() => {
         if (!ref.current) return { lines: [], maxWidth: 0 };
 
@@ -141,15 +151,10 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({
         setLines(lines);
     }, [fitToText, fontSize, width, ref]);
 
-    const onHover = () => {
-        if (!hover) return;
-        setIsHovered(true);
-    };
-
-    const onMouseLeave = () => {
-        if (!hover) return;
-        setIsHovered(false);
-    };
+    /* Sometimes animations is unfinished, so we need recalculate a text size. It will not be recalculated if size is not changed */
+    useEffect(() => {
+        window.dispatchEvent(new Event('resize'));
+    }, []);
 
     return (
         <svg
