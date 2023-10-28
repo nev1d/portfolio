@@ -2,8 +2,13 @@ import { At, DOMKeyframesDefinition, DynamicAnimationOptions, useAnimate } from 
 
 type UseRunCycleAnimation = Record<'to' | 'from', DOMKeyframesDefinition> &
     Record<'animationTo' | 'animationFrom', DynamicAnimationOptions & At>;
-export const useRunCycleAnimation = ({ to, from, animationTo, animationFrom }: UseRunCycleAnimation) => {
-    const [scope, animate] = useAnimate<HTMLElement>();
+export const useRunCycleAnimation = <T extends Element = HTMLElement>({
+    to,
+    from,
+    animationTo,
+    animationFrom,
+}: UseRunCycleAnimation) => {
+    const [scope, animate] = useAnimate<T>();
 
     const runCycle = () => {
         animate([

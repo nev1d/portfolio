@@ -6,6 +6,8 @@ import PortfolioPage from '@/app/portfolio/page';
 import SkillsPage from '@/app/skills/page';
 import { PagesEnum } from '@/constants/pages';
 
+import { UnknownRecord } from 'type-fest';
+
 export const PageConfig: Record<PagesEnum, () => React.JSX.Element> = {
     [PagesEnum.MAIN]: MainPage,
     [PagesEnum.ABOUT]: AboutPage,
@@ -13,7 +15,7 @@ export const PageConfig: Record<PagesEnum, () => React.JSX.Element> = {
     [PagesEnum.PORTFOLIO]: PortfolioPage,
 };
 
-export const PageAnimationConfig: Record<PagesEnum, Record<'initial' | 'animate' | 'exit', Record<string, unknown>>> = {
+export const PageAnimationConfig: Record<PagesEnum, Record<'initial' | 'animate' | 'exit', UnknownRecord>> = {
     [PagesEnum.MAIN]: {
         initial: { opacity: 0 },
         animate: { opacity: 1 },
@@ -22,16 +24,16 @@ export const PageAnimationConfig: Record<PagesEnum, Record<'initial' | 'animate'
     [PagesEnum.ABOUT]: {
         initial: { x: '100%' },
         animate: { x: '0%' },
-        exit: { y: '-100%' },
+        exit: { x: '100%', opacity: 0 },
     },
     [PagesEnum.SKILLS]: {
         initial: { y: '100%' },
         animate: { y: '0%' },
-        exit: { y: '100%', x: '60%' },
+        exit: { y: '100%', opacity: 0 },
     },
     [PagesEnum.PORTFOLIO]: {
         initial: { x: '-100%' },
         animate: { x: '0%' },
-        exit: { y: '-100%' },
+        exit: { y: '100%', opacity: 0 },
     },
 };

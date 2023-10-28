@@ -3,7 +3,6 @@
 import React, { Suspense } from 'react';
 
 import { AboutModels } from '@/components/feature/about/AboutModels';
-import { PortfolioModels } from '@/components/feature/portfolio/PortfolioModels';
 import { Background } from '@/components/feature/scene/Backround';
 import { Camera } from '@/components/feature/scene/Camera';
 import { CanvasLoader } from '@/components/feature/scene/CanvasLoader';
@@ -12,7 +11,6 @@ import { MenuList } from '@/components/feature/scene/models/menu/MenuList';
 import { SkillsModels } from '@/components/feature/skills/SkillsModels';
 import { PagesEnum } from '@/constants/pages';
 import { useCurrentPathname } from '@/hooks/useCurrentPathname';
-import { useAppStore } from '@/store/app';
 import { MenuStatus, useMenuStore } from '@/store/menu/menuStore';
 import { Physics } from '@react-three/cannon';
 import { Stars } from '@react-three/drei';
@@ -25,7 +23,6 @@ import { AnimatePresence, useIsomorphicLayoutEffect } from 'framer-motion';
 export const Scene = () => {
     const setMenuStatus = useMenuStore((store) => store.setMenuStatus);
     const setHasBeenInitialized = useMenuStore((store) => store.setHasBeenInitialized);
-    const setAppLoaded = useAppStore((store) => store.setAppLoaded);
 
     const pathName = useCurrentPathname();
 
@@ -35,7 +32,6 @@ export const Scene = () => {
         } else {
             setMenuStatus(MenuStatus.OPEN);
             setHasBeenInitialized();
-            setAppLoaded();
         }
     }, [pathName]);
 
@@ -64,9 +60,6 @@ export const Scene = () => {
 
                             {/* Skills Models */}
                             <SkillsModels />
-
-                            {/* Portfolio Models */}
-                            <PortfolioModels />
                         </Physics>
                     </Suspense>
                 </AnimatePresence>

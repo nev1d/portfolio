@@ -54,7 +54,7 @@ const skillsTexts: SkillsTextsItem[] = [
         description:
             'I am not a huge expert of Backend development, but i try my best. I dont have a big experience of writing a huge projects in backend part, but still have some cases, where i did that, mostly using NestJS + Typeorm. I understand how backend works and can give some advices in architecture, but my main task as Frontend developer - make work with backend simple, safe and comfortable for both sides. In additional to that i wrote a backend for my pet-project by myself day by day improving my skills in it',
         tags: ['NestJS', 'Prisma', 'Typeorm', 'Mongoose', 'MongoDB', 'PostgreSQL', 'Redis'],
-        progress: 40,
+        progress: 30,
     },
     {
         align: 'end',
@@ -91,7 +91,7 @@ export const SkillsTexts = () => {
 
     return (
         <div className={cn.wrapper}>
-            {skillsTexts.map((item) => {
+            {skillsTexts.map((item, index) => {
                 const isVisible = isCurrentItemVisible(item);
 
                 return (
@@ -99,7 +99,7 @@ export const SkillsTexts = () => {
                         visible={isVisible}
                         animation={animationParams[item.align]}
                         key={item.title}
-                        enablePrerenderIgnore={true}
+                        enablePrerenderIgnore={!!index}
                     >
                         {(ref) => {
                             return (

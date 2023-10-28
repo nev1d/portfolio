@@ -41,6 +41,8 @@ export const AnimatedElement: React.FC<AnimatedElementProps> = ({
 
         if (!scope.current) {
             setWaitingForRef(true);
+            // eslint-disable-next-line @typescript-eslint/no-use-before-define
+            startInterval();
 
             return;
         }
@@ -48,6 +50,7 @@ export const AnimatedElement: React.FC<AnimatedElementProps> = ({
         const shouldRunAnimation = !(!hasBeenMounted && animationType === 'out' && enablePrerenderIgnore);
 
         if (shouldRunAnimation) await animate(scope.current, config[animationType], { ease: 'easeInOut' });
+
         setInnerVisible(visible);
         setAnimationProgressStatus('finished');
         setWaitingForRef(false);
@@ -80,10 +83,6 @@ export const AnimatedElement: React.FC<AnimatedElementProps> = ({
             startInterval();
         });
     }, [visible]);
-
-    useEffect(() => {
-        if (waitingForRef) runAnimation(visible);
-    }, [scope.current]);
 
     if (!innerVisible) return null;
 

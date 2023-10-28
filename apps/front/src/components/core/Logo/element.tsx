@@ -42,7 +42,7 @@ export const LogoElement: React.FC<LogoElementProps & { hovered: boolean }> = ({
         },
     };
 
-    const { scope: ref, runCycle } = useRunCycleAnimation(animationSteps);
+    const { scope: ref, runCycle } = useRunCycleAnimation<SVGRectElement>(animationSteps);
 
     const additionalProps = {
         initial: animationSteps.from,
