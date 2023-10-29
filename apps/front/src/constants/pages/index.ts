@@ -3,4 +3,5 @@ export enum PagesEnum {
     ABOUT = '/about',
     SKILLS = '/skills',
     PORTFOLIO = '/portfolio',
+    CONTACT = '/contact',
 }

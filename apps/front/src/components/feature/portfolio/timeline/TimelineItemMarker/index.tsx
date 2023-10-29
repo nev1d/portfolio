@@ -16,6 +16,9 @@ const animations = {
         opacity: 1,
         scale: 1,
     },
+    transition: {
+        delay: 0.2,
+    },
 };
 
 export const TimelineItemMarker = () => {

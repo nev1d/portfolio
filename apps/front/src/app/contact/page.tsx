@@ -2,8 +2,8 @@
 
 import React from 'react';
 
-const MainPage = () => {
+const ContactPage = () => {
     return <></>;
 };
 
-export default MainPage;
+export default ContactPage;

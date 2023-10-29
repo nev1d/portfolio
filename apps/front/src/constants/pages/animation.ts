@@ -1,6 +1,7 @@
 import React from 'react';
 
 import AboutPage from '@/app/about/page';
+import ContactPage from '@/app/contact/page';
 import MainPage from '@/app/page';
 import PortfolioPage from '@/app/portfolio/page';
 import SkillsPage from '@/app/skills/page';
@@ -13,6 +14,7 @@ export const PageConfig: Record<PagesEnum, () => React.JSX.Element> = {
     [PagesEnum.ABOUT]: AboutPage,
     [PagesEnum.SKILLS]: SkillsPage,
     [PagesEnum.PORTFOLIO]: PortfolioPage,
+    [PagesEnum.CONTACT]: ContactPage,
 };
 
 export const PageAnimationConfig: Record<PagesEnum, Record<'initial' | 'animate' | 'exit', UnknownRecord>> = {
@@ -35,5 +37,10 @@ export const PageAnimationConfig: Record<PagesEnum, Record<'initial' | 'animate'
         initial: { x: '-100%' },
         animate: { x: '0%' },
         exit: { y: '100%', opacity: 0 },
+    },
+    [PagesEnum.CONTACT]: {
+        initial: { opacity: 0 },
+        animate: { opacity: 1 },
+        exit: { opacity: 0 },
     },
 };

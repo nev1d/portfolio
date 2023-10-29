@@ -3,6 +3,7 @@
 import React, { Suspense } from 'react';
 
 import { AboutModels } from '@/components/feature/about/AboutModels';
+import { ContactModels } from '@/components/feature/contact/ContactModels';
 import { Background } from '@/components/feature/scene/Backround';
 import { Camera } from '@/components/feature/scene/Camera';
 import { CanvasLoader } from '@/components/feature/scene/CanvasLoader';
@@ -60,6 +61,9 @@ export const Scene = () => {
 
                             {/* Skills Models */}
                             <SkillsModels />
+
+                            {/* Contact Models*/}
+                            <ContactModels />
                         </Physics>
                     </Suspense>
                 </AnimatePresence>

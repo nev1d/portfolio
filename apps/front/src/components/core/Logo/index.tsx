@@ -6,6 +6,8 @@ import { LogoElement, LogoElementProps } from '@/components/core/Logo/element';
 
 import cn from './style.module.css';
 
+import clsx from 'clsx';
+
 const animationOptions: Omit<LogoElementProps, 'cycle'>[] = [
     {
         tag: 'rect',
@@ -117,9 +119,10 @@ const animationOptions: Omit<LogoElementProps, 'cycle'>[] = [
 
 type LogoProps = {
     cycle?: boolean;
+    pointer?: boolean;
 };
 
-export const Logo: React.FC<LogoProps> = ({ cycle = false }) => {
+export const Logo: React.FC<LogoProps> = ({ cycle = false, pointer = true }) => {
     const [hovered, setHovered] = useState(false);
 
     const onHover = () => {
@@ -139,7 +142,7 @@ export const Logo: React.FC<LogoProps> = ({ cycle = false }) => {
             xmlns='http://www.w3.org/2000/svg'
             onMouseEnter={onHover}
             onMouseLeave={onLeave}
-            className={cn.logo}
+            className={clsx(cn.logo, pointer && cn.pointer)}
         >
             {animationOptions.map((item, index) => {
                 return <LogoElement {...item} cycle={cycle} hovered={hovered} key={index} />;

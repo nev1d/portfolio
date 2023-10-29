@@ -7,6 +7,7 @@ import { AnimatedText } from '@/components/core/AnimatedText';
 import { MenuIcon } from '@/components/core/icons/MenuIcon';
 import { Logo } from '@/components/core/Logo';
 import { Socials } from '@/components/shared/Socials';
+import { Contacts } from '@/constants/contacts';
 import { FontSize } from '@/constants/fonts';
 import { PagesEnum } from '@/constants/pages';
 import { useCurrentPathname } from '@/hooks/useCurrentPathname';
@@ -16,8 +17,6 @@ import cn from './style.module.css';
 
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
-
-const mail = 'daniil.nikonyuk@gmail.com';
 
 export const MainLayout: React.FC<PropsWithChildren> = ({ children }) => {
     const menuStatus = useMenuStore((store) => store.menuStatus);
@@ -39,9 +38,9 @@ export const MainLayout: React.FC<PropsWithChildren> = ({ children }) => {
                     </Link>
                 </div>
                 <div className={clsx(cn.block, cn.bottomLeft)}>
-                    <a href={`mailto:${mail}`}>
+                    <a href={`mailto:${Contacts.MAIL}`}>
                         <AnimatedText
-                            text={`©/${new Date().getFullYear()} ${mail}`}
+                            text={`©/${new Date().getFullYear()} ${Contacts.MAIL}`}
                             hover={true}
                             fontSize={FontSize.SMALL}
                             animation={{ duration: 0.6 }}

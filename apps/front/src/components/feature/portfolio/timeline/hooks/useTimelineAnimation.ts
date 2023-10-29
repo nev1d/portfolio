@@ -4,7 +4,7 @@ import { useWindowSize } from '@/hooks/useWindowSize';
 
 import { useAnimate, useInView } from 'framer-motion';
 
-export const useTimelineAnimation = (animation: Record<'animate', unknown>) => {
+export const useTimelineAnimation = (animation: Partial<Record<'animate' | 'transition', unknown>>) => {
     const [ref, animate] = useAnimate();
 
     const [, height] = useWindowSize();
@@ -13,7 +13,7 @@ export const useTimelineAnimation = (animation: Record<'animate', unknown>) => {
 
     useEffect(() => {
         if (inView || (height && height < 1000)) {
-            animate(ref.current, animation.animate);
+            animate(ref.current, animation.animate, Object(animation?.transition));
         }
     }, [inView, height]);
 

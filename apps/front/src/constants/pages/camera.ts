@@ -49,4 +49,13 @@ export const PagesCameraPosition: Record<PagesEnum, PagesCameraPositionValues> =
         },
         delay: 1,
     },
+    [PagesEnum.CONTACT]: {
+        coords: {
+            x: -150,
+        },
+        lookAt: {
+            z: -120,
+        },
+        delay: 1,
+    },
 };
