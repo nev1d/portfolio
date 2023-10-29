@@ -9,6 +9,7 @@ import { useCurrentPathname } from '@/hooks/useCurrentPathname';
 import { useHasBeenMounted } from '@/hooks/useHasBeenMounted';
 
 import cn from './style.module.css';
+
 export const AnimatedPageLayout: React.FC = () => {
     const hasBeenMounted = useHasBeenMounted();
 
@@ -27,7 +28,7 @@ export const AnimatedPageLayout: React.FC = () => {
     return animationOrder.map((currentRoute) => {
         if (!currentRoute) return;
 
-        const visible = currentRoute == pathName;
+        const visible = currentRoute === pathName;
 
         const Component = PageConfig[currentRoute as PagesEnum];
 

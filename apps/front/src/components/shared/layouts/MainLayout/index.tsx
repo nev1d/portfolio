@@ -4,6 +4,7 @@ import Link from 'next/link';
 import React, { PropsWithChildren } from 'react';
 
 import { AnimatedText } from '@/components/core/AnimatedText';
+import { AnimatedElement } from '@/components/core/animation/AnimatedElement';
 import { MenuIcon } from '@/components/core/icons/MenuIcon';
 import { Logo } from '@/components/core/Logo';
 import { Socials } from '@/components/shared/Socials';
@@ -26,6 +27,7 @@ export const MainLayout: React.FC<PropsWithChildren> = ({ children }) => {
 
     const isPresentationMenuStatus = menuStatus === MenuStatus.PRESENTATION;
     const isMainPage = pathname === PagesEnum.MAIN;
+    const isContactPage = pathname === PagesEnum.CONTACT;
 
     if (!isPresentationMenuStatus && !hasBeenInitialized) return;
 
@@ -47,16 +49,23 @@ export const MainLayout: React.FC<PropsWithChildren> = ({ children }) => {
                         />
                     </a>
                 </div>
-                <div className={clsx(cn.block, cn.bottomRight)}>
-                    <Socials />
-                </div>
-                {!isMainPage && (
-                    <div className={clsx(cn.block, cn.topRight)}>
-                        <Link href={PagesEnum.MAIN}>
-                            <MenuIcon />
-                        </Link>
-                    </div>
-                )}
+                <AnimatedElement visible={!isContactPage} animation={{ exit: { opacity: 0 } }}>
+                    {(ref) => (
+                        <div ref={ref} className={clsx(cn.block, cn.bottomRight)}>
+                            <Socials />
+                        </div>
+                    )}
+                </AnimatedElement>
+
+                <AnimatedElement visible={!isMainPage} animation={{ exit: { opacity: 0 } }}>
+                    {(ref) => (
+                        <div ref={ref} className={clsx(cn.block, cn.topRight)}>
+                            <Link href={PagesEnum.MAIN}>
+                                <MenuIcon />
+                            </Link>
+                        </div>
+                    )}
+                </AnimatedElement>
                 <div className={cn.pageContainer}>
                     <div className={cn.page}>{children}</div>
                 </div>

@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react';
+import React, { ReactNode, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import { useHasBeenMounted } from '@/hooks/useHasBeenMounted';
 import { useInterval, UseIntervalProps } from '@/hooks/useInterval';
@@ -25,7 +25,7 @@ export const AnimatedElement: React.FC<AnimatedElementProps> = ({
     const [innerVisible, setInnerVisible] = useState(true);
 
     const [scope, animate] = useAnimate();
-    const [waitingForRef, setWaitingForRef] = useState(false);
+    const defaultOpacitySetted = useRef(false);
     const [animationProgressStatus, setAnimationProgressStatus] = useState<'init' | 'started' | 'finished'>('init');
 
     const hasBeenMounted = useHasBeenMounted();
@@ -40,20 +40,27 @@ export const AnimatedElement: React.FC<AnimatedElementProps> = ({
         };
 
         if (!scope.current) {
-            setWaitingForRef(true);
-            // eslint-disable-next-line @typescript-eslint/no-use-before-define
-            startInterval();
+            /* Ref will be added on nex tick, so  */
+            nextTick(() => runAnimation(visible));
 
             return;
         }
 
         const shouldRunAnimation = !(!hasBeenMounted && animationType === 'out' && enablePrerenderIgnore);
 
-        if (shouldRunAnimation) await animate(scope.current, config[animationType], { ease: 'easeInOut' });
+        if (shouldRunAnimation) {
+            if (animationType === 'in') {
+                /* Ad initial styles if presents */
+                await animate(scope.current, animation.initial, { duration: 0, delay: 0 });
+                /* Reset default opacity */
+                scope.current.style.opacity = Object(animation.initial)?.opacity || 1;
+            }
+
+            await animate(scope.current, config[animationType], { ease: 'easeInOut' });
+        }
 
         setInnerVisible(visible);
         setAnimationProgressStatus('finished');
-        setWaitingForRef(false);
     };
 
     /* Clear animation in desync cases with interval check */
@@ -83,6 +90,14 @@ export const AnimatedElement: React.FC<AnimatedElementProps> = ({
             startInterval();
         });
     }, [visible]);
+
+    useLayoutEffect(() => {
+        if (scope.current && !defaultOpacitySetted.current) {
+            /* Set default opacity when ref added */
+            defaultOpacitySetted.current = true;
+            scope.current.style.opacity = 0;
+        }
+    }, [scope.current]);
 
     if (!innerVisible) return null;
 
