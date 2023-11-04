@@ -1,12 +1,12 @@
-@keyframes moveRight {
+@keyframes scale {
     0% {
-        left: 0;
+        scale: 1
     }
     50% {
-        left: -5px;
+        scale: 0.9;
     }
     100% {
-        left: 0;
+        scale: 1
     }
 }
 
@@ -17,23 +17,7 @@
 
 
     &:hover {
-        animation: moveRight 1s ease-in-out infinite;
-
-        .menuLine {
-            &::before {
-                top: 7px;
-                left: -2px;
-                width: 50%;
-                transform: rotate(45deg);
-            }
-
-            &::after {
-                top: -7px;
-                left: -2px;
-                width: 50%;
-                transform: rotate(-45deg);
-            }
-        }
+        animation: scale 1s ease-in-out infinite;
     }
 }
 

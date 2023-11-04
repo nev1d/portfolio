@@ -34,9 +34,9 @@ export const PageAnimationConfig: Record<PagesEnum, Record<'initial' | 'animate'
         exit: { y: '100%', opacity: 0 },
     },
     [PagesEnum.PORTFOLIO]: {
-        initial: { x: '30%' },
-        animate: { x: '0%' },
-        exit: { y: '100%', opacity: 0 },
+        initial: { y: '-100%' },
+        animate: { y: '0%' },
+        exit: { opacity: 0 },
     },
     [PagesEnum.CONTACT]: {
         initial: { y: '100%' },

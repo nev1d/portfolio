@@ -4,9 +4,9 @@
     left: 0;
     display: flex;
     overflow: hidden;
-    width: 100vw;
-    min-width: var(--current-low-media);
-    height: 100vh;
+    width: 100%;
+    min-width: var(--current-low-media-width);
+    height: 100%;
     align-items: center;
     justify-content: center;
     background: var(--background-color);

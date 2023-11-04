@@ -26,6 +26,7 @@ const color = {
 };
 
 export const MenuItem: React.FC<MenuItemProps> = ({ label, route, pos }) => {
+    const inProgress = useMenuStore((store) => store.inProgress);
     const hasBeenInitialized = useMenuStore((store) => store.hasBeenInitialized);
     const chooseMenuItem = useMenuStore((store) => store.chooseMenuItem);
 

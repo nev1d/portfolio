@@ -19,7 +19,7 @@
     --timeline-items-gap-neg: -32px;
     --timeline-offset: 200px;
     --timeline-offset-neg: -200px;
-    --timeline-item-width: calc(var(--timeline-offset) * 2);
+    --timeline-item-width: calc(var(--timeline-offset) * 3.5);
     --timeline-marker-width: 30px;
     --timeline-line-position: translateY(-50%);
     --timeline-height: 100%;

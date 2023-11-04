@@ -20,7 +20,7 @@ const timelineItems: TimelineItemProps[] = [
         position: 'Junior Frontend Developer',
         cards: [
             {
-                title: 'Experience',
+                title: 'Getting experience',
                 description:
                     'Tried myself in the development of browser extensions - successfully. Made a lot of different kinds of projects from small to large. Engaged in the development of projects for myself and to order. Mainly dealt with the frontend part, but also helped with setting up servers and deployment to the best of my knowledge at that time.',
             },

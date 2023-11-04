@@ -12,7 +12,7 @@ export const useTimelineAnimation = (animation: Partial<Record<'animate' | 'tran
     const inView = useInView(ref, { margin: '0px -400px 0px 0px', once: true });
 
     useEffect(() => {
-        if (inView || (height && height < 1000)) {
+        if (inView || (height && height < 1070)) {
             animate(ref.current, animation.animate, Object(animation?.transition));
         }
     }, [inView, height]);

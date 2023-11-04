@@ -75,8 +75,8 @@ export const LogoElement: React.FC<LogoElementProps & { hovered: boolean }> = ({
     }, [cycle]);
 
     if (tag === 'rect') {
-        return <motion.rect {...props} ref={ref} fill='white' {...additionalProps} />;
+        return <motion.rect {...props} ref={ref} fill='#d1d1d1' {...additionalProps} />;
     }
 
-    return <motion.path {...props} ref={ref} fill='white' {...additionalProps} />;
+    return <motion.path {...props} ref={ref} fill='#d1d1d1' {...additionalProps} />;
 };

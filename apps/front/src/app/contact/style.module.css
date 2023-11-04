@@ -16,7 +16,7 @@
 
 .items {
     display: flex;
-    height: 48%;
+    height: 40%;
     align-items: flex-start;
     justify-content: center;
     pointer-events: all;

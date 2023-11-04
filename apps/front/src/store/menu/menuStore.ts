@@ -20,6 +20,7 @@ type MenuStore = {
     menuItems: MenuStoreItem[];
     menuStatus: MenuStatus;
     hasBeenInitialized: boolean;
+    inProgress: boolean;
 
     /* Actions */
     setMenuStatus: (menuStatus: MenuStatus) => void;
@@ -27,7 +28,7 @@ type MenuStore = {
     setHasBeenInitialized: () => void;
 };
 
-export const useMenuStore = create<MenuStore>((set) => ({
+export const useMenuStore = create<MenuStore>((set, getState) => ({
     menuItems: [
         { label: 'who am i', route: PagesEnum.ABOUT },
         { label: 'portfolio', route: PagesEnum.PORTFOLIO },
@@ -36,13 +37,16 @@ export const useMenuStore = create<MenuStore>((set) => ({
     ],
     menuStatus: MenuStatus.INITIAL,
     hasBeenInitialized: false,
+    inProgress: false,
 
     /* Actions */
     setMenuStatus: (menuStatus: MenuStatus) => {
         set({ menuStatus });
     },
     chooseMenuItem: (route: PagesEnum, callback: () => void) => {
-        set({ menuStatus: MenuStatus.OPEN });
+        if (getState().inProgress) return;
+
+        set({ menuStatus: MenuStatus.OPEN, inProgress: true });
 
         const { duration = toSeconds(DefaultCameraTransitionDuration), delay = 0 } = Object(PagesCameraPosition[route]);
 
@@ -53,6 +57,7 @@ export const useMenuStore = create<MenuStore>((set) => ({
         setTimeout(
             () => {
                 callback();
+                set({ inProgress: false });
             },
             (duration + delay) * 1000,
         );

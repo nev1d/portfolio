@@ -24,7 +24,8 @@
 
     /* Other */
 
-    --current-low-media: 1200px
+    --current-low-media-width: 1200px;
+    --current-low-media-height: 700px
 }
 /* Generated UI Kit */
 

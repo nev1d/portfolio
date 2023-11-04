@@ -19,7 +19,7 @@ const ContactPage = () => {
     const [width, height] = useWindowSize();
 
     const calculatedMargin = useMemo(() => {
-        return { positive: `0 calc(12vw * ${height / width})`, negative: `0 calc(12vw * ${width / height} * -1)` };
+        return { positive: `0 calc(11vw * ${height / width})`, negative: `0 calc(11vw * ${width / height} * -1)` };
     }, [width, height]);
 
     return (
