@@ -3,6 +3,7 @@ import React from 'react';
 
 import { RootLayout } from '@/components/shared/layouts/RootLayout';
 import { RootTitle } from '@/components/shared/layouts/RootLayout/title';
+import { Analytics } from '@vercel/analytics/react';
 
 import '@assets/styles/__global.css';
 import '@assets/styles/__reset.css';
@@ -39,6 +40,7 @@ const Layout = () => {
             </head>
             <body className={comfortaa.className}>
                 <RootLayout />
+                <Analytics />
             </body>
         </html>
     );

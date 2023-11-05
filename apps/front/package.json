@@ -12,6 +12,7 @@
     "@react-three/cannon": "^6.6.0",
     "@react-three/drei": "^9.80.9",
     "@react-three/fiber": "^8.13.7",
+    "@vercel/analytics": "^1.1.1",
     "clsx": "^2.0.0",
     "framer-motion": "^10.16.4",
     "framer-motion-3d": "^10.16.4",
