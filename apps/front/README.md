@@ -11,6 +11,8 @@ All ideas are welcome, so feel free to leave PR or comments.
 
 * **Contact Page**
 * **Mobile Version**
+* **Reduce Face Model size**
+* **FCP and LCP**
 
 ## Technologies
 
