@@ -11,8 +11,6 @@ import '@assets/styles/__variables.css';
 const comfortaa = Comfortaa({ subsets: ['latin', 'cyrillic'], weight: ['300', '400', '500', '700'], preload: true });
 
 const Layout = () => {
-    // usePageUtils();
-
     return (
         <html lang='en'>
             <head>
