@@ -63,7 +63,7 @@ export const SkillsModels = () => {
 
     return (
         <>
-            {isSkillsPage && <MovingLight position={[cameraX.get(), 100, 0]} />}
+            <MovingLight enable={isSkillsPage} position={[cameraX.get(), 100, 0]} />
             <ReactLogo />
             <VueLogo />
             <FrontOpsLogo />

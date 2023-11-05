@@ -8,16 +8,17 @@ import * as THREE from 'three';
 type MovingLightProps = {
     position?: THREE.Vector3Tuple;
     radius?: number;
+    enable?: boolean;
 };
 
-export const MovingLight: React.FC<MovingLightProps> = ({ position = [0, 100, 0], radius = 200 }) => {
+export const MovingLight: React.FC<MovingLightProps> = ({ position = [0, 100, 0], radius = 200, enable = true }) => {
     const [lightPosition, setLightPosition] = useState(new THREE.Vector3(position[0], position[1], position[2])); // Initial light position
 
     const intensity = useMotionValue(0);
 
     useEffect(() => {
-        animate(intensity, 1, { duration: 1 });
-    }, []);
+        animate(intensity, enable ? 1 : 0, { duration: 1 });
+    }, [enable]);
 
     useFrame(() => {
         const time = performance.now() * 0.001;

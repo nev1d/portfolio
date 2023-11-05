@@ -13,7 +13,7 @@ export const AboutModels: React.FC = () => {
     return (
         <>
             <Face />
-            {isAboutPage && <MovingLight />}
+            <MovingLight enable={isAboutPage} />
         </>
     );
 };
