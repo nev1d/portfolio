@@ -9,6 +9,7 @@ export const WithResizeSubscriber: React.FC<PropsWithChildren> = ({ children }) 
 
     useEffect(() => {
         const resizeCallback = () => {
+            return;
             if (isMobileInitial.current !== isMobile()) {
                 window.location.reload();
             }

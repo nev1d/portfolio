@@ -1,10 +1,24 @@
 .socials {
+    display: flex;
     margin: 0 -4px;
     pointer-events: all;
+
+    @media (--mobile) {
+        flex-direction: column;
+    }
 }
 
 .social {
     width: 32px;
     height: 24px;
     padding: 0 4px;
+
+    @media (--mobile) {
+        margin-bottom: 8px;
+
+        &:nth-last-child(1)  {
+            margin-bottom: 0;
+        }
+
+    }
 }

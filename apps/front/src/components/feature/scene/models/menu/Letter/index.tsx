@@ -1,23 +1,17 @@
 import React, { createContext, createRef, PropsWithChildren, useContext, useMemo, useRef, useState } from 'react';
 
-import { useIsomorphicLayoutEffect } from 'framer-motion';
-import { Color, Mesh, Object3D } from 'three';
-
-import {
-    IMPULSE_MULTIPLIER,
-    LETTER_SPACING,
-    MARGIN,
-    OFFSET,
-    PLATFORM_ACTIVATE_OFFSET,
-    TOTAL_MASS,
-} from '@/constants/menu';
+import { IMPULSE_MULTIPLIER, MARGIN, OFFSET, PLATFORM_ACTIVATE_OFFSET, TOTAL_MASS } from '@/constants/menu';
 import { MenuStatus, useMenuStore } from '@/store/menu/menuStore';
+import { clamp } from '@/utils/math/clamp';
 import { multipleArray } from '@/utils/math/multiple';
 import { toDecimals } from '@/utils/math/toDecimals';
 import myFont from '@assets/fonts/Comfortaa_Regular.json';
 import { Triplet, useBox, useHingeConstraint } from '@react-three/cannon';
 import { FontData, Text3D } from '@react-three/drei';
-import { ThreeEvent } from '@react-three/fiber';
+import { ThreeEvent, useThree } from '@react-three/fiber';
+
+import { useIsomorphicLayoutEffect } from 'framer-motion';
+import { Color, Mesh, Object3D } from 'three';
 
 const ParentContext = createContext({
     position: [0, 0, 0] as Triplet,
@@ -38,6 +32,23 @@ type LetterProps = {
     planePosition: Triplet;
 };
 
+const useLetterDimensions = () => {
+    const {
+        size: { width, height },
+    } = useThree();
+
+    return useMemo(() => {
+        const currentSize = (width / height) * 5;
+
+        const letterSpacing = (width / height) * 0.8;
+
+        return {
+            size: clamp(isNaN(currentSize) ? 5 : currentSize, 1.5, 5),
+            letterSpacing: clamp(isNaN(letterSpacing) ? 1 : letterSpacing, 0.2, 1),
+        };
+    }, [width, height]);
+};
+
 export const Letter: React.FC<PropsWithChildren<LetterProps>> = ({
     text,
     children,
@@ -53,6 +64,8 @@ export const Letter: React.FC<PropsWithChildren<LetterProps>> = ({
     const setHasBeenInitialized = useMenuStore((store) => store.setHasBeenInitialized);
     const hasBeenInitialized = useMenuStore((store) => store.hasBeenInitialized);
 
+    const { size, letterSpacing } = useLetterDimensions();
+
     const {
         position: [x],
         ref: parentRef,
@@ -62,7 +75,7 @@ export const Letter: React.FC<PropsWithChildren<LetterProps>> = ({
     const [letterWidth, setLetterWidth] = useState(0);
 
     const initPositionOffset = useMemo(() => {
-        const xCoordinate = pos ? letterWidth + x + LETTER_SPACING : x;
+        const xCoordinate = pos ? letterWidth + x + letterSpacing : x;
 
         const initPosition: Triplet = [xCoordinate, toDecimals(-wordPos * MARGIN - OFFSET), -(wordPos * 2)];
 
@@ -75,7 +88,7 @@ export const Letter: React.FC<PropsWithChildren<LetterProps>> = ({
         ];
 
         return initPositionOffset;
-    }, [letterWidth, pos]);
+    }, [letterWidth, pos, letterSpacing]);
 
     const currentColor = useMemo(() => {
         const progress = pos / (length - 1);
@@ -108,13 +121,13 @@ export const Letter: React.FC<PropsWithChildren<LetterProps>> = ({
         parentRef,
         ref,
         {
-            pivotA: [parentLetterWidth + LETTER_SPACING, 0, 0],
+            pivotA: [parentLetterWidth + letterSpacing, 0, 0],
             pivotB: [0, 0, 0],
             axisB: [0, 1, 0],
             axisA: [0, 1, 0],
             maxForce: 10,
         },
-        [parentLetterWidth],
+        [parentLetterWidth, letterSpacing],
     );
 
     useIsomorphicLayoutEffect(() => {
@@ -125,7 +138,7 @@ export const Letter: React.FC<PropsWithChildren<LetterProps>> = ({
                 (ref.current.geometry.boundingBox?.max.x as number) -
                 (ref.current.geometry.boundingBox?.min.x as number);
 
-            setLetterWidth(isFinite(value) ? value : LETTER_SPACING);
+            setLetterWidth(isFinite(value) ? value : letterSpacing);
         }
 
         const unsubscribe = api.position.subscribe((item) => {
@@ -139,20 +152,19 @@ export const Letter: React.FC<PropsWithChildren<LetterProps>> = ({
                 unsubscribe();
             }
         });
-    }, [ref.current]);
+    }, [ref.current, letterSpacing]);
 
     return (
         <>
             <Text3D
                 ref={ref}
                 font={myFont as unknown as FontData}
-                curveSegments={24}
                 bevelEnabled={true}
                 bevelThickness={0.9}
                 bevelSize={0.3}
                 bevelOffset={0}
                 bevelSegments={10}
-                size={5}
+                size={size}
                 height={0.7}
                 onClick={onClickHandler}
             >

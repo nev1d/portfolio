@@ -9,8 +9,15 @@
     align-items: stretch;
     pointer-events: none;
 
+    --layout-space: 50px;
 
-    --layout-space: 50px
+    @media (--mobile) {
+        --layout-space: 25px;
+    }
+
+    @media (--mobile-m) {
+        --layout-space: 20px;
+    }
 }
 
 
@@ -69,6 +76,11 @@
     height: 40px;
     svg {
         fill: var(--text-color)
+    }
+
+    @media (--mobile) {
+        width: 24px;
+        height: 30px;
     }
 }
 

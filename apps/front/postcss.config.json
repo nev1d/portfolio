@@ -1,6 +1,15 @@
 {
     "plugins": [
         ["postcss-import", { "path": ["./src"] }],
+        [
+            "postcss-custom-media",
+            {
+                "importFrom": [
+                    "postcss.media.css"
+                ],
+                "preserve": false
+            }
+        ],
         "autoprefixer",
         "postcss-calc",
         "postcss-color-function",

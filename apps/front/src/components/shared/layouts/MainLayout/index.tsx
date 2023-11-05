@@ -3,13 +3,11 @@
 import Link from 'next/link';
 import React, { PropsWithChildren } from 'react';
 
-import { AnimatedText } from '@/components/core/AnimatedText';
 import { AnimatedElement } from '@/components/core/animation/AnimatedElement';
+import { Copyright } from '@/components/core/Copyright';
 import { MenuIcon } from '@/components/core/icons/MenuIcon';
 import { Logo } from '@/components/core/Logo';
 import { Socials } from '@/components/shared/Socials';
-import { Contacts } from '@/constants/contacts';
-import { FontSize } from '@/constants/fonts';
 import { PagesEnum } from '@/constants/pages';
 import { useCurrentPathname } from '@/hooks/useCurrentPathname';
 import { MenuStatus, useMenuStore } from '@/store/menu/menuStore';
@@ -40,14 +38,7 @@ export const MainLayout: React.FC<PropsWithChildren> = ({ children }) => {
                     </Link>
                 </div>
                 <div className={clsx(cn.block, cn.bottomLeft)}>
-                    <a href={`mailto:${Contacts.MAIL}`}>
-                        <AnimatedText
-                            text={`©/${new Date().getFullYear()} ${Contacts.MAIL}`}
-                            hover={true}
-                            fontSize={FontSize.SMALL}
-                            animation={{ duration: 0.6 }}
-                        />
-                    </a>
+                    <Copyright />
                 </div>
                 <AnimatedElement visible={!isContactPage} animation={{ exit: { opacity: 0 } }}>
                     {(ref) => (

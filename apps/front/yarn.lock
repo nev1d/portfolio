@@ -2947,6 +2947,13 @@ postcss-color-mod-function@^3.0.3:
     postcss "^7.0.2"
     postcss-values-parser "^2.0.0"
 
+postcss-custom-media@8.0.2:
+  version "8.0.2"
+  resolved "https://registry.yarnpkg.com/postcss-custom-media/-/postcss-custom-media-8.0.2.tgz#c8f9637edf45fef761b014c024cee013f80529ea"
+  integrity sha512-7yi25vDAoHAkbhAzX9dHx2yc6ntS4jQvejrNcC+csQJAXjj15e7VcWfMgLqBNAbOvqi5uIa9huOVwdHbf+sKqg==
+  dependencies:
+    postcss-value-parser "^4.2.0"
+
 postcss-each@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/postcss-each/-/postcss-each-1.1.0.tgz#8bb074d130d41eb21679d11aa87204726f5cad88"
