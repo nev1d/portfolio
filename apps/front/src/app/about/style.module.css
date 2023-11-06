@@ -19,8 +19,10 @@
     pointer-events: all;
 
     @media (--tablet) {
-        flex: 0 0 50%;
         justify-content: flex-end;
+    }
+
+    @media (--mobile) {
         /* Bottom menu offset. Move to constants */
         margin-bottom: 88px;
     }

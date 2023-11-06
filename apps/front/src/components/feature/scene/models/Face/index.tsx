@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { useGlobalMediaQueriesContext } from '@/hooks/useGlobalMediaQuery';
 import { useObjectRotation } from '@/hooks/useObjectRotation';
 import { clamp } from '@/utils/math/clamp';
 import { useGLTF } from '@react-three/drei';
@@ -55,7 +55,7 @@ export const Face = (props: JSX.IntrinsicElements['group']) => {
 
     const { nodes, materials } = useGLTF('/models/face.glb') as GLTFResult;
 
-    const isTablet = useMediaQuery('(max-width: 1023px)');
+    const { tablet: isTablet } = useGlobalMediaQueriesContext();
 
     const { ref: rotationRef } = useObjectRotation({
         rotationSide: 'y',
