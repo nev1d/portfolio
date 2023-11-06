@@ -4,10 +4,23 @@ import React from 'react';
 
 import { AnimatedText } from '@/components/core/AnimatedText';
 import { FontSize } from '@/constants/fonts';
+import { useDynamicFontSize } from '@/hooks/useDynamicFontSize';
 
 import cn from './style.module.css';
 
 const AboutPage = () => {
+    const titleFontSize = useDynamicFontSize({ default: FontSize.MEDIUM, tablet: FontSize.SMALL });
+    const descriptionFontSize = useDynamicFontSize({
+        default: FontSize.XLARGE,
+        tablet: FontSize.LARGE,
+        mobile: FontSize.MEDIUM,
+    });
+    const infoFontSize = useDynamicFontSize({
+        default: FontSize.LARGE,
+        tablet: FontSize.MEDIUM,
+        mobile: FontSize.XSMALL,
+    });
+
     return (
         <div className={cn.wrapper}>
             <div className={cn.content}>
@@ -15,7 +28,7 @@ const AboutPage = () => {
                     <AnimatedText
                         align='end'
                         text='Hi there, I’m Daniil'
-                        fontSize={FontSize.MEDIUM}
+                        fontSize={titleFontSize}
                         animation={{ duration: 1.5 }}
                     />
                 </div>
@@ -23,7 +36,7 @@ const AboutPage = () => {
                     <AnimatedText
                         align='end'
                         text='21 y.o. Frontend Developer based in Belgrad, Serbia'
-                        fontSize={FontSize.XLARGE}
+                        fontSize={descriptionFontSize}
                         animation={{ duration: 1.5, delay: 0.2 }}
                     />
                 </div>
@@ -31,7 +44,7 @@ const AboutPage = () => {
                     <AnimatedText
                         align='end'
                         text='Started working very early and has already managed to work on major financial and entertainment projects for 4 years. I was a team lead on some of them with a team of 4 to 10 frontend developers. I like complex tasks that require a non-standard approach.'
-                        fontSize={FontSize.LARGE}
+                        fontSize={infoFontSize}
                         animation={{ duration: 1.5, delay: 0.3 }}
                     />
                 </div>

@@ -1,9 +1,10 @@
 import React from 'react';
 
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { useObjectRotation } from '@/hooks/useObjectRotation';
-import { useWindowSize } from '@/hooks/useWindowSize';
 import { clamp } from '@/utils/math/clamp';
 import { useGLTF } from '@react-three/drei';
+import { useThree } from '@react-three/fiber';
 
 import * as THREE from 'three';
 import { GLTF } from 'three-stdlib';
@@ -48,19 +49,25 @@ const maxScale = 11;
 const minScale = 8;
 
 export const Face = (props: JSX.IntrinsicElements['group']) => {
-    const [width, height] = useWindowSize();
+    const {
+        size: { width, height },
+    } = useThree();
 
     const { nodes, materials } = useGLTF('/models/face.glb') as GLTFResult;
+
+    const isTablet = useMediaQuery('(max-width: 1023px)');
 
     const { ref: rotationRef } = useObjectRotation({
         rotationSide: 'y',
         autoRotation: true,
     });
 
+    const coefficient = isTablet ? 0 : 120;
     const scale = height / coefficient;
     const correctScale = clamp(scale, maxScale, minScale);
     const topEqPart = width * -coefficient;
     const bottomEqPart = (height * correctScale) / 0.9;
+    const topPosition = isTablet ? 65 : 50;
 
     return (
         <group
@@ -68,7 +75,7 @@ export const Face = (props: JSX.IntrinsicElements['group']) => {
             ref={rotationRef}
             dispose={null}
             scale={correctScale}
-            position={[topEqPart / bottomEqPart, 50, 100]}
+            position={[topEqPart / bottomEqPart, topPosition, 100]}
             rotation={[0.6107259643892086, 0, 0]}
         >
             <group rotation={[Math.PI / 2, 0, 0]}>

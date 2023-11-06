@@ -3,6 +3,10 @@
     width: 100%;
     height: 100%;
     justify-content: flex-end;
+
+    @media (--tablet) {
+        flex-direction: column;
+    }
 }
 
 .content {
@@ -13,6 +17,13 @@
     align-items: flex-end;
     justify-content: center;
     pointer-events: all;
+
+    @media (--tablet) {
+        flex: 0 0 50%;
+        justify-content: flex-end;
+        /* Bottom menu offset. Move to constants */
+        margin-bottom: 88px;
+    }
 }
 
 .text {
@@ -21,5 +32,13 @@
 
     &:nth-last-child(1) {
         margin-bottom: 0;
+    }
+
+    @media (--tablet) {
+        margin-bottom: 16px;
+    }
+
+    @media (--mobile) {
+        margin-bottom: 8px;
     }
 }

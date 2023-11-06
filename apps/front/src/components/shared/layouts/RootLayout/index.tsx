@@ -3,13 +3,13 @@ import React from 'react';
 import { Scene } from '@/components/feature/scene';
 import { AnimatedPageLayout } from '@/components/shared/layouts/AnimatedPageLayout';
 import { MainLayout } from '@/components/shared/layouts/MainLayout';
+import { WithMediaQueries } from '@/components/shared/layouts/RootLayout/withMediaQueries';
 import { WithPageLoader } from '@/components/shared/layouts/RootLayout/withPageLoader';
 import { WithPageUtils } from '@/components/shared/layouts/RootLayout/withPageUtils';
-import { WithResizeSubscriber } from '@/components/shared/layouts/RootLayout/withResizeSubscriber';
 
 export const RootLayout = () => {
     return (
-        <WithResizeSubscriber>
+        <WithMediaQueries>
             <WithPageUtils>
                 <Scene />
                 <WithPageLoader>
@@ -18,6 +18,6 @@ export const RootLayout = () => {
                     </MainLayout>
                 </WithPageLoader>
             </WithPageUtils>
-        </WithResizeSubscriber>
+        </WithMediaQueries>
     );
 };

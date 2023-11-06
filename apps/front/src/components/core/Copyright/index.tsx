@@ -3,13 +3,11 @@ import React from 'react';
 import { AnimatedText } from '@/components/core/AnimatedText';
 import { Contacts } from '@/constants/contacts';
 import { FontSize } from '@/constants/fonts';
-import { useMediaQuery } from '@/hooks/useMediaQuery';
+import { useDynamicFontSize } from '@/hooks/useDynamicFontSize';
 
 import cn from './style.module.css';
 export const Copyright = () => {
-    const isMobile = useMediaQuery('(max-width: 599px)');
-
-    const fontSize = isMobile ? FontSize.XSMALL : FontSize.SMALL;
+    const fontSize = useDynamicFontSize({ default: FontSize.SMALL, mobile: FontSize.XSMALL });
 
     return (
         <a href={`mailto:${Contacts.MAIL}`} className={cn.link}>
