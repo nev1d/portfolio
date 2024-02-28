@@ -18,7 +18,7 @@ const Layout = () => {
                 <RootTitle />
                 <meta
                     name='description'
-                    content='Hi there, I’m Daniil. 21 y.o. Frontend Developer based in Belgrad, Serbia'
+                    content='Hi there, I’m Daniil. 22 y.o. Frontend Developer based in Belgrad, Serbia'
                 />
 
                 <link rel='icon' href='/favicon/favicon-16x16.png' type='image/png' sizes='16x16' />
@@ -29,13 +29,13 @@ const Layout = () => {
                 <meta property='og:title' content='Daniil Nikoniuk - Frontend Developer' />
                 <meta property='og:site_name' content='Daniil Nikoniuk - Frontend Developer' />
                 <meta property='og:url' content='nikoni.uk' />
-                <meta property='og:description' content='21 y.o. Frontend Developer based in Belgrad, Serbia' />
+                <meta property='og:description' content='22 y.o. Frontend Developer based in Belgrad, Serbia' />
                 <meta property='og:type' content='website' />
                 <meta property='og:image' content='https://nikoni.uk/images/opengraph.png' />
                 <meta name='twitter:card' content='summary' />
                 <meta name='twitter:site' content='@nev1d' />
                 <meta name='twitter:title' content='Daniil Nikoniuk - Frontend Developer' />
-                <meta name='twitter:description' content='21 y.o. Frontend Developer based in Belgrad, Serbia' />
+                <meta name='twitter:description' content='22 y.o. Frontend Developer based in Belgrad, Serbia' />
                 <meta name='twitter:image' content='https://nikoni.uk/images/opengraph.png' />
             </head>
             <body className={comfortaa.className}>
