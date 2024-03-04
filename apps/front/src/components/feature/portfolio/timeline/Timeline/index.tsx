@@ -22,7 +22,7 @@ const timelineItems: TimelineItemProps[] = [
             {
                 title: 'Getting experience',
                 description:
-                    'Tried myself in the development of browser extensions - successfully. Made a lot of different kinds of projects from small to large. Engaged in the development of projects for myself and to order. Mainly dealt with the frontend part, but also helped with setting up servers and deployment to the best of my knowledge at that time.',
+                    'Engaged in the development of projects for myself and to order. Tried myself in the development of browser extensions. Made a lot of different kinds of projects from small to large using Jquery, ReactJS, vanila. Mainly dealt with the frontend part, but also helped with CI integrations.',
             },
             {
                 title: 'Studying',
@@ -42,7 +42,7 @@ const timelineItems: TimelineItemProps[] = [
             {
                 title: 'Dive in',
                 description:
-                    'The first full-time position. Engaged in support and development of various kinds of projects. Basically, I had to solve trivial tasks, but in a very large number, which helped to find my weak points and fix them. Thanks to the work of 10-12 hours a day, I managed to grow quickly and learn a lot at that moment.',
+                    'Engaged in support and development of various kinds of projects. Basically, I had to solve trivial tasks, but in a very large number, which helped to find my weak points and fix them. Thanks to the work of 10-12 hours a day, I managed to grow quickly and learn a lot at that moment.',
             },
         ],
     },
@@ -97,7 +97,7 @@ const timelineItems: TimelineItemProps[] = [
             {
                 title: 'Core Team',
                 description:
-                    'Member of the core Frontend team. Improving a technical side of high-load product. Fixing and refactoring existing codebase. Participating in choice of architectural solutions of existing product.',
+                    'Part of a core-team, responsible for architecture and product development. High load project with a different types of unique tasks (mainly frontops: builders, optimization, linters, k8s integrations etc. Also was a part of transition from Vue 2 to 3. Regular code reviews of current co-workers and interviews with new candidates.',
             },
         ],
     },
