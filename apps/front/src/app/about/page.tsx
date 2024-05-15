@@ -22,7 +22,7 @@ const AboutPage = () => {
                 <div className={cn.text}>
                     <AnimatedText
                         align='end'
-                        text='22 y.o. Frontend Developer based in Belgrade, Serbia'
+                        text='22 y.o. Frontend Developer'
                         fontSize={FontSize.XLARGE}
                         animation={{ duration: 1.5, delay: 0.2 }}
                     />
