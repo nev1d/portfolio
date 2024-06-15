@@ -92,7 +92,7 @@ const timelineItems: TimelineItemProps[] = [
             to: Number.POSITIVE_INFINITY,
         },
         company: 'NDA',
-        position: 'Senior Front-End Developer',
+        position: 'Lead/Senior Front-End Developer',
         cards: [
             {
                 title: 'Core Team',
