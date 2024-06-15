@@ -97,7 +97,12 @@ const timelineItems: TimelineItemProps[] = [
             {
                 title: 'Core Team',
                 description:
-                    'Part of a core-team, responsible for architecture and product development. High load project with a different types of unique tasks (mainly frontops: builders, optimization, linters, k8s integrations etc. Also was a part of transition from Vue 2 to 3. Regular code reviews of current co-workers and interviews with new candidates.',
+                    'Part of a core-team, responsible for architecture and product development. High load project with a different types of unique tasks (mainly frontops: builders, optimization, linters, k8s integrations etc). Also was a part of transition from Vue 2 to 3. Regular code reviews of current co-workers and interviews with new candidates.',
+            },
+            {
+                title: 'Feature Lead',
+                description:
+                    'Leading one of the development direction in Frontend part. Responsible for the vision of the development as well as the architectural part. Creating a SDK, a set of tools for integration with any modern framework. Multiple interviews for Senior/Middle positions and onboardings following it.',
             },
         ],
     },
