@@ -36,7 +36,7 @@ const skillsTexts: SkillsTextsItem[] = [
         description:
             'Vue is also a thing, that i like. Having not gotten along in the first days, I am happy to write projects on Vue today. I caught the transition from Vue 2 to Vue 3 and took part in rewriting it on one large project. In addition to that i have big experience with Nuxt 2 and 3 versions. I built multiple pet-projects by myself and participated in large projects as i mentioned before',
         tags: ['Typescript', 'Vue 2', 'Vue 3', 'Vuex', 'Pinia', 'NuxtJS', 'Vue Query'],
-        progress: 90,
+        progress: 100,
     },
     {
         align: 'end',
@@ -54,7 +54,7 @@ const skillsTexts: SkillsTextsItem[] = [
         description:
             'I am not a huge expert of Backend development, but i try my best. I dont have a big experience of writing a huge projects in backend part, but still have some cases, where i did that, mostly using NestJS + Typeorm. I understand how backend works and can give some advices in architecture, but my main task as Frontend developer - make work with backend simple, safe and comfortable for both sides. In additional to that i wrote a backend for my pet-project by myself day by day improving my skills in it',
         tags: ['NestJS', 'Prisma', 'Typeorm', 'Mongoose', 'MongoDB', 'PostgreSQL', 'Redis'],
-        progress: 30,
+        progress: 40,
     },
     {
         align: 'end',
