@@ -109,6 +109,11 @@ const timelineItems: TimelineItemProps[] = [
                     '- Part of the core team, responsible for architecture and product development in a high-load project.',
                     '- Handled a variety of unique tasks primarily focused on frontops, including builders, optimization, linters, and Kubernetes (k8s) integrations.',
                     '- Played a key role in transitioning the project from Vue 2 to Vue 3, ensuring a smooth and efficient upgrade process.',
+                ],
+            },
+            {
+                title: 'Onboarding',
+                description: [
                     '- Conducted regular code reviews to maintain code quality and consistency across the team.',
                     '- Participated in interviews with new candidates, contributing to the hiring and onboarding process.',
                 ],
