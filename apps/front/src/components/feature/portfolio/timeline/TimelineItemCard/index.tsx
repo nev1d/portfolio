@@ -10,7 +10,7 @@ import { motion } from 'framer-motion';
 
 export type TimelineItemCardProps = {
     title: string;
-    description: string;
+    description: string[];
 };
 
 const animations = {
@@ -33,7 +33,9 @@ export const TimelineItemCard: React.FC<TimelineItemCardProps> = ({ title, descr
                 <AnimatedText text={title} fontSize={FontSize.LARGE} />
             </div>
             <div className={cn.description}>
-                <AnimatedText text={description} fontSize={FontSize.SMALL} />
+                {description.map((row) => (
+                    <AnimatedText key={row} text={row} fontSize={FontSize.SMALL} />
+                ))}
             </div>
         </motion.div>
     );

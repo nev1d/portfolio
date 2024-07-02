@@ -21,13 +21,12 @@ const timelineItems: TimelineItemProps[] = [
         cards: [
             {
                 title: 'Getting experience',
-                description:
-                    'Engaged in the development of projects for myself and to order. Tried myself in the development of browser extensions. Made a lot of different kinds of projects from small to large using Jquery, ReactJS, vanila. Mainly dealt with the frontend part, but also helped with CI integrations.',
-            },
-            {
-                title: 'Studying',
-                description:
-                    'I was finishing school and looking for a full-time job. I decided not to get a higher education, but to completely engage in self-study, which I still don’t regret.',
+                description: [
+                    '- Developed various projects, both personal and client-based, ranging from small to large-scale applications.',
+                    '- Specialized in the frontend development using technologies such as jQuery, ReactJS, and vanilla JavaScript.',
+                    '- Experimented with the development of browser extensions, enhancing user experience and browser functionality.',
+                    '- Collaborated on Continuous Integration (CI) processes to streamline and automate development workflows.',
+                ],
             },
         ],
     },
@@ -41,8 +40,13 @@ const timelineItems: TimelineItemProps[] = [
         cards: [
             {
                 title: 'Dive in',
-                description:
-                    'Engaged in support and development of various kinds of projects. Basically, I had to solve trivial tasks, but in a very large number, which helped to find my weak points and fix them. Thanks to the work of 10-12 hours a day, I managed to grow quickly and learn a lot at that moment.',
+                description: [
+                    '- Provided support and development for a variety of projects, addressing both simple and complex tasks.',
+                    '- Handled a high volume of tasks daily, which helped identify and improve upon weak points in skills and knowledge.',
+                    '- Dedicated 10-12 hours a day to work, facilitating rapid growth and extensive learning.',
+                    '- Enhanced problem-solving abilities and technical expertise through consistent practice and application.',
+                    '- Contributed to the improvement and maintenance of web applications, ensuring functionality and user satisfaction.',
+                ],
             },
         ],
     },
@@ -56,13 +60,12 @@ const timelineItems: TimelineItemProps[] = [
         cards: [
             {
                 title: 'Team Leading',
-                description:
-                    'Engaged in the development of only large projects. Was one of the main developers in the company, thanks to which managed to break into the teamlead in the development of one of the biggest local banks website. We successfully close the project in an incredibly tight timeframe, thanks to which I remain in the teamlead role in this company and continue to close various kinds of projects as well.',
-            },
-            {
-                title: 'Mentoring',
-                description:
-                    'In addition to my main job, I’m starting to help newly arrived colleagues dive into the frontend. I am involved in compiling and checking homework assignments, as well as conducting assessments.',
+                description: [
+                    '- Focused on the development of large-scale projects, assuming a key developer role within the company.',
+                    '- Led the development of the PochtaBank website, successfully managing and delivering the project within an incredibly tight timeframe.',
+                    '- Promoted to Team Lead due to outstanding performance, continuing to oversee and close various projects.',
+                    '- Applied expertise in modern frontend technologies to drive project success, including React.js, TypeScript, Kubernetes, Next.js, Docker, GitLab, and more.',
+                ],
             },
         ],
     },
@@ -76,13 +79,19 @@ const timelineItems: TimelineItemProps[] = [
         cards: [
             {
                 title: 'Team Leading',
-                description:
-                    "Lead developer of one of the company's flagship product. Involved in both maintaining the old project and writing its complete new version, where I tried myself as a project architect. Also was a teamlead in a team of several developers.",
+                description: [
+                    "- Led the development of one of the company's flagship products, overseeing both maintenance of the existing project and the creation of a complete new version.",
+                    '- Took on the role of project architect, using technologies such as React.js, TypeScript, Redux.js, Redux Toolkit, and Effector to design and implement scalable and efficient solutions.',
+                    '- Acted as Team Lead for a team of several developers, demonstrating strong team leadership and management skills.',
+                    '- Trained and mentored new developers, reviewing their test tasks and facilitating their integration into the team.',
+                ],
             },
             {
                 title: 'Meetups',
-                description:
-                    "In addition, also involved in training new developers and checking their test tasks. I also participated and still continue to organize local meetups, where we gather 200 people at the sites. Also i don't forget about recording video courses for the peoples and help them take a dive into frontend.",
+                description: [
+                    '- Organized and participated in local meetups (A?.Frontend), gathering over 200 participants to share knowledge and insights.',
+                    '- Recorded video courses on frontend development, helping learners to deepen their understanding and skills.',
+                ],
             },
         ],
     },
@@ -96,13 +105,22 @@ const timelineItems: TimelineItemProps[] = [
         cards: [
             {
                 title: 'Core Team',
-                description:
-                    'Part of a core-team, responsible for architecture and product development. High load project with a different types of unique tasks (mainly frontops: builders, optimization, linters, k8s integrations etc). Also was a part of transition from Vue 2 to 3. Regular code reviews of current co-workers and interviews with new candidates.',
+                description: [
+                    '- Part of the core team, responsible for architecture and product development in a high-load project.',
+                    '- Handled a variety of unique tasks primarily focused on frontops, including builders, optimization, linters, and Kubernetes (k8s) integrations.',
+                    '- Played a key role in transitioning the project from Vue 2 to Vue 3, ensuring a smooth and efficient upgrade process.',
+                    '- Conducted regular code reviews to maintain code quality and consistency across the team.',
+                    '- Participated in interviews with new candidates, contributing to the hiring and onboarding process.',
+                ],
             },
             {
                 title: 'Feature Lead',
-                description:
-                    'Leading one of the development direction in Frontend part. Responsible for the vision of the development as well as the architectural part. Creating a SDK, a set of tools for integration with any modern framework. Multiple interviews for Senior/Middle positions and onboardings following it.',
+                description: [
+                    '- Leading one of the development directions in the Frontend part, setting the vision and strategy for development and architecture.',
+                    '- Responsible for creating an SDK, a set of tools designed for seamless integration with any modern framework.',
+                    '- Conducting multiple interviews for Senior and Middle positions, ensuring the selection of highly qualified candidates.',
+                    '- Overseeing the onboarding process for new hires, facilitating their smooth integration into the team.',
+                ],
             },
         ],
     },
