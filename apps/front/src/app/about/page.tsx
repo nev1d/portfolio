@@ -30,7 +30,7 @@ const AboutPage = () => {
                 <div className={cn.text}>
                     <AnimatedText
                         align='end'
-                        text='I have contributed to significant projects in finance and entertainment, often taking the lead with teams of 4 to 10 developers. I enjoy tackling complex challenges that demand creative solutions. My passion lies in pushing the boundaries of frontend development to create impactful and user-centric solutions.'
+                        text='With a strong track record in the finance and entertainment sectors, I’ve had the privilege of leading teams of 4 to 10 developers on projects that push the envelope. I’m passionate about turning complex challenges into elegant solutions and constantly strive to elevate the user experience. For me, frontend development isn’t just about code; it’s about crafting interfaces that resonate and create lasting impact.'
                         fontSize={FontSize.LARGE}
                         animation={{ duration: 1.5, delay: 0.3 }}
                     />

@@ -1,8 +1,8 @@
 import { useEffect, useRef } from 'react';
 
-import { Group, Intersection, Raycaster, Vector2 } from 'three';
-
 import { useFrame, useThree } from '@react-three/fiber';
+
+import { Group, Intersection, Raycaster, Vector2 } from 'three';
 
 type UseObjectRotationDefaultProps = Partial<{
     velocity: number;
@@ -23,7 +23,7 @@ export const useObjectRotation = <T extends Group>({
     velocity = 0.2,
     rotationSide = 'all',
     autoRotation = false,
-    autoRotationSpeed = 0.02,
+    autoRotationSpeed = 0.01,
 }: UseObjectAutoRotationProps | UseObjectAutoRotationDisabledProps) => {
     const objectRef = useRef<T>(null);
     const isDragging = useRef(false);
