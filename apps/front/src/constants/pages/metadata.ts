@@ -11,7 +11,7 @@ export const PageMetadata: Record<PagesEnum, { title: string }> = {
         title: 'Skills',
     },
     [PagesEnum.PORTFOLIO]: {
-        title: 'Portfolio',
+        title: 'Experience',
     },
     [PagesEnum.CONTACT]: {
         title: 'Contact',
